@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ingos.Application</name>
+    </assembly>
+    <members>
+        <member name="T:Ingos.Application.BaseAppService">
+            <summary>
+                Inherit your application services from this class.
+            </summary>
+        </member>
+        <member name="M:Ingos.Application.BaseAppService.#ctor">
+            <summary>
+                Base application service
+            </summary>
+        </member>
+        <member name="T:Ingos.Application.IngosApplicationAutoMapperProfile">
+            <summary>
+                AutoMapper object mapper profile
+            </summary>
+        </member>
+        <member name="T:Ingos.Application.IngosApplicationModule">
+            <summary>
+                Application Module
+            </summary>
+        </member>
+    </members>
+</doc>
