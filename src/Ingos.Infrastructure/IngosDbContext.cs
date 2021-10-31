@@ -1,4 +1,4 @@
-﻿using Ingos.Infrastructure.EntityConfigurations.NamingConventions;
+﻿using Ingos.Domain.Applications;
 using Ingos.Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -13,25 +13,19 @@ namespace Ingos.Infrastructure
      * just create a structure like done for AppUser.
      *
      * Don't use this DbContext for database migrations since it does not contain tables of the
-     * used modules (as explained above). See IngosAbpTemplateMigrationsDbContext for migrations.
+     * used modules (as explained above). See IngosMigrationsDbContext for migrations.
      */
 
     [ConnectionStringName("Default")]
     public class IngosDbContext : AbpDbContext<IngosDbContext>
     {
         /* Add DbSet properties for your Aggregate Roots / Entities here.
-         * Also map them inside IngosAbpTemplateDbContextModelCreatingExtensions.ConfigureIngosAbpTemplate
+         * Also map them inside IngosDbContextModelCreatingExtensions.ConfigureIngos
          */
 
         public IngosDbContext(DbContextOptions<IngosDbContext> options)
             : base(options)
         {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.NamingConventionsRewriteName(DbNamingConvention.SnakeCase);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -41,11 +35,8 @@ namespace Ingos.Infrastructure
             /* Configure the shared tables (with included modules) here */
             builder.ConfigureAbpEntities();
 
-            /* Configure your own tables/entities inside the ConfigureIngosAbpTemplate method */
-            builder.ConfigureIngosAbpTemplate();
-            
-            // Due to https://github.com/abpframework/abp/pull/7849 has not release, adopt the temporary method
-            builder.NamingConventionsRewriteName(DbNamingConvention.SnakeCase);
+            /* Configure your own tables/entities inside the ConfigureIngos method */
+            builder.ConfigureIngos();
         }
     }
 }

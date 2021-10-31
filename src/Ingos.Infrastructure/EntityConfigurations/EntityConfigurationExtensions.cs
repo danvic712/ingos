@@ -8,7 +8,6 @@
 // Description: Entity to table configuration
 //-----------------------------------------------------------------------
 
-using Ingos.Infrastructure.EntityConfigurations.Volo;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -34,7 +33,7 @@ namespace Ingos.Infrastructure.EntityConfigurations
         /// <summary>
         /// Configure project own tables/entities
         /// </summary>
-        public static void ConfigureIngosAbpTemplate(this ModelBuilder builder)
+        public static void ConfigureIngos(this ModelBuilder builder)
         {
             Check.NotNull(builder, nameof(builder));
 

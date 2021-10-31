@@ -19,18 +19,11 @@ namespace Ingos.API
         public static int Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-#if DEBUG
-                .MinimumLevel.Debug()
-#else
                 .MinimumLevel.Information()
-#endif
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
                 .WriteTo.Async(c => c.Console())
-#if DEBUG
-                .WriteTo.Async(c => c.File("Logs/logs.txt"))
-#endif
                 .CreateLogger();
 
             try
@@ -54,6 +47,7 @@ namespace Ingos.API
         {
             return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
+                .UseAutofac()
                 .UseSerilog();
         }
     }

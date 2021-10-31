@@ -20,9 +20,6 @@ namespace Ingos.Domain
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-#if DEBUG
-            context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
-#endif
         }
     }
 }

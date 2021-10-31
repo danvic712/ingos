@@ -24,7 +24,7 @@ namespace Ingos.Infrastructure.EntityConfigurations
             var configuration = BuildConfiguration();
 
             var connectionString = configuration.GetConnectionString("Default");
-            
+
             var builder = new DbContextOptionsBuilder<IngosDbContext>()
                 .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             return new IngosDbContext(builder.Options);

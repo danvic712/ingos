@@ -11,7 +11,7 @@ namespace Ingos.Application.Contracts.Permissions
             var myGroup = context.AddGroup(IngosPermissions.GroupName);
 
             //Define your own permissions here. Example:
-            //myGroup.AddPermission(IngosAbpTemplatePermissions.MyPermission1, L("Permission:MyPermission1"));
+            //myGroup.AddPermission(IngosPermissions.MyPermission1, L("Permission:MyPermission1"));
         }
 
         private static LocalizableString L(string name)
