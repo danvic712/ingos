@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using Ingos.Application.Contracts.ApplicationAggregates;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ingos.API.Controllers.v1
@@ -19,6 +20,17 @@ namespace Ingos.API.Controllers.v1
     [ApiController]
     public class ApplicationsController : BaseController
     {
+        #region Initializes
+
+        private readonly IApplicationAppService _appService;
+
+        public ApplicationsController(IApplicationAppService appService)
+        {
+            _appService = appService ?? throw new ArgumentNullException(nameof(appService));
+        }
+
+        #endregion
+
         #region APIs
 
         /// <summary>

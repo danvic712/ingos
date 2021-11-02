@@ -8,7 +8,7 @@
 // Description:
 // -----------------------------------------------------------------------
 
-namespace Ingos.Domain.Shared.Applications
+namespace Ingos.Domain.Shared.ApplicationAggregates
 {
     public enum Runtime
     {

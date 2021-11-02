@@ -1,18 +1,19 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file= "StateType.cs">
+// <copyright file= "ApplicationPublishedEvent.cs">
 //     Copyright (c) Danvic.Wang All rights reserved.
 // </copyright>
 // Author: Danvic.Wang
-// Created DateTime: 2021-10-31 21:04
+// Created DateTime: 2021-11-02 22:19
 // Modified by:
 // Description:
 // -----------------------------------------------------------------------
 
-namespace Ingos.Domain.Shared.Applications
+using System;
+
+namespace Ingos.Domain.ApplicationAggregates.DomainEvents
 {
-    public enum StateType
+    public class ApplicationPublishedEvent
     {
-        Published,
-        Offline
+        public Guid ApplicationId { get; set; }
     }
 }

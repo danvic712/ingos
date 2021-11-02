@@ -1,19 +1,19 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file= "Environment.cs">
+// <copyright file= "IApplicationRepository.cs">
 //     Copyright (c) Danvic.Wang All rights reserved.
 // </copyright>
 // Author: Danvic.Wang
-// Created DateTime: 2021-10-31 21:13
+// Created DateTime: 2021-11-02 21:31
 // Modified by:
 // Description:
 // -----------------------------------------------------------------------
 
-namespace Ingos.Domain.Shared.Applications
+using System;
+using Volo.Abp.Domain.Repositories;
+
+namespace Ingos.Domain.ApplicationAggregates
 {
-    public enum Environment
+    public interface IApplicationRepository : IRepository<Application, Guid>
     {
-        Production,
-        Beta,
-        Stage
     }
 }

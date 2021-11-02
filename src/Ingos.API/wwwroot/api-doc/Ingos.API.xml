@@ -16,85 +16,85 @@
         </member>
         <member name="M:Ingos.API.Controllers.v1.ApplicationsController.GetApplications">
             <summary>
-                Get all applications
+            Get all applications
             </summary>
             <returns></returns>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ApplicationsController.GetApplicationInfo(System.Guid)">
             <summary>
-                Get specified application information
+            Get specified application information
             </summary>
             <returns></returns>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ApplicationsController.SaveApplication(System.String)">
             <summary>
-                Save a new application
+            Save a new application
             </summary>
             <returns></returns>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ApplicationsController.PublishApplication(System.Guid)">
             <summary>
-                Publish a application
+            Publish a application
             </summary>
             <returns></returns>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ApplicationsController.OfflineApplication(System.Guid)">
             <summary>
-                Offline a application
+            Offline a application
             </summary>
             <returns></returns>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ApplicationsController.ModifyApplication(System.Guid,System.String)">
             <summary>
-                Modify a existed application information
+            Modify a existed application information
             </summary>
             <returns></returns>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ApplicationsController.DeleteApplication(System.Guid)">
             <summary>
-                Delete a existed application
+            Delete a existed application
             </summary>
             <returns></returns>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ServicesController.GetServices">
             <summary>
-                Get current application's all services
+            Get current application's all services
             </summary>
             <returns></returns>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ServicesController.GetServiceInfo(System.Guid)">
             <summary>
-                Get specified service information
+            Get specified service information
             </summary>
             <returns></returns>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ServicesController.SaveService(System.Guid,System.String)">
             <summary>
-                Save a new service
+            Save a new service
             </summary>
             <returns></returns>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ServicesController.PublishService(System.Guid)">
             <summary>
-                Publish a service
+            Publish a service
             </summary>
             <returns></returns>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ServicesController.OfflineService(System.Guid)">
             <summary>
-                Offline a service
+            Offline a service
             </summary>
             <returns></returns>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ServicesController.ModifyService(System.Guid,System.String)">
             <summary>
-                Modify a existed service information
+            Modify a existed service information
             </summary>
             <returns></returns>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ServicesController.DeleteService(System.Guid)">
             <summary>
-                Delete a existed service
+            Delete a existed service
             </summary>
             <returns></returns>
         </member>
@@ -110,28 +110,28 @@
         </member>
         <member name="T:Ingos.API.IngosApiModule">
             <summary>
-                Api module definition file
+            Api module definition file
             </summary>
         </member>
         <member name="M:Ingos.API.IngosApiModule.PreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
             <summary>
-                Pre configure before inject services into service collection
+            Pre configure before inject services into service collection
             </summary>
         </member>
         <member name="M:Ingos.API.IngosApiModule.ConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
             <summary>
-                Configure application services
+            Configure application services
             </summary>
         </member>
         <member name="M:Ingos.API.IngosApiModule.OnApplicationInitialization(Volo.Abp.ApplicationInitializationContext)">
             <summary>
-
+            
             </summary>
             <param name="context"></param>
         </member>
         <member name="M:Ingos.API.IngosApiModule.GetApiDocPaths(System.Collections.Generic.IEnumerable{System.String},System.String)">
             <summary>
-                Get the api description doc path
+            Get the api description doc path
             </summary>
             <param name="paths">The xml file path</param>
             <param name="basePath">The site's base running files path</param>
@@ -139,29 +139,29 @@
         </member>
         <member name="T:Ingos.API.Program">
             <summary>
-
+            
             </summary>
         </member>
         <member name="M:Ingos.API.Program.Main(System.String[])">
             <summary>
-
+            
             </summary>
             <param name="args"></param>
             <returns></returns>
         </member>
         <member name="T:Ingos.API.Startup">
             <summary>
-                Application start up configuration
+            Application start up configuration
             </summary>
         </member>
         <member name="M:Ingos.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-
+            
             </summary>
         </member>
         <member name="M:Ingos.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
             <summary>
-
+            
             </summary>
         </member>
     </members>
