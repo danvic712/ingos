@@ -26,7 +26,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Ingos.API.Controllers.v1.ApplicationsController.SaveApplication(System.String)">
+        <member name="M:Ingos.API.Controllers.v1.ApplicationsController.CreateApplicationAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto)">
             <summary>
             Save a new application
             </summary>

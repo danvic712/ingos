@@ -10,7 +10,7 @@
 
 namespace Ingos.Domain.Shared.ApplicationAggregates
 {
-    public enum Environment
+    public enum ApplicationEnvironment
     {
         Production,
         Beta,

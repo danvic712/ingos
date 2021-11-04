@@ -8,10 +8,18 @@
 // Description:
 // -----------------------------------------------------------------------
 
+using System.Threading.Tasks;
+using Ingos.Application.Contracts.ApplicationAggregates.Dtos;
+
 namespace Ingos.Application.Contracts.ApplicationAggregates
 {
     public interface IApplicationAppService
     {
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        Task<ApplicationDto> CreateApplicationAsync(ApplicationCreationDto dto);
     }
 }

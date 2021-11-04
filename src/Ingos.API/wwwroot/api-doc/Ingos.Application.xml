@@ -4,6 +4,14 @@
         <name>Ingos.Application</name>
     </assembly>
     <members>
+        <member name="M:Ingos.Application.ApplicationAggregates.ApplicationAppService.CreateApplicationAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto)">
+            <summary>
+            
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Ingos.Application.BaseAppService">
             <summary>
             Inherit your application services from this class.

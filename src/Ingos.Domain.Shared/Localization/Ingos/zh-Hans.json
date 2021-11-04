@@ -1,6 +1,8 @@
 {
   "culture": "zh-Hans",
   "texts": {
-    "Application:ServiceExisted": "当前应用服务已存在于此应用中！"
+    "Application:ServiceExisted": "当前应用服务已存在于此应用中！",
+    "Application:ApplicationWithSameNameExists": "当前应用名称已存在！",
+    "Application:ApplicationWithSameCodeExists": "当前应用代号已存在！"
   }
 }

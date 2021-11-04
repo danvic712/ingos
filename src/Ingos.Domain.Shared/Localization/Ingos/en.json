@@ -1,6 +1,8 @@
 {
   "culture": "en",
   "texts": {
-    "Application:ServiceExisted": "This service is already existed in this application!"
+    "Application:ServiceExisted": "This service is already existed in this application!",
+    "Application:ApplicationWithSameNameExists": "The application name is already existed!",
+    "Application:ApplicationWithSameCodeExists": "The application code is already existed!"
   }
 }

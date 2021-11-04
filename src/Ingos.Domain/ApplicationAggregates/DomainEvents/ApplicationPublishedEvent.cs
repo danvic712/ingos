@@ -14,6 +14,6 @@ namespace Ingos.Domain.ApplicationAggregates.DomainEvents
 {
     public class ApplicationPublishedEvent
     {
-        public Guid ApplicationId { get; set; }
+        public string ApplicationName { get; set; }
     }
 }

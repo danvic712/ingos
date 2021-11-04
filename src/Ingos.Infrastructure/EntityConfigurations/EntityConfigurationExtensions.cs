@@ -66,7 +66,7 @@ namespace Ingos.Infrastructure.EntityConfigurations
                 b.Property(x => x.Version)
                     .IsRequired()
                     .HasMaxLength(20);
-                b.Property(x => x.Environment)
+                b.Property(x => x.ApplicationEnvironment)
                     .IsRequired();
                 b.Property(x => x.StateType)
                     .IsRequired();

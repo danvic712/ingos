@@ -10,7 +10,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Ingos.Application.Contracts.ApplicationAggregates;
+using Ingos.Application.Contracts.ApplicationAggregates.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ingos.API.Controllers.v1
@@ -57,9 +59,11 @@ namespace Ingos.API.Controllers.v1
         /// Save a new application
         /// </summary>
         /// <returns></returns>
-        [HttpPost(Name = nameof(SaveApplication))]
-        public void SaveApplication([FromBody] string value)
+        [HttpPost(Name = nameof(CreateApplicationAsync))]
+        public async Task<IActionResult> CreateApplicationAsync([FromBody] ApplicationCreationDto dto)
         {
+            var result = await _appService.CreateApplicationAsync(dto);
+            return Created(new Uri($"api/v1.0/Applications/{result.Id}"), result);
         }
 
         /// <summary>

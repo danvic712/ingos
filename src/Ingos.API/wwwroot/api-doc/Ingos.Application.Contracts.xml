@@ -4,5 +4,57 @@
         <name>Ingos.Application.Contracts</name>
     </assembly>
     <members>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.ApplicationName">
+            <summary>
+            Application name
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.ApplicationCode">
+            <summary>
+            Application code, also used as k8s namespace name
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.Description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.Url">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.ImagePath">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.Labels">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.Version">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.ApplicationEnvironment">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.StateType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Ingos.Application.Contracts.ApplicationAggregates.IApplicationAppService.CreateApplicationAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto)">
+            <summary>
+            
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

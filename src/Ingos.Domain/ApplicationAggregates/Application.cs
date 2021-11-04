@@ -14,7 +14,6 @@ using System.Linq;
 using Ingos.Domain.Shared.ApplicationAggregates;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
-using Environment = Ingos.Domain.Shared.ApplicationAggregates.Environment;
 
 namespace Ingos.Domain.ApplicationAggregates
 {
@@ -60,7 +59,7 @@ namespace Ingos.Domain.ApplicationAggregates
         /// <summary>
         /// 
         /// </summary>
-        public Environment Environment { get; set; }
+        public ApplicationEnvironment ApplicationEnvironment { get; set; }
 
         /// <summary>
         /// 
@@ -70,7 +69,48 @@ namespace Ingos.Domain.ApplicationAggregates
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<Service> Services { get; protected set; }
+        public virtual ICollection<Service> Services { get; protected set; }
+
+        #endregion
+
+        #region Ctors
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        private Application()
+        {
+            // empty constructor just for orm
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="applicationName"></param>
+        /// <param name="applicationCode"></param>
+        /// <param name="description"></param>
+        /// <param name="url"></param>
+        /// <param name="imagePath"></param>
+        /// <param name="labels"></param>
+        /// <param name="version"></param>
+        /// <param name="applicationEnvironment"></param>
+        /// <param name="stateType"></param>
+        /// <param name="services"></param>
+        internal Application(string applicationName, string applicationCode, string description, string url,
+            string imagePath, string labels, string version, ApplicationEnvironment applicationEnvironment,
+            StateType stateType, ICollection<Service> services)
+        {
+            ApplicationName = Check.NotNullOrEmpty(applicationName, nameof(applicationName));
+            ApplicationCode = Check.NotNullOrEmpty(applicationCode, nameof(applicationCode));
+            Description = description;
+            Url = url;
+            ImagePath = imagePath;
+            Labels = labels;
+            Version = version;
+            ApplicationEnvironment = applicationEnvironment;
+            StateType = stateType;
+            Services = services;
+        }
 
         #endregion
 
