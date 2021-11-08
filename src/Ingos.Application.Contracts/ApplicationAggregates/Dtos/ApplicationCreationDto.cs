@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file= "ApplicationCreateDto.cs">
+// <copyright file= "ApplicationCreationDto.cs">
 //     Copyright (c) Danvic.Wang All rights reserved.
 // </copyright>
 // Author: Danvic.Wang
@@ -8,26 +8,25 @@
 // Description:
 // -----------------------------------------------------------------------
 
-using System;
 using System.ComponentModel.DataAnnotations;
 using Ingos.Domain.Shared.ApplicationAggregates;
-using Volo.Abp.Application.Dtos;
 
 namespace Ingos.Application.Contracts.ApplicationAggregates.Dtos
 {
-    public class ApplicationCreationDto : FullAuditedEntityDto<Guid>
+    public class ApplicationCreationDto
     {
         #region Properties
 
         /// <summary>
         /// Application name
         /// </summary>
-        [Required(ErrorMessage = "")]
+        [Required]
         public string ApplicationName { get; set; }
 
         /// <summary>
         /// Application code, also used as k8s namespace name
         /// </summary>
+        [Required]
         public string ApplicationCode { get; set; }
 
         /// <summary>
@@ -53,17 +52,18 @@ namespace Ingos.Application.Contracts.ApplicationAggregates.Dtos
         /// <summary>
         /// 
         /// </summary>
+        [Required]
         public string Version { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ApplicationEnvironment ApplicationEnvironment { get; set; }
+        public ApplicationEnvironment ApplicationEnvironment { get; set; } = ApplicationEnvironment.Development;
 
         /// <summary>
         /// 
         /// </summary>
-        public StateType StateType { get; set; }
+        public StateType StateType { get; set; } = StateType.Created;
 
         #endregion
     }

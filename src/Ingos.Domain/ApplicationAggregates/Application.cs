@@ -69,7 +69,7 @@ namespace Ingos.Domain.ApplicationAggregates
         /// <summary>
         /// 
         /// </summary>
-        public virtual ICollection<Service> Services { get; protected set; }
+        private ICollection<Service> Services { get; set; }
 
         #endregion
 
@@ -95,10 +95,38 @@ namespace Ingos.Domain.ApplicationAggregates
         /// <param name="version"></param>
         /// <param name="applicationEnvironment"></param>
         /// <param name="stateType"></param>
-        /// <param name="services"></param>
-        internal Application(string applicationName, string applicationCode, string description, string url,
+        internal Application(Guid id, string applicationName, string applicationCode, string description, string url,
             string imagePath, string labels, string version, ApplicationEnvironment applicationEnvironment,
-            StateType stateType, ICollection<Service> services)
+            StateType stateType) : base(id)
+        {
+            ApplicationName = Check.NotNullOrEmpty(applicationName, nameof(applicationName));
+            ApplicationCode = Check.NotNullOrEmpty(applicationCode, nameof(applicationCode));
+            Description = description;
+            Url = url;
+            ImagePath = imagePath;
+            Labels = labels;
+            Version = version;
+            ApplicationEnvironment = applicationEnvironment;
+            StateType = stateType;
+            Services = new List<Service>();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="applicationName"></param>
+        /// <param name="applicationCode"></param>
+        /// <param name="description"></param>
+        /// <param name="url"></param>
+        /// <param name="imagePath"></param>
+        /// <param name="labels"></param>
+        /// <param name="version"></param>
+        /// <param name="applicationEnvironment"></param>
+        /// <param name="stateType"></param>
+        /// <param name="services"></param>
+        internal Application(Guid id, string applicationName, string applicationCode, string description, string url,
+            string imagePath, string labels, string version, ApplicationEnvironment applicationEnvironment,
+            StateType stateType, ICollection<Service> services) : base(id)
         {
             ApplicationName = Check.NotNullOrEmpty(applicationName, nameof(applicationName));
             ApplicationCode = Check.NotNullOrEmpty(applicationCode, nameof(applicationCode));

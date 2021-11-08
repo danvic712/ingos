@@ -14,6 +14,22 @@
                 The base controller
             </summary>
         </member>
+        <member name="T:Ingos.API.Controllers.v1.ApplicationsController">
+            <summary>
+            Applications
+            </summary>
+        </member>
+        <member name="F:Ingos.API.Controllers.v1.ApplicationsController._appService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Ingos.API.Controllers.v1.ApplicationsController.#ctor(Ingos.Application.Contracts.ApplicationAggregates.IApplicationAppService)">
+            <summary>
+            ctor
+            </summary>
+            <param name="appService"></param>
+        </member>
         <member name="M:Ingos.API.Controllers.v1.ApplicationsController.GetApplications">
             <summary>
             Get all applications
@@ -55,6 +71,11 @@
             Delete a existed application
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Ingos.API.Controllers.v1.ServicesController">
+            <summary>
+            Services
+            </summary>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ServicesController.GetServices">
             <summary>

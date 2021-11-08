@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ingos.API.Controllers.v1
 {
+    /// <summary>
+    /// Services
+    /// </summary>
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/{applicationId}/[controller]")]
     [ApiController]

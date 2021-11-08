@@ -13,10 +13,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ingos.Application.Contracts.ApplicationAggregates;
 using Ingos.Application.Contracts.ApplicationAggregates.Dtos;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ingos.API.Controllers.v1
 {
+    /// <summary>
+    /// Applications
+    /// </summary>
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
@@ -24,11 +28,18 @@ namespace Ingos.API.Controllers.v1
     {
         #region Initializes
 
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IApplicationAppService _appService;
 
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="appService"></param>
         public ApplicationsController(IApplicationAppService appService)
         {
-            _appService = appService ?? throw new ArgumentNullException(nameof(appService));
+            _appService = appService;
         }
 
         #endregion
@@ -60,6 +71,7 @@ namespace Ingos.API.Controllers.v1
         /// </summary>
         /// <returns></returns>
         [HttpPost(Name = nameof(CreateApplicationAsync))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApplicationDto))]
         public async Task<IActionResult> CreateApplicationAsync([FromBody] ApplicationCreationDto dto)
         {
             var result = await _appService.CreateApplicationAsync(dto);

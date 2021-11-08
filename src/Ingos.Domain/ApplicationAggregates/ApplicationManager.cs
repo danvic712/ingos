@@ -17,6 +17,7 @@ using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.EventBus.Local;
+using Volo.Abp.Guids;
 
 namespace Ingos.Domain.ApplicationAggregates
 {
@@ -24,13 +25,26 @@ namespace Ingos.Domain.ApplicationAggregates
     {
         #region Initializes
 
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IApplicationRepository _appRepository;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private readonly IGuidGenerator _guidGenerator;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly ILocalEventBus _localEventBus;
 
-        public ApplicationManager(IApplicationRepository appRepository, ILocalEventBus localEventBus)
+        public ApplicationManager(IApplicationRepository appRepository, IGuidGenerator guidGenerator,
+            ILocalEventBus localEventBus)
         {
             _appRepository = appRepository;
+            _guidGenerator = guidGenerator;
             _localEventBus = localEventBus;
         }
 
@@ -55,7 +69,7 @@ namespace Ingos.Domain.ApplicationAggregates
         /// <exception cref="BusinessException"></exception>
         public async Task<Application> CreateAsync(string applicationName, string applicationCode, string description,
             string url, string imagePath, string labels, string version, ApplicationEnvironment applicationEnvironment,
-            StateType stateType, ICollection<Service> services)
+            StateType stateType)
         {
             // verify that the name exists
             //
@@ -69,8 +83,9 @@ namespace Ingos.Domain.ApplicationAggregates
             if (appCodeExisted)
                 throw new BusinessException("Application:ApplicationWithSameCodeExists");
 
-            return new Application(applicationName, applicationCode, description, url, imagePath, labels, version,
-                applicationEnvironment, stateType, services);
+            var id = _guidGenerator.Create();
+            return new Application(id, applicationName, applicationCode, description, url, imagePath, labels, version,
+                applicationEnvironment, stateType);
         }
 
         /// <summary>

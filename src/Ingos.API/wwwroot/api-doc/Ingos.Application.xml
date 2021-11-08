@@ -4,13 +4,34 @@
         <name>Ingos.Application</name>
     </assembly>
     <members>
+        <member name="T:Ingos.Application.ApplicationAggregates.ApplicationAppService">
+            <summary>
+            Application module app service
+            </summary>
+        </member>
+        <member name="F:Ingos.Application.ApplicationAggregates.ApplicationAppService._appManager">
+            <summary>
+            Module manager
+            </summary>
+        </member>
+        <member name="F:Ingos.Application.ApplicationAggregates.ApplicationAppService._appRepository">
+            <summary>
+            Application domain data access repository
+            </summary>
+        </member>
+        <member name="M:Ingos.Application.ApplicationAggregates.ApplicationAppService.#ctor(Ingos.Domain.ApplicationAggregates.ApplicationManager,Ingos.Domain.ApplicationAggregates.IApplicationRepository)">
+            <summary>
+            ctor
+            </summary>
+            <param name="appManager">Module manager</param>
+            <param name="appRepository">Application domain data access repository</param>
+        </member>
         <member name="M:Ingos.Application.ApplicationAggregates.ApplicationAppService.CreateApplicationAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto)">
             <summary>
-            
+            Create a new application
             </summary>
-            <param name="dto"></param>
-            <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
+            <param name="dto">Application create data transfer object</param>
+            <returns>Application data transfer object</returns>
         </member>
         <member name="T:Ingos.Application.BaseAppService">
             <summary>

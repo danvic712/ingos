@@ -49,6 +49,56 @@
             
             </summary>
         </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.Id">
+            <summary>
+            Application primary key
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.ApplicationName">
+            <summary>
+            Application name
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.ApplicationCode">
+            <summary>
+            Application code, also used as k8s namespace name
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.Description">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.Url">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.ImagePath">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.Labels">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.Version">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.ApplicationEnvironment">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.StateType">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:Ingos.Application.Contracts.ApplicationAggregates.IApplicationAppService.CreateApplicationAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto)">
             <summary>
             

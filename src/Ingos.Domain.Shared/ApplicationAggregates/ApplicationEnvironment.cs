@@ -12,6 +12,7 @@ namespace Ingos.Domain.Shared.ApplicationAggregates
 {
     public enum ApplicationEnvironment
     {
+        Development,
         Production,
         Beta,
         Stage
