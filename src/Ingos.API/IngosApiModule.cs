@@ -23,6 +23,7 @@ using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc.AntiForgery;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
@@ -79,10 +80,10 @@ namespace Ingos.API
             var hostingEnvironment = context.Services.GetHostingEnvironment();
 
             context.Services.AddHttpClient();
-
             context.Services.AddDaprClient();
 
             ConfigureHealthChecks(context);
+            ConfigureAntiForgeryTokens();
             ConfigureAuditing(configuration);
             ConfigureConventionalControllers(context);
             ConfigureLocalization();
@@ -145,6 +146,15 @@ namespace Ingos.API
         {
             context.Services.AddHealthChecks()
                 .AddDbContextCheck<IngosDbContext>();
+        }
+
+        private void ConfigureAntiForgeryTokens()
+        {
+            Configure<AbpAntiForgeryOptions>(options =>
+            {
+                options.TokenCookie.Expiration = TimeSpan.FromDays(365);
+                options.AutoValidateIgnoredHttpMethods.Add("POST");
+            });
         }
 
         private void ConfigureAuditing(IConfiguration configuration)

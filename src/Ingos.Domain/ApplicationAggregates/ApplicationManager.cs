@@ -18,6 +18,7 @@ using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.EventBus.Local;
 using Volo.Abp.Guids;
+using Volo.Abp.Users;
 
 namespace Ingos.Domain.ApplicationAggregates
 {
@@ -33,6 +34,11 @@ namespace Ingos.Domain.ApplicationAggregates
         /// <summary>
         /// 
         /// </summary>
+        private readonly ICurrentUser _currentUser;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IGuidGenerator _guidGenerator;
 
         /// <summary>
@@ -40,10 +46,11 @@ namespace Ingos.Domain.ApplicationAggregates
         /// </summary>
         private readonly ILocalEventBus _localEventBus;
 
-        public ApplicationManager(IApplicationRepository appRepository, IGuidGenerator guidGenerator,
-            ILocalEventBus localEventBus)
+        public ApplicationManager(IApplicationRepository appRepository, ICurrentUser currentUser,
+            IGuidGenerator guidGenerator, ILocalEventBus localEventBus)
         {
             _appRepository = appRepository;
+            _currentUser = currentUser;
             _guidGenerator = guidGenerator;
             _localEventBus = localEventBus;
         }
@@ -62,13 +69,10 @@ namespace Ingos.Domain.ApplicationAggregates
         /// <param name="imagePath"></param>
         /// <param name="labels"></param>
         /// <param name="version"></param>
-        /// <param name="applicationEnvironment"></param>
         /// <param name="stateType"></param>
-        /// <param name="services"></param>
         /// <returns></returns>
-        /// <exception cref="BusinessException"></exception>
         public async Task<Application> CreateAsync(string applicationName, string applicationCode, string description,
-            string url, string imagePath, string labels, string version, ApplicationEnvironment applicationEnvironment,
+            string url, string imagePath, string labels, string version,
             StateType stateType)
         {
             // verify that the name exists
@@ -84,8 +88,10 @@ namespace Ingos.Domain.ApplicationAggregates
                 throw new BusinessException("Application:ApplicationWithSameCodeExists");
 
             var id = _guidGenerator.Create();
+            var userId = _currentUser.GetId(); // Todo: get current user
+            var now = DateTime.Now;
             return new Application(id, applicationName, applicationCode, description, url, imagePath, labels, version,
-                applicationEnvironment, stateType);
+                stateType, null, string.Empty, now, userId, now, userId);
         }
 
         /// <summary>

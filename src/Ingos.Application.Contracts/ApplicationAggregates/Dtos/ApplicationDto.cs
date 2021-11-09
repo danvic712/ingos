@@ -10,18 +10,14 @@
 
 using System;
 using Ingos.Domain.Shared.ApplicationAggregates;
+using Volo.Abp.Application.Dtos;
 
 namespace Ingos.Application.Contracts.ApplicationAggregates.Dtos
 {
-    public class ApplicationDto
+    public class ApplicationDto : FullAuditedEntityDto<Guid>
     {
         #region Properties
 
-        /// <summary>
-        /// Application primary key
-        /// </summary>
-        public Guid Id { get; set; }
-        
         /// <summary>
         /// Application name
         /// </summary>
@@ -60,12 +56,7 @@ namespace Ingos.Application.Contracts.ApplicationAggregates.Dtos
         /// <summary>
         /// 
         /// </summary>
-        public ApplicationEnvironment ApplicationEnvironment { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public StateType StateType { get; set; } 
+        public StateType StateType { get; set; }
 
         #endregion
     }

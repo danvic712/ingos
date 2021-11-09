@@ -14,7 +14,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Ingos.Domain.ApplicationAggregates
 {
-    public class Service : FullAuditedEntity<Guid>
+    public class Service : AuditedEntity<Guid>
     {
         #region Properties
 
@@ -27,7 +27,7 @@ namespace Ingos.Domain.ApplicationAggregates
         /// 
         /// </summary>
         public virtual string ServiceName { get; protected set; }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -37,7 +37,7 @@ namespace Ingos.Domain.ApplicationAggregates
         /// 
         /// </summary>
         public virtual string Description { get; protected set; }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -62,16 +62,11 @@ namespace Ingos.Domain.ApplicationAggregates
         /// 
         /// </summary>
         public virtual Runtime Runtime { get; protected set; }
-        
+
         /// <summary>
         /// 
         /// </summary>
         public virtual StateType StateType { get; protected set; }
-
-        public override object[] GetKeys()
-        {
-            return new object[] { ApplicationId, Id };
-        }
 
         #endregion
     }

@@ -75,7 +75,7 @@ namespace Ingos.API.Controllers.v1
         public async Task<IActionResult> CreateApplicationAsync([FromBody] ApplicationCreationDto dto)
         {
             var result = await _appService.CreateApplicationAsync(dto);
-            return Created(new Uri($"api/v1.0/Applications/{result.Id}"), result);
+            return CreatedAtAction(nameof(GetApplicationInfo), new { id = result.Id }, result);
         }
 
         /// <summary>

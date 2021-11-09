@@ -59,7 +59,7 @@ namespace Ingos.Application.ApplicationAggregates
         {
             // 1. create a valid entity by domain event manager
             var application = await _appManager.CreateAsync(dto.ApplicationName, dto.ApplicationCode, dto.Description,
-                dto.Url, dto.ImagePath, dto.Labels, dto.Version, dto.ApplicationEnvironment, dto.StateType);
+                dto.Url, dto.ImagePath, dto.Labels, dto.Version, dto.StateType);
 
             // 2. if state is Publish, then create a k8s namespace record
             if (dto.StateType == StateType.Published)

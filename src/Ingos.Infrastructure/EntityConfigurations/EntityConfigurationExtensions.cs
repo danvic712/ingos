@@ -66,8 +66,6 @@ namespace Ingos.Infrastructure.EntityConfigurations
                 b.Property(x => x.Version)
                     .IsRequired()
                     .HasMaxLength(20);
-                b.Property(x => x.ApplicationEnvironment)
-                    .IsRequired();
                 b.Property(x => x.StateType)
                     .IsRequired();
             });
@@ -75,7 +73,8 @@ namespace Ingos.Infrastructure.EntityConfigurations
             builder.Entity<Service>(b =>
             {
                 b.ToTable($"{Consts.DbTablePrefix}_{nameof(Service)}s".ToSnakeCase(),
-                    Consts.DbSchema);
+                    Consts.DbSchema)
+                    .HasIndex(x => x.ApplicationId);
                 b.ConfigureByConvention(); //auto configure for the base class props
                 b.Property(x => x.ApplicationId)
                     .IsRequired();

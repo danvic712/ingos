@@ -20,7 +20,7 @@ namespace Ingos.Application.Contracts.ApplicationAggregates.Dtos
         /// <summary>
         /// Application name
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Application:ApplicationNameIsEmpty")]
         public string ApplicationName { get; set; }
 
         /// <summary>
@@ -54,11 +54,6 @@ namespace Ingos.Application.Contracts.ApplicationAggregates.Dtos
         /// </summary>
         [Required]
         public string Version { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ApplicationEnvironment ApplicationEnvironment { get; set; } = ApplicationEnvironment.Development;
 
         /// <summary>
         /// 

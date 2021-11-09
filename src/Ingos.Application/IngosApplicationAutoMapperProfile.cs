@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ingos.Application.Contracts.ApplicationAggregates.Dtos;
 
 namespace Ingos.Application
 {
@@ -7,5 +8,9 @@ namespace Ingos.Application
     /// </summary>
     public class IngosApplicationAutoMapperProfile : Profile
     {
+        public IngosApplicationAutoMapperProfile()
+        {
+            CreateMap<Domain.ApplicationAggregates.Application, ApplicationDto>();
+        }
     }
 }

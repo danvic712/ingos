@@ -1,6 +1,7 @@
 {
   "culture": "en",
   "texts": {
+    "Application:ApplicationNameIsEmpty": "This application name is empty!",
     "Application:ServiceExisted": "This service is already existed in this application!",
     "Application:ApplicationWithSameNameExists": "The application name is already existed!",
     "Application:ApplicationWithSameCodeExists": "The application code is already existed!"
