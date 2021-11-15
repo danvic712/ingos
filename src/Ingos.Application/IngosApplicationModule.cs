@@ -7,7 +7,7 @@ using Volo.Abp.PermissionManagement;
 namespace Ingos.Application
 {
     /// <summary>
-    /// Application Module
+    ///     Application Module
     /// </summary>
     [DependsOn(
         typeof(IngosDomainModule),

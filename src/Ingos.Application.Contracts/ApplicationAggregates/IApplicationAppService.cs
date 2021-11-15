@@ -16,7 +16,6 @@ namespace Ingos.Application.Contracts.ApplicationAggregates
     public interface IApplicationAppService
     {
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>

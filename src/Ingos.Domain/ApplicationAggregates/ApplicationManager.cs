@@ -9,7 +9,6 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ingos.Domain.ApplicationAggregates.DomainEvents;
 using Ingos.Domain.Shared.ApplicationAggregates;
@@ -27,22 +26,18 @@ namespace Ingos.Domain.ApplicationAggregates
         #region Initializes
 
         /// <summary>
-        /// 
         /// </summary>
         private readonly IApplicationRepository _appRepository;
 
         /// <summary>
-        /// 
         /// </summary>
         private readonly ICurrentUser _currentUser;
 
         /// <summary>
-        /// 
         /// </summary>
         private readonly IGuidGenerator _guidGenerator;
 
         /// <summary>
-        /// 
         /// </summary>
         private readonly ILocalEventBus _localEventBus;
 
@@ -60,7 +55,6 @@ namespace Ingos.Domain.ApplicationAggregates
         #region Services
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="applicationName"></param>
         /// <param name="applicationCode"></param>
@@ -79,7 +73,7 @@ namespace Ingos.Domain.ApplicationAggregates
             //
             var appNameExisted = await _appRepository.AnyAsync(i => i.ApplicationName == applicationName);
             if (appNameExisted)
-                throw new BusinessException("Application:ApplicationWithSameNameExists");
+                throw new BusinessException("Ingos:Applications:000002");
 
             // verify that the code exists
             //
@@ -95,7 +89,6 @@ namespace Ingos.Domain.ApplicationAggregates
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="applicationName"></param>
         public async Task PublishAsync(string applicationName)

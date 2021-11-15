@@ -12,6 +12,5 @@ namespace Ingos.Application.ApplicationAggregates.DomainEventHandlers
 {
     public class ApplicationPublishedEventHandler
     {
-        
     }
 }

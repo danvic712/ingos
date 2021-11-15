@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Ingos.API.Controllers.v1
 {
     /// <summary>
-    /// Applications
+    ///     Applications
     /// </summary>
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -29,12 +29,11 @@ namespace Ingos.API.Controllers.v1
         #region Initializes
 
         /// <summary>
-        /// 
         /// </summary>
         private readonly IApplicationAppService _appService;
 
         /// <summary>
-        /// ctor
+        ///     ctor
         /// </summary>
         /// <param name="appService"></param>
         public ApplicationsController(IApplicationAppService appService)
@@ -47,17 +46,17 @@ namespace Ingos.API.Controllers.v1
         #region APIs
 
         /// <summary>
-        /// Get all applications
+        ///     Get all applications
         /// </summary>
         /// <returns></returns>
         [HttpGet(Name = nameof(GetApplications))]
         public IList<string> GetApplications()
         {
-            return new string[] { "value1", "value2" };
+            return new[] { "value1", "value2" };
         }
 
         /// <summary>
-        /// Get specified application information
+        ///     Get specified application information
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id}", Name = nameof(GetApplicationInfo))]
@@ -67,7 +66,7 @@ namespace Ingos.API.Controllers.v1
         }
 
         /// <summary>
-        /// Save a new application
+        ///     Save a new application
         /// </summary>
         /// <returns></returns>
         [HttpPost(Name = nameof(CreateApplicationAsync))]
@@ -79,7 +78,7 @@ namespace Ingos.API.Controllers.v1
         }
 
         /// <summary>
-        /// Publish a application
+        ///     Publish a application
         /// </summary>
         /// <returns></returns>
         [HttpPost("{id}/publish", Name = nameof(PublishApplication))]
@@ -88,7 +87,7 @@ namespace Ingos.API.Controllers.v1
         }
 
         /// <summary>
-        /// Offline a application
+        ///     Offline a application
         /// </summary>
         /// <returns></returns>
         [HttpPost("{id}/offline", Name = nameof(OfflineApplication))]
@@ -97,7 +96,7 @@ namespace Ingos.API.Controllers.v1
         }
 
         /// <summary>
-        /// Modify a existed application information
+        ///     Modify a existed application information
         /// </summary>
         /// <returns></returns>
         [HttpPut("{id}", Name = nameof(ModifyApplication))]
@@ -106,7 +105,7 @@ namespace Ingos.API.Controllers.v1
         }
 
         /// <summary>
-        /// Delete a existed application
+        ///     Delete a existed application
         /// </summary>
         /// <returns></returns>
         [HttpDelete("{id}", Name = nameof(DeleteApplication))]

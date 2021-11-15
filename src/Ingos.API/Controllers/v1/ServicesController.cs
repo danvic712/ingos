@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Ingos.API.Controllers.v1
 {
     /// <summary>
-    /// Services
+    ///     Services
     /// </summary>
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/{applicationId}/[controller]")]
@@ -25,17 +25,17 @@ namespace Ingos.API.Controllers.v1
         #region APIs
 
         /// <summary>
-        /// Get current application's all services
+        ///     Get current application's all services
         /// </summary>
         /// <returns></returns>
         [HttpGet(Name = nameof(GetServices))]
         public IList<string> GetServices()
         {
-            return new string[] { "value1", "value2" };
+            return new[] { "value1", "value2" };
         }
 
         /// <summary>
-        /// Get specified service information
+        ///     Get specified service information
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id}", Name = nameof(GetServiceInfo))]
@@ -45,7 +45,7 @@ namespace Ingos.API.Controllers.v1
         }
 
         /// <summary>
-        /// Save a new service
+        ///     Save a new service
         /// </summary>
         /// <returns></returns>
         [HttpPost(Name = nameof(SaveService))]
@@ -54,7 +54,7 @@ namespace Ingos.API.Controllers.v1
         }
 
         /// <summary>
-        /// Publish a service
+        ///     Publish a service
         /// </summary>
         /// <returns></returns>
         [HttpPost("{id}/publish", Name = nameof(PublishService))]
@@ -63,7 +63,7 @@ namespace Ingos.API.Controllers.v1
         }
 
         /// <summary>
-        /// Offline a service
+        ///     Offline a service
         /// </summary>
         /// <returns></returns>
         [HttpPost("{id}/offline", Name = nameof(OfflineService))]
@@ -72,7 +72,7 @@ namespace Ingos.API.Controllers.v1
         }
 
         /// <summary>
-        /// Modify a existed service information
+        ///     Modify a existed service information
         /// </summary>
         /// <returns></returns>
         [HttpPut("{id}", Name = nameof(ModifyService))]
@@ -81,7 +81,7 @@ namespace Ingos.API.Controllers.v1
         }
 
         /// <summary>
-        /// Delete a existed service
+        ///     Delete a existed service
         /// </summary>
         /// <returns></returns>
         [HttpDelete("{id}", Name = nameof(DeleteService))]

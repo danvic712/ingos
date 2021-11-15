@@ -8,12 +8,12 @@
 // Description: Database naming conversion extension methods
 // -----------------------------------------------------------------------
 
-using EFCore.NamingConventions.Internal;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using EFCore.NamingConventions.Internal;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Ingos.Infrastructure.EntityConfigurations
 {
@@ -49,8 +49,6 @@ namespace Ingos.Infrastructure.EntityConfigurations
                 case NamingConvention.UpperSnakeCase:
                     optionsBuilder.UseUpperSnakeCaseNamingConvention(opt.Culture);
                     break;
-                default:
-                    break;
             }
         }
 
@@ -74,21 +72,14 @@ namespace Ingos.Infrastructure.EntityConfigurations
                     property.SetColumnName(opt.Rewriter.RewriteName(columnName));
                 }
 
-                foreach (var key in entity.GetKeys())
-                {
-                    key.SetName(opt.Rewriter.RewriteName(key.GetName()));
-                }
+                foreach (var key in entity.GetKeys()) key.SetName(opt.Rewriter.RewriteName(key.GetName()));
 
                 foreach (var key in entity.GetForeignKeys())
-                {
                     key.SetConstraintName(opt.Rewriter.RewriteName(key.GetConstraintName()));
-                }
 
                 foreach (var index in entity.GetIndexes())
-                {
                     //index.SetName(nameRewriter.RewriteName(index.GetName());
                     index.SetDatabaseName(opt.Rewriter.RewriteName(index.GetDatabaseName()));
-                }
             }
         }
     }
@@ -96,7 +87,7 @@ namespace Ingos.Infrastructure.EntityConfigurations
 
     public class NamingConventionOptions
     {
-        private Dictionary<Type, NamingRewriter> rewriters = new();
+        private readonly Dictionary<Type, NamingRewriter> rewriters = new();
 
         public NamingRewriter GetRewriterOrDefault<TDbContext>() where TDbContext : DbContext
         {
@@ -153,8 +144,6 @@ namespace Ingos.Infrastructure.EntityConfigurations
                 case NamingConvention.UpperSnakeCase:
                     nameRewriter = new UpperSnakeCaseNameRewriter(culture);
                     break;
-                default:
-                    break;
             }
 
             rewriters[type] = new NamingRewriter(namingStyle, culture, nameRewriter);
@@ -162,10 +151,6 @@ namespace Ingos.Infrastructure.EntityConfigurations
 
         public class NamingRewriter
         {
-            public NamingConvention NamingStyle { get; set; } = NamingConvention.None;
-            public CultureInfo Culture { get; set; } = CultureInfo.InvariantCulture;
-            public INameRewriter Rewriter { get; set; }
-
             public NamingRewriter(
                 NamingConvention namingStyle,
                 CultureInfo culture,
@@ -175,6 +160,10 @@ namespace Ingos.Infrastructure.EntityConfigurations
                 Culture = culture;
                 Rewriter = rewriter;
             }
+
+            public NamingConvention NamingStyle { get; set; } = NamingConvention.None;
+            public CultureInfo Culture { get; set; } = CultureInfo.InvariantCulture;
+            public INameRewriter Rewriter { get; set; }
         }
     }
 }

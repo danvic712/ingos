@@ -23,59 +23,69 @@ namespace Ingos.Domain.ApplicationAggregates
     [DisableAuditing]
     public class Application : AuditedAggregateRoot<Guid>
     {
+        #region Domain Events
+
+        public void AddService(Guid serviceId)
+        {
+            var existed = Services.Any(i => i.Id == serviceId);
+            if (existed)
+                throw new BusinessException(
+                    "Application:ServiceExisted",
+                    nameof(serviceId)
+                );
+
+            // add a new service
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>
-        /// Application name
+        ///     Application name
         /// </summary>
         public string ApplicationName { get; set; }
 
         /// <summary>
-        /// Application code, also used as k8s namespace name
+        ///     Application code, also used as k8s namespace name
         /// </summary>
         public string ApplicationCode { get; set; }
 
         /// <summary>
-        /// Description
+        ///     Description
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public string Url { get; set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public string ImagePath { get; set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public string Labels { get; set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public string Version { get; set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public StateType StateType { get; set; }
 
         /// <summary>
-        /// 
         /// </summary>
-        private ICollection<Service> Services { get; set; }
+        private ICollection<Service> Services { get; }
 
         #endregion
 
         #region Ctors
 
         /// <summary>
-        /// ctor
+        ///     ctor
         /// </summary>
         private Application()
         {
@@ -83,7 +93,6 @@ namespace Ingos.Domain.ApplicationAggregates
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <param name="applicationName"></param>
@@ -121,22 +130,6 @@ namespace Ingos.Domain.ApplicationAggregates
             CreatorId = creatorId;
             LastModificationTime = lastModificationTime;
             LastModifierId = lastModifierId;
-        }
-
-        #endregion
-
-        #region Domain Events
-
-        public void AddService(Guid serviceId)
-        {
-            var existed = Services.Any(i => i.Id == serviceId);
-            if (existed)
-                throw new BusinessException(
-                    "Application:ServiceExisted",
-                    nameof(serviceId)
-                );
-
-            // add a new service
         }
 
         #endregion

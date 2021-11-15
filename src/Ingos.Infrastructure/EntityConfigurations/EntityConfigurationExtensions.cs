@@ -22,7 +22,7 @@ namespace Ingos.Infrastructure.EntityConfigurations
     public static class EntityConfigurationExtensions
     {
         /// <summary>
-        /// Configure Abp framework own tables/entities
+        ///     Configure Abp framework own tables/entities
         /// </summary>
         public static void ConfigureAbpEntities(this ModelBuilder builder)
         {
@@ -34,12 +34,12 @@ namespace Ingos.Infrastructure.EntityConfigurations
         }
 
         /// <summary>
-        /// Configure project own tables/entities
+        ///     Configure project own tables/entities
         /// </summary>
         public static void ConfigureIngos(this ModelBuilder builder)
         {
             Check.NotNull(builder, nameof(builder));
-            
+
             // Todo: table naming conversion
 
             #region Applications
@@ -73,7 +73,7 @@ namespace Ingos.Infrastructure.EntityConfigurations
             builder.Entity<Service>(b =>
             {
                 b.ToTable($"{Consts.DbTablePrefix}_{nameof(Service)}s".ToSnakeCase(),
-                    Consts.DbSchema)
+                        Consts.DbSchema)
                     .HasIndex(x => x.ApplicationId);
                 b.ConfigureByConvention(); //auto configure for the base class props
                 b.Property(x => x.ApplicationId)

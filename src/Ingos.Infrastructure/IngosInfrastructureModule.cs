@@ -9,7 +9,6 @@ using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.Uow;
 
-
 namespace Ingos.Infrastructure
 {
     [DependsOn(

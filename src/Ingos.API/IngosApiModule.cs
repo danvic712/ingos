@@ -38,7 +38,7 @@ using Volo.Abp.VirtualFileSystem;
 namespace Ingos.API
 {
     /// <summary>
-    /// Api module definition file
+    ///     Api module definition file
     /// </summary>
     [DependsOn(typeof(AbpAutofacModule),
         typeof(AbpCachingStackExchangeRedisModule),
@@ -55,7 +55,7 @@ namespace Ingos.API
         #region Services
 
         /// <summary>
-        /// Pre configure before inject services into service collection
+        ///     Pre configure before inject services into service collection
         /// </summary>
         public override void PreConfigureServices(ServiceConfigurationContext context)
         {
@@ -72,7 +72,7 @@ namespace Ingos.API
         }
 
         /// <summary>
-        /// Configure application services
+        ///     Configure application services
         /// </summary>
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
@@ -94,7 +94,6 @@ namespace Ingos.API
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="context"></param>
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -343,7 +342,7 @@ namespace Ingos.API
         }
 
         /// <summary>
-        /// Get the api description doc path
+        ///     Get the api description doc path
         /// </summary>
         /// <param name="paths">The xml file path</param>
         /// <param name="basePath">The site's base running files path</param>

@@ -4,7 +4,7 @@ using Ingos.Application.Contracts.ApplicationAggregates.Dtos;
 namespace Ingos.Application
 {
     /// <summary>
-    /// AutoMapper object mapper profile
+    ///     AutoMapper object mapper profile
     /// </summary>
     public class IngosApplicationAutoMapperProfile : Profile
     {

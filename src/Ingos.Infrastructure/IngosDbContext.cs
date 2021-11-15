@@ -20,26 +20,14 @@ namespace Ingos.Infrastructure
     [ConnectionStringName("Default")]
     public class IngosDbContext : AbpDbContext<IngosDbContext>
     {
-        /* Add DbSet properties for your Aggregate Roots / Entities here.
-         * Also map them inside IngosDbContextModelCreatingExtensions.ConfigureIngos
-         */
-
-        #region DbSets
-
-        public DbSet<Application> Applications { get; set; }
-
-        public DbSet<Service> Services { get; set; }
-
-        #endregion
-
-        private NamingConventionOptions NamingConventionOptions { get; }
-
         public IngosDbContext(DbContextOptions<IngosDbContext> options)
             : base(options)
         {
             NamingConventionOptions ??= new NamingConventionOptions();
             NamingConventionOptions.SetDefault(NamingConvention.SnakeCase);
         }
+
+        private NamingConventionOptions NamingConventionOptions { get; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -60,5 +48,16 @@ namespace Ingos.Infrastructure
 
             //builder.ConfigureNamingConvention<IngosDbContext>(NamingConventionOptions);
         }
+        /* Add DbSet properties for your Aggregate Roots / Entities here.
+         * Also map them inside IngosDbContextModelCreatingExtensions.ConfigureIngos
+         */
+
+        #region DbSets
+
+        public DbSet<Application> Applications { get; set; }
+
+        public DbSet<Service> Services { get; set; }
+
+        #endregion
     }
 }

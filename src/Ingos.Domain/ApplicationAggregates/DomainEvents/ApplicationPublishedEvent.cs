@@ -8,8 +8,6 @@
 // Description:
 // -----------------------------------------------------------------------
 
-using System;
-
 namespace Ingos.Domain.ApplicationAggregates.DomainEvents
 {
     public class ApplicationPublishedEvent

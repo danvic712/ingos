@@ -19,52 +19,42 @@ namespace Ingos.Domain.ApplicationAggregates
         #region Properties
 
         /// <summary>
-        /// 
         /// </summary>
         public virtual Guid ApplicationId { get; protected set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public virtual string ServiceName { get; protected set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public virtual string ServiceCode { get; protected set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public virtual string Description { get; protected set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public virtual string Repository { get; protected set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public virtual string Labels { get; set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public virtual ServiceType ServiceType { get; protected set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public virtual int ListenPort { get; protected set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public virtual Runtime Runtime { get; protected set; }
 
         /// <summary>
-        /// 
         /// </summary>
         public virtual StateType StateType { get; protected set; }
 
