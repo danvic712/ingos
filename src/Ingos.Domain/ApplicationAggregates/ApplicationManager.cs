@@ -60,14 +60,11 @@ namespace Ingos.Domain.ApplicationAggregates
         /// <param name="applicationCode"></param>
         /// <param name="description"></param>
         /// <param name="url"></param>
-        /// <param name="imagePath"></param>
         /// <param name="labels"></param>
-        /// <param name="version"></param>
         /// <param name="stateType"></param>
         /// <returns></returns>
         public async Task<Application> CreateAsync(string applicationName, string applicationCode, string description,
-            string url, string imagePath, string labels, string version,
-            StateType stateType)
+            string url, string labels, StateType stateType)
         {
             // verify that the name exists
             //
@@ -84,7 +81,7 @@ namespace Ingos.Domain.ApplicationAggregates
             var id = _guidGenerator.Create();
             var userId = _currentUser.GetId(); // Todo: get current user
             var now = DateTime.Now;
-            return new Application(id, applicationName, applicationCode, description, url, imagePath, labels, version,
+            return new Application(id, applicationName, applicationCode, description, url, labels,
                 stateType, null, string.Empty, now, userId, now, userId);
         }
 

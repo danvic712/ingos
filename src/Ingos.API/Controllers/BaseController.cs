@@ -22,6 +22,7 @@ namespace Ingos.API.Controllers
     [Produces("application/json")]
     [Consumes("application/json")]
     [ProducesResponseType(StatusCodes.Status403Forbidden, Type = typeof(RemoteServiceErrorResponse))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(RemoteServiceErrorResponse))]
     public abstract class BaseController : AbpController
     {
         /// <summary>

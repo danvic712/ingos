@@ -9,6 +9,14 @@
                 Application module app service
             </summary>
         </member>
+        <member name="M:Ingos.Application.ApplicationAggregates.ApplicationAppService.CreateApplicationAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto,System.Threading.CancellationToken)">
+            <summary>
+                Create a new application
+            </summary>
+            <param name="dto">Application create data transfer object</param>
+            <param name="cancellationToken"></param>
+            <returns>Application data transfer object</returns>
+        </member>
         <member name="F:Ingos.Application.ApplicationAggregates.ApplicationAppService._appManager">
             <summary>
                 Module manager
@@ -25,13 +33,6 @@
             </summary>
             <param name="appManager">Module manager</param>
             <param name="appRepository">Application domain data access repository</param>
-        </member>
-        <member name="M:Ingos.Application.ApplicationAggregates.ApplicationAppService.CreateApplicationAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto)">
-            <summary>
-                Create a new application
-            </summary>
-            <param name="dto">Application create data transfer object</param>
-            <returns>Application data transfer object</returns>
         </member>
         <member name="T:Ingos.Application.BaseAppService">
             <summary>

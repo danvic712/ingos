@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Ingos.Application.Contracts.ApplicationAggregates;
 using Ingos.Application.Contracts.ApplicationAggregates.Dtos;
@@ -71,9 +72,10 @@ namespace Ingos.API.Controllers.v1
         /// <returns></returns>
         [HttpPost(Name = nameof(CreateApplicationAsync))]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApplicationDto))]
-        public async Task<IActionResult> CreateApplicationAsync([FromBody] ApplicationCreationDto dto)
+        public async Task<IActionResult> CreateApplicationAsync([FromBody] ApplicationCreationDto dto,
+            CancellationToken cancellationToken)
         {
-            var result = await _appService.CreateApplicationAsync(dto);
+            var result = await _appService.CreateApplicationAsync(dto, cancellationToken);
             return CreatedAtAction(nameof(GetApplicationInfo), new { id = result.Id }, result);
         }
 

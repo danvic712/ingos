@@ -52,31 +52,27 @@ namespace Ingos.Domain.ApplicationAggregates
         public string ApplicationCode { get; set; }
 
         /// <summary>
-        ///     Description
+        ///     Application's description
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
+        ///     Application url address
         /// </summary>
         public string Url { get; set; }
 
         /// <summary>
-        /// </summary>
-        public string ImagePath { get; set; }
-
-        /// <summary>
+        ///     Tags or keywords that you want to add to application
         /// </summary>
         public string Labels { get; set; }
 
         /// <summary>
-        /// </summary>
-        public string Version { get; set; }
-
-        /// <summary>
+        ///     Application current state
         /// </summary>
         public StateType StateType { get; set; }
 
         /// <summary>
+        ///     Services included in this application
         /// </summary>
         private ICollection<Service> Services { get; }
 
@@ -99,9 +95,7 @@ namespace Ingos.Domain.ApplicationAggregates
         /// <param name="applicationCode"></param>
         /// <param name="description"></param>
         /// <param name="url"></param>
-        /// <param name="imagePath"></param>
         /// <param name="labels"></param>
-        /// <param name="version"></param>
         /// <param name="stateType"></param>
         /// <param name="extraProperties"></param>
         /// <param name="concurrencyStamp"></param>
@@ -110,7 +104,7 @@ namespace Ingos.Domain.ApplicationAggregates
         /// <param name="lastModificationTime"></param>
         /// <param name="lastModifierId"></param>
         internal Application(Guid id, string applicationName, string applicationCode, string description, string url,
-            string imagePath, string labels, string version, StateType stateType,
+            string labels, StateType stateType,
             ExtraPropertyDictionary extraProperties,
             string concurrencyStamp, DateTime creationTime, Guid creatorId, DateTime lastModificationTime,
             Guid lastModifierId) : base(id)
@@ -119,9 +113,7 @@ namespace Ingos.Domain.ApplicationAggregates
             ApplicationCode = Check.NotNullOrEmpty(applicationCode, nameof(applicationCode));
             Description = description;
             Url = url;
-            ImagePath = imagePath;
             Labels = labels;
-            Version = version;
             StateType = stateType;
             Services = new Collection<Service>();
             ExtraProperties = extraProperties;

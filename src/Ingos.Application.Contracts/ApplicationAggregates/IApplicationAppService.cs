@@ -8,6 +8,7 @@
 // Description:
 // -----------------------------------------------------------------------
 
+using System.Threading;
 using System.Threading.Tasks;
 using Ingos.Application.Contracts.ApplicationAggregates.Dtos;
 
@@ -18,7 +19,8 @@ namespace Ingos.Application.Contracts.ApplicationAggregates
         /// <summary>
         /// </summary>
         /// <param name="dto"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<ApplicationDto> CreateApplicationAsync(ApplicationCreationDto dto);
+        Task<ApplicationDto> CreateApplicationAsync(ApplicationCreationDto dto, CancellationToken cancellationToken);
     }
 }

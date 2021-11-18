@@ -4,6 +4,11 @@
         <name>Ingos.Application.Contracts</name>
     </assembly>
     <members>
+        <member name="T:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto">
+            <summary>
+                Application creation data transfer object
+            </summary>
+        </member>
         <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.ApplicationName">
             <summary>
                 Application name
@@ -16,32 +21,27 @@
         </member>
         <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.Description">
             <summary>
-                Description
+                Application's description
             </summary>
         </member>
         <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.Url">
             <summary>
-
-            </summary>
-        </member>
-        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.ImagePath">
-            <summary>
-
+                Application url address
             </summary>
         </member>
         <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.Labels">
             <summary>
-
-            </summary>
-        </member>
-        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.Version">
-            <summary>
-
+                Tags or keywords that you want to add to application
             </summary>
         </member>
         <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto.StateType">
             <summary>
-
+                Application current state
+            </summary>
+        </member>
+        <member name="T:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto">
+            <summary>
+                Application detail data transfer object
             </summary>
         </member>
         <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.ApplicationName">
@@ -56,39 +56,29 @@
         </member>
         <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.Description">
             <summary>
-                Description
+                Application's description
             </summary>
         </member>
         <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.Url">
             <summary>
-
-            </summary>
-        </member>
-        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.ImagePath">
-            <summary>
-
+                Application url address
             </summary>
         </member>
         <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.Labels">
             <summary>
-
-            </summary>
-        </member>
-        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.Version">
-            <summary>
-
+                Tags or keywords that you want to add to application
             </summary>
         </member>
         <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationDto.StateType">
             <summary>
-
+                Application current state
             </summary>
         </member>
-        <member name="M:Ingos.Application.Contracts.ApplicationAggregates.IApplicationAppService.CreateApplicationAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto)">
+        <member name="M:Ingos.Application.Contracts.ApplicationAggregates.IApplicationAppService.CreateApplicationAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto,System.Threading.CancellationToken)">
             <summary>
-
             </summary>
             <param name="dto"></param>
+            <param name="cancellationToken"></param>
             <returns></returns>
         </member>
     </members>

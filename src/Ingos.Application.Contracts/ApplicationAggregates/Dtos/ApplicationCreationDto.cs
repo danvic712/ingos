@@ -5,7 +5,7 @@
 // Author: Danvic.Wang
 // Created DateTime: 2021-11-02 22:31
 // Modified by:
-// Description:
+// Description: Application creation data transfer object
 // -----------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
@@ -14,6 +14,9 @@ using Ingos.Domain.Shared.ApplicationAggregates;
 
 namespace Ingos.Application.Contracts.ApplicationAggregates.Dtos
 {
+    /// <summary>
+    ///     Application creation data transfer object
+    /// </summary>
     public class ApplicationCreationDto
     {
         #region Properties
@@ -31,28 +34,22 @@ namespace Ingos.Application.Contracts.ApplicationAggregates.Dtos
         public string ApplicationCode { get; set; }
 
         /// <summary>
-        ///     Description
+        ///     Application's description
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
+        ///     Application url address
         /// </summary>
         public string Url { get; set; }
 
         /// <summary>
-        /// </summary>
-        public string ImagePath { get; set; }
-
-        /// <summary>
+        ///     Tags or keywords that you want to add to application
         /// </summary>
         public string Labels { get; set; }
 
         /// <summary>
-        /// </summary>
-        [Required]
-        public string Version { get; set; }
-
-        /// <summary>
+        ///     Application current state
         /// </summary>
         public StateType StateType { get; set; } = StateType.Created;
 

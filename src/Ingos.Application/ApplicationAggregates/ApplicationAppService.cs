@@ -8,6 +8,7 @@
 // Description: Application module app service, disable prevent abp auto api generated
 // -----------------------------------------------------------------------
 
+using System.Threading;
 using System.Threading.Tasks;
 using Ingos.Application.Contracts.ApplicationAggregates;
 using Ingos.Application.Contracts.ApplicationAggregates.Dtos;
@@ -29,12 +30,14 @@ namespace Ingos.Application.ApplicationAggregates
         ///     Create a new application
         /// </summary>
         /// <param name="dto">Application create data transfer object</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>Application data transfer object</returns>
-        public async Task<ApplicationDto> CreateApplicationAsync(ApplicationCreationDto dto)
+        public async Task<ApplicationDto> CreateApplicationAsync(ApplicationCreationDto dto,
+            CancellationToken cancellationToken)
         {
             // 1. create a valid entity by domain event manager
             var application = await _appManager.CreateAsync(dto.ApplicationName, dto.ApplicationCode, dto.Description,
-                dto.Url, dto.ImagePath, dto.Labels, dto.Version, dto.StateType);
+                dto.Url, dto.Labels, dto.StateType);
 
             // 2. if state is Publish, then create a k8s namespace record
             if (dto.StateType == StateType.Published)
@@ -42,7 +45,7 @@ namespace Ingos.Application.ApplicationAggregates
                 _appManager.PublishAsync(dto.ApplicationName);
 
             // 3. save
-            await _appRepository.InsertAsync(application);
+            await _appRepository.InsertAsync(application, cancellationToken: cancellationToken);
 
             // 4. return a dto represents to the new application
             return ObjectMapper.Map<Domain.ApplicationAggregates.Application, ApplicationDto>(application);

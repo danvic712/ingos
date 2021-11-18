@@ -21,7 +21,6 @@
         </member>
         <member name="F:Ingos.API.Controllers.v1.ApplicationsController._appService">
             <summary>
-
             </summary>
         </member>
         <member name="M:Ingos.API.Controllers.v1.ApplicationsController.#ctor(Ingos.Application.Contracts.ApplicationAggregates.IApplicationAppService)">
@@ -42,7 +41,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Ingos.API.Controllers.v1.ApplicationsController.CreateApplicationAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto)">
+        <member name="M:Ingos.API.Controllers.v1.ApplicationsController.CreateApplicationAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto,System.Threading.CancellationToken)">
             <summary>
                 Save a new application
             </summary>
@@ -146,7 +145,6 @@
         </member>
         <member name="M:Ingos.API.IngosApiModule.OnApplicationInitialization(Volo.Abp.ApplicationInitializationContext)">
             <summary>
-
             </summary>
             <param name="context"></param>
         </member>
@@ -160,12 +158,10 @@
         </member>
         <member name="T:Ingos.API.Program">
             <summary>
-
             </summary>
         </member>
         <member name="M:Ingos.API.Program.Main(System.String[])">
             <summary>
-
             </summary>
             <param name="args"></param>
             <returns></returns>
@@ -177,12 +173,10 @@
         </member>
         <member name="M:Ingos.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-
             </summary>
         </member>
         <member name="M:Ingos.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
             <summary>
-
             </summary>
         </member>
     </members>

@@ -59,13 +59,8 @@ namespace Ingos.Infrastructure.EntityConfigurations
                     .HasMaxLength(500);
                 b.Property(x => x.Url)
                     .HasMaxLength(128);
-                b.Property(x => x.ImagePath)
-                    .HasMaxLength(256);
                 b.Property(x => x.Labels)
                     .HasMaxLength(256);
-                b.Property(x => x.Version)
-                    .IsRequired()
-                    .HasMaxLength(20);
                 b.Property(x => x.StateType)
                     .IsRequired();
             });
