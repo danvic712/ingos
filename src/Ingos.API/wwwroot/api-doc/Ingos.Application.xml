@@ -9,6 +9,13 @@
                 Application module app service
             </summary>
         </member>
+        <member name="M:Ingos.Application.ApplicationAggregates.ApplicationAppService.GetApplicationListAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto,System.Threading.CancellationToken)">
+            <summary>
+            </summary>
+            <param name="dto"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
         <member name="M:Ingos.Application.ApplicationAggregates.ApplicationAppService.CreateApplicationAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto,System.Threading.CancellationToken)">
             <summary>
                 Create a new application

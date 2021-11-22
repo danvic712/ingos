@@ -1,24 +1,21 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file= "ApplicationDto.cs">
+// <copyright file= "ApplicationSearchDto.cs">
 //     Copyright (c) Danvic.Wang All rights reserved.
 // </copyright>
 // Author: Danvic.Wang
-// Created DateTime: 2021-11-04 21:21
+// Created DateTime: 2021-11-22 21:28
 // Modified by:
-// Description: Application detail data transfer object
+// Description: Application query parameters data transfer object
 // -----------------------------------------------------------------------
 
-using System;
-using System.Text.Json.Serialization;
 using Ingos.Domain.Shared.ApplicationAggregates;
-using Volo.Abp.Application.Dtos;
 
 namespace Ingos.Application.Contracts.ApplicationAggregates.Dtos
 {
     /// <summary>
-    ///     Application detail data transfer object
+    ///     Application query parameters data transfer object
     /// </summary>
-    public class ApplicationDto : FullAuditedEntityDto<Guid>
+    public class ApplicationSearchDto
     {
         #region Properties
 
@@ -33,25 +30,19 @@ namespace Ingos.Application.Contracts.ApplicationAggregates.Dtos
         public string ApplicationCode { get; set; }
 
         /// <summary>
-        ///     Application's description
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        ///     Application url address
-        /// </summary>
-        public string Url { get; set; }
-
-        /// <summary>
-        ///     Tags or keywords that you want to add to application
-        /// </summary>
-        public string Labels { get; set; }
-
-        /// <summary>
         ///     Application current state
         /// </summary>
-        [JsonConverter(typeof(JsonStringEnumConverter))]
         public StateType StateType { get; set; }
+
+        /// <summary>
+        ///     Current page
+        /// </summary>
+        public int Page { get; set; } = 1;
+
+        /// <summary>
+        ///     The number displayed on each page
+        /// </summary>
+        public int Limit { get; set; } = 15;
 
         #endregion
     }

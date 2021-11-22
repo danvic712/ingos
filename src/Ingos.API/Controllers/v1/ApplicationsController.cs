@@ -9,13 +9,13 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Ingos.Application.Contracts.ApplicationAggregates;
 using Ingos.Application.Contracts.ApplicationAggregates.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Volo.Abp.Application.Dtos;
 
 namespace Ingos.API.Controllers.v1
 {
@@ -49,11 +49,16 @@ namespace Ingos.API.Controllers.v1
         /// <summary>
         ///     Get all applications
         /// </summary>
+        /// <param name="dto"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [HttpGet(Name = nameof(GetApplications))]
-        public IList<string> GetApplications()
+        [HttpGet(Name = nameof(GetApplicationsAsync))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedResultDto<ApplicationDto>))]
+        public async Task<IActionResult> GetApplicationsAsync([FromQuery] ApplicationSearchDto dto,
+            CancellationToken cancellationToken)
         {
-            return new[] { "value1", "value2" };
+            var result = await _appService.GetApplicationListAsync(dto, cancellationToken);
+            return Ok(result);
         }
 
         /// <summary>

@@ -74,6 +74,43 @@
                 Application current state
             </summary>
         </member>
+        <member name="T:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto">
+            <summary>
+                Application query parameters data transfer object
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto.ApplicationName">
+            <summary>
+                Application name
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto.ApplicationCode">
+            <summary>
+                Application code, also used as k8s namespace name
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto.StateType">
+            <summary>
+                Application current state
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto.Page">
+            <summary>
+                Current page
+            </summary>
+        </member>
+        <member name="P:Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto.Limit">
+            <summary>
+                The number displayed on each page
+            </summary>
+        </member>
+        <member name="M:Ingos.Application.Contracts.ApplicationAggregates.IApplicationAppService.GetApplicationListAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto,System.Threading.CancellationToken)">
+            <summary>
+            </summary>
+            <param name="dto"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
         <member name="M:Ingos.Application.Contracts.ApplicationAggregates.IApplicationAppService.CreateApplicationAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto,System.Threading.CancellationToken)">
             <summary>
             </summary>

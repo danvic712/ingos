@@ -8,6 +8,8 @@
 // Description: Application module app service, disable prevent abp auto api generated
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Ingos.Application.Contracts.ApplicationAggregates;
@@ -15,6 +17,7 @@ using Ingos.Application.Contracts.ApplicationAggregates.Dtos;
 using Ingos.Domain.ApplicationAggregates;
 using Ingos.Domain.Shared.ApplicationAggregates;
 using Volo.Abp;
+using Volo.Abp.Application.Dtos;
 
 namespace Ingos.Application.ApplicationAggregates
 {
@@ -25,6 +28,40 @@ namespace Ingos.Application.ApplicationAggregates
     public class ApplicationAppService : BaseAppService, IApplicationAppService
     {
         #region Services
+
+        /// <summary>
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<PagedResultDto<ApplicationDto>> GetApplicationListAsync(ApplicationSearchDto dto,
+            CancellationToken cancellationToken)
+        {
+            // get list count
+            //
+            var queryable = (await _appRepository.GetQueryableAsync())
+                .WhereIf(!string.IsNullOrEmpty(dto.ApplicationName),
+                    i => i.ApplicationName.Contains(dto.ApplicationName) ||
+                         i.ApplicationName.Equals(dto.ApplicationName))
+                .WhereIf(!string.IsNullOrEmpty(dto.ApplicationCode),
+                    i => i.ApplicationCode.Contains(dto.ApplicationCode) ||
+                         i.ApplicationCode.Equals(dto.ApplicationCode))
+                .WhereIf(true, i => i.StateType == dto.StateType);
+
+            if (!queryable.Any())
+                return new PagedResultDto<ApplicationDto>
+                {
+                    TotalCount = 0,
+                    Items = new List<ApplicationDto>()
+                };
+
+            var items = queryable.Skip(dto.Page).Take(dto.Limit).ToList();
+            return new PagedResultDto<ApplicationDto>
+            {
+                TotalCount = queryable.Count(),
+                Items = ObjectMapper.Map<List<Domain.ApplicationAggregates.Application>, List<ApplicationDto>>(items)
+            };
+        }
 
         /// <summary>
         ///     Create a new application
