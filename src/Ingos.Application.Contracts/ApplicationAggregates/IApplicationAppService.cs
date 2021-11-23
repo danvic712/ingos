@@ -8,6 +8,7 @@
 // Description:
 // -----------------------------------------------------------------------
 
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Ingos.Application.Contracts.ApplicationAggregates.Dtos;
@@ -22,10 +23,16 @@ namespace Ingos.Application.Contracts.ApplicationAggregates
         /// <summary>
         /// </summary>
         /// <param name="dto"></param>
+        /// <returns></returns>
+        Task<PagedResultDto<ApplicationDto>> GetApplicationListAsync(ApplicationSearchDto dto);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<PagedResultDto<ApplicationDto>> GetApplicationListAsync(ApplicationSearchDto dto,
-            CancellationToken cancellationToken);
+        Task<ApplicationDto> GetApplicationAsync(Guid id, CancellationToken cancellationToken);
 
         /// <summary>
         /// </summary>

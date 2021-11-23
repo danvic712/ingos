@@ -29,15 +29,14 @@
             </summary>
             <param name="appService"></param>
         </member>
-        <member name="M:Ingos.API.Controllers.v1.ApplicationsController.GetApplications(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto,System.Threading.CancellationToken)">
+        <member name="M:Ingos.API.Controllers.v1.ApplicationsController.GetApplicationsAsync(Ingos.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto)">
             <summary>
                 Get all applications
             </summary>
-            <param name="q"></param>
-            <param name="cancellationToken"></param>
+            <param name="dto"></param>
             <returns></returns>
         </member>
-        <member name="M:Ingos.API.Controllers.v1.ApplicationsController.GetApplicationInfo(System.Guid)">
+        <member name="M:Ingos.API.Controllers.v1.ApplicationsController.GetApplicationByIdAsync(System.Guid,System.Threading.CancellationToken)">
             <summary>
                 Get specified application information
             </summary>
@@ -70,53 +69,6 @@
         <member name="M:Ingos.API.Controllers.v1.ApplicationsController.DeleteApplication(System.Guid)">
             <summary>
                 Delete a existed application
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Ingos.API.Controllers.v1.ServicesController">
-            <summary>
-                Services
-            </summary>
-        </member>
-        <member name="M:Ingos.API.Controllers.v1.ServicesController.GetServices">
-            <summary>
-                Get current application's all services
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Ingos.API.Controllers.v1.ServicesController.GetServiceInfo(System.Guid)">
-            <summary>
-                Get specified service information
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Ingos.API.Controllers.v1.ServicesController.SaveService(System.Guid,System.String)">
-            <summary>
-                Save a new service
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Ingos.API.Controllers.v1.ServicesController.PublishService(System.Guid)">
-            <summary>
-                Publish a service
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Ingos.API.Controllers.v1.ServicesController.OfflineService(System.Guid)">
-            <summary>
-                Offline a service
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Ingos.API.Controllers.v1.ServicesController.ModifyService(System.Guid,System.String)">
-            <summary>
-                Modify a existed service information
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Ingos.API.Controllers.v1.ServicesController.DeleteService(System.Guid)">
-            <summary>
-                Delete a existed service
             </summary>
             <returns></returns>
         </member>

@@ -23,61 +23,6 @@ namespace Ingos.Domain.ApplicationAggregates
     [DisableAuditing]
     public class Application : AuditedAggregateRoot<Guid>
     {
-        #region Domain Events
-
-        public void AddService(Guid serviceId)
-        {
-            var existed = Services.Any(i => i.Id == serviceId);
-            if (existed)
-                throw new BusinessException(
-                    "Application:ServiceExisted",
-                    nameof(serviceId)
-                );
-
-            // add a new service
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///     Application name
-        /// </summary>
-        public string ApplicationName { get; set; }
-
-        /// <summary>
-        ///     Application code, also used as k8s namespace name
-        /// </summary>
-        public string ApplicationCode { get; set; }
-
-        /// <summary>
-        ///     Application's description
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        ///     Application url address
-        /// </summary>
-        public string Url { get; set; }
-
-        /// <summary>
-        ///     Tags or keywords that you want to add to application
-        /// </summary>
-        public string Labels { get; set; }
-
-        /// <summary>
-        ///     Application current state
-        /// </summary>
-        public StateType StateType { get; set; }
-
-        /// <summary>
-        ///     Services included in this application
-        /// </summary>
-        private ICollection<Service> Services { get; }
-
-        #endregion
-
         #region Ctors
 
         /// <summary>
@@ -122,6 +67,79 @@ namespace Ingos.Domain.ApplicationAggregates
             CreatorId = creatorId;
             LastModificationTime = lastModificationTime;
             LastModifierId = lastModifierId;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     Application name
+        /// </summary>
+        public string ApplicationName { get; set; }
+
+        /// <summary>
+        ///     Application code, also used as k8s namespace name
+        /// </summary>
+        public string ApplicationCode { get; set; }
+
+        /// <summary>
+        ///     Application's description
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        ///     Application url address
+        /// </summary>
+        public string Url { get; set; }
+
+        /// <summary>
+        ///     Tags or keywords that you want to add to application
+        /// </summary>
+        public string Labels { get; set; }
+
+        /// <summary>
+        ///     Application current state
+        /// </summary>
+        public StateType StateType { get; set; }
+
+        /// <summary>
+        ///     Services included in this application
+        /// </summary>
+        private ICollection<Service> Services { get; }
+
+        #endregion
+
+        #region Domain Events
+
+        public void Publish()
+        {
+            if (StateType == StateType.Published)
+                throw new BusinessException("Already Publish");
+
+            StateType = StateType.Published;
+        }
+        
+        public void Offline()
+        {
+            StateType = StateType switch
+            {
+                StateType.Created => throw new BusinessException("Can not Offline"),
+                StateType.Offline => throw new BusinessException("Already Offline"),
+                _ => StateType.Offline
+            };
+        }
+
+        public void AddService(Guid serviceId)
+        {
+            var existed = Services.Any(i => i.Id == serviceId);
+            if (existed)
+                throw new BusinessException(
+                    "Application:ServiceExisted",
+                    nameof(serviceId)
+                );
+
+            // add a new service
         }
 
         #endregion

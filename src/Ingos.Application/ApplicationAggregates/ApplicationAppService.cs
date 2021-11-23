@@ -8,6 +8,7 @@
 // Description: Application module app service, disable prevent abp auto api generated
 // -----------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -18,6 +19,7 @@ using Ingos.Domain.ApplicationAggregates;
 using Ingos.Domain.Shared.ApplicationAggregates;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 
 namespace Ingos.Application.ApplicationAggregates
 {
@@ -27,19 +29,42 @@ namespace Ingos.Application.ApplicationAggregates
     [RemoteService(IsEnabled = false)]
     public class ApplicationAppService : BaseAppService, IApplicationAppService
     {
+        #region Initializes
+
+        /// <summary>
+        ///     Module manager
+        /// </summary>
+        private readonly ApplicationManager _appManager;
+
+        /// <summary>
+        ///     Application domain data access repository
+        /// </summary>
+        private readonly IApplicationRepository _appRepo;
+
+        /// <summary>
+        ///     ctor
+        /// </summary>
+        /// <param name="appManager">Module manager</param>
+        /// <param name="appRepo">Application domain data access repository</param>
+        public ApplicationAppService(ApplicationManager appManager, IApplicationRepository appRepo)
+        {
+            _appManager = appManager;
+            _appRepo = appRepo;
+        }
+
+        #endregion
+
         #region Services
 
         /// <summary>
         /// </summary>
         /// <param name="dto"></param>
-        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<PagedResultDto<ApplicationDto>> GetApplicationListAsync(ApplicationSearchDto dto,
-            CancellationToken cancellationToken)
+        public async Task<PagedResultDto<ApplicationDto>> GetApplicationListAsync(ApplicationSearchDto dto)
         {
             // get list count
             //
-            var queryable = (await _appRepository.GetQueryableAsync())
+            var queryable = (await _appRepo.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrEmpty(dto.ApplicationName),
                     i => i.ApplicationName.Contains(dto.ApplicationName) ||
                          i.ApplicationName.Equals(dto.ApplicationName))
@@ -64,6 +89,20 @@ namespace Ingos.Application.ApplicationAggregates
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ApplicationDto> GetApplicationAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var application = await _appRepo.FindAsync(i => i.Id == id, cancellationToken: cancellationToken);
+            if (application == null)
+                throw new EntityNotFoundException("4040");
+            return ObjectMapper.Map<Domain.ApplicationAggregates.Application, ApplicationDto>(application);
+        }
+
+        /// <summary>
         ///     Create a new application
         /// </summary>
         /// <param name="dto">Application create data transfer object</param>
@@ -78,39 +117,13 @@ namespace Ingos.Application.ApplicationAggregates
 
             // 2. if state is Publish, then create a k8s namespace record
             if (dto.StateType == StateType.Published)
-                // Todo: check namespace whether existed and then publish a event
-                _appManager.PublishAsync(dto.ApplicationName);
+                await _appManager.PublishAsync(application.Id, dto.ApplicationName, cancellationToken);
 
             // 3. save
-            await _appRepository.InsertAsync(application, cancellationToken: cancellationToken);
+            await _appRepo.InsertAsync(application, cancellationToken: cancellationToken);
 
             // 4. return a dto represents to the new application
             return ObjectMapper.Map<Domain.ApplicationAggregates.Application, ApplicationDto>(application);
-        }
-
-        #endregion
-
-        #region Initializes
-
-        /// <summary>
-        ///     Module manager
-        /// </summary>
-        private readonly ApplicationManager _appManager;
-
-        /// <summary>
-        ///     Application domain data access repository
-        /// </summary>
-        private readonly IApplicationRepository _appRepository;
-
-        /// <summary>
-        ///     ctor
-        /// </summary>
-        /// <param name="appManager">Module manager</param>
-        /// <param name="appRepository">Application domain data access repository</param>
-        public ApplicationAppService(ApplicationManager appManager, IApplicationRepository appRepository)
-        {
-            _appManager = appManager;
-            _appRepository = appRepository;
         }
 
         #endregion

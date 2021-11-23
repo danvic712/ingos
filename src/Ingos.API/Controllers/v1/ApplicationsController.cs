@@ -16,6 +16,7 @@ using Ingos.Application.Contracts.ApplicationAggregates.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Http;
 
 namespace Ingos.API.Controllers.v1
 {
@@ -50,14 +51,12 @@ namespace Ingos.API.Controllers.v1
         ///     Get all applications
         /// </summary>
         /// <param name="dto"></param>
-        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet(Name = nameof(GetApplicationsAsync))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedResultDto<ApplicationDto>))]
-        public async Task<IActionResult> GetApplicationsAsync([FromQuery] ApplicationSearchDto dto,
-            CancellationToken cancellationToken)
+        public async Task<IActionResult> GetApplicationsAsync([FromQuery] ApplicationSearchDto dto)
         {
-            var result = await _appService.GetApplicationListAsync(dto, cancellationToken);
+            var result = await _appService.GetApplicationListAsync(dto);
             return Ok(result);
         }
 
@@ -65,10 +64,14 @@ namespace Ingos.API.Controllers.v1
         ///     Get specified application information
         /// </summary>
         /// <returns></returns>
-        [HttpGet("{id}", Name = nameof(GetApplicationInfo))]
-        public string GetApplicationInfo(Guid id)
+        [HttpGet("{id:guid}", Name = nameof(GetApplicationByIdAsync))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApplicationDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(RemoteServiceErrorResponse))]
+        public async Task<IActionResult> GetApplicationByIdAsync(Guid id,
+            CancellationToken cancellationToken)
         {
-            return "value";
+            var result = await _appService.GetApplicationAsync(id, cancellationToken);
+            return Ok(result);
         }
 
         /// <summary>
@@ -81,7 +84,7 @@ namespace Ingos.API.Controllers.v1
             CancellationToken cancellationToken)
         {
             var result = await _appService.CreateApplicationAsync(dto, cancellationToken);
-            return CreatedAtAction(nameof(GetApplicationInfo), new { id = result.Id }, result);
+            return CreatedAtRoute(nameof(GetApplicationByIdAsync), new { id = result.Id }, result);
         }
 
         /// <summary>
