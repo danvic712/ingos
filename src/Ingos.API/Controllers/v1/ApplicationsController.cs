@@ -64,7 +64,7 @@ namespace Ingos.API.Controllers.v1
         ///     Get specified application information
         /// </summary>
         /// <returns></returns>
-        [HttpGet("{id:guid}", Name = nameof(GetApplicationByIdAsync))]
+        [HttpGet("{id:Guid}", Name = nameof(GetApplicationByIdAsync))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApplicationDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(RemoteServiceErrorResponse))]
         public async Task<IActionResult> GetApplicationByIdAsync(Guid id,
@@ -91,25 +91,31 @@ namespace Ingos.API.Controllers.v1
         ///     Publish a application
         /// </summary>
         /// <returns></returns>
-        [HttpPost("{id}/publish", Name = nameof(PublishApplication))]
-        public void PublishApplication(Guid id)
+        [HttpPut("{id:Guid}/publish", Name = nameof(PublishApplicationAsync))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> PublishApplicationAsync(Guid id, CancellationToken cancellationToken)
         {
+            await _appService.PublishApplicationAsync(id, cancellationToken);
+            return NoContent();
         }
 
         /// <summary>
         ///     Offline a application
         /// </summary>
         /// <returns></returns>
-        [HttpPost("{id}/offline", Name = nameof(OfflineApplication))]
-        public void OfflineApplication(Guid id)
+        [HttpPut("{id:Guid}/offline", Name = nameof(OfflineApplicationAsync))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> OfflineApplicationAsync(Guid id, CancellationToken cancellationToken)
         {
+            await _appService.OfflineApplicationAsync(id, cancellationToken);
+            return NoContent();
         }
 
         /// <summary>
         ///     Modify a existed application information
         /// </summary>
         /// <returns></returns>
-        [HttpPut("{id}", Name = nameof(ModifyApplication))]
+        [HttpPut("{id:Guid}", Name = nameof(ModifyApplication))]
         public void ModifyApplication(Guid id, [FromBody] string value)
         {
         }
@@ -118,7 +124,7 @@ namespace Ingos.API.Controllers.v1
         ///     Delete a existed application
         /// </summary>
         /// <returns></returns>
-        [HttpDelete("{id}", Name = nameof(DeleteApplication))]
+        [HttpDelete("{id:Guid}", Name = nameof(DeleteApplication))]
         public void DeleteApplication(Guid id)
         {
         }

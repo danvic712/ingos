@@ -114,10 +114,10 @@ namespace Ingos.Domain.ApplicationAggregates
 
         public void Publish()
         {
-            if (StateType == StateType.Published)
+            if (StateType == StateType.Active)
                 throw new BusinessException("Already Publish");
 
-            StateType = StateType.Published;
+            StateType = StateType.Active;
         }
         
         public void Offline()

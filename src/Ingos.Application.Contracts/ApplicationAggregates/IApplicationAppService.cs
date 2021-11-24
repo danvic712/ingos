@@ -41,6 +41,22 @@ namespace Ingos.Application.Contracts.ApplicationAggregates
         /// <returns></returns>
         Task<ApplicationDto> CreateApplicationAsync(ApplicationCreationDto dto, CancellationToken cancellationToken);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task PublishApplicationAsync(Guid id, CancellationToken cancellationToken);
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task OfflineApplicationAsync(Guid id, CancellationToken cancellationToken);
+
         #endregion
     }
 }

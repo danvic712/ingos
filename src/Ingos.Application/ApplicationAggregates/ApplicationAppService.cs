@@ -96,9 +96,10 @@ namespace Ingos.Application.ApplicationAggregates
         /// <exception cref="NotImplementedException"></exception>
         public async Task<ApplicationDto> GetApplicationAsync(Guid id, CancellationToken cancellationToken)
         {
-            var application = await _appRepo.FindAsync(i => i.Id == id, cancellationToken: cancellationToken);
+            var application = await _appRepo.FindAsync(id, cancellationToken: cancellationToken);
             if (application == null)
                 throw new EntityNotFoundException("4040");
+            
             return ObjectMapper.Map<Domain.ApplicationAggregates.Application, ApplicationDto>(application);
         }
 
@@ -115,15 +116,43 @@ namespace Ingos.Application.ApplicationAggregates
             var application = await _appManager.CreateAsync(dto.ApplicationName, dto.ApplicationCode, dto.Description,
                 dto.Url, dto.Labels, dto.StateType);
 
-            // 2. if state is Publish, then create a k8s namespace record
-            if (dto.StateType == StateType.Published)
-                await _appManager.PublishAsync(application.Id, dto.ApplicationName, cancellationToken);
+            // 2. save
+            await _appRepo.InsertAsync(application, cancellationToken: cancellationToken, autoSave: true);
 
-            // 3. save
-            await _appRepo.InsertAsync(application, cancellationToken: cancellationToken);
+            // 3. if state is Active create a k8s namespace record
+            if (dto.StateType == StateType.Active)
+                await _appManager.PublishAsync(application); // Todo: there may have problems
 
             // 4. return a dto represents to the new application
             return ObjectMapper.Map<Domain.ApplicationAggregates.Application, ApplicationDto>(application);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task PublishApplicationAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var application = await _appRepo.FindAsync(id, false, cancellationToken);
+            if (application == null)
+                throw new EntityNotFoundException("4040");
+
+            application = await _appManager.PublishAsync(application);
+
+            await _appRepo.UpdateAsync(application, cancellationToken: cancellationToken);
+        }
+
+        public async Task OfflineApplicationAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var application = await _appRepo.FindAsync(id, false, cancellationToken);
+            if (application == null)
+                throw new EntityNotFoundException("4040");
+
+            application = await _appManager.OfflineAsync(application);
+
+            await _appRepo.UpdateAsync(application, cancellationToken: cancellationToken);
         }
 
         #endregion

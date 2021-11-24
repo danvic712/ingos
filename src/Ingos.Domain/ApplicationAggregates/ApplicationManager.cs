@@ -14,10 +14,10 @@ using System.Threading.Tasks;
 using Ingos.Domain.ApplicationAggregates.DomainEvents;
 using Ingos.Domain.Shared.ApplicationAggregates;
 using Volo.Abp;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.EventBus.Local;
-using Volo.Abp.Guids;
 using Volo.Abp.Users;
 
 namespace Ingos.Domain.ApplicationAggregates
@@ -36,18 +36,13 @@ namespace Ingos.Domain.ApplicationAggregates
 
         /// <summary>
         /// </summary>
-        private readonly IGuidGenerator _guidGenerator;
-
-        /// <summary>
-        /// </summary>
         private readonly ILocalEventBus _localEventBus;
 
         public ApplicationManager(IApplicationRepository appRepo, ICurrentUser currentUser,
-            IGuidGenerator guidGenerator, ILocalEventBus localEventBus)
+            ILocalEventBus localEventBus)
         {
             _appRepo = appRepo;
             _currentUser = currentUser;
-            _guidGenerator = guidGenerator;
             _localEventBus = localEventBus;
         }
 
@@ -79,8 +74,8 @@ namespace Ingos.Domain.ApplicationAggregates
             if (appCodeExisted)
                 throw new BusinessException("Application:ApplicationWithSameCodeExists");
 
-            var id = _guidGenerator.Create();
-            var userId = _guidGenerator.Create(); // Todo: get current user
+            var id = GuidGenerator.Create();
+            var userId = _currentUser.GetId();
             var now = DateTime.Now;
             return new Application(id, applicationName, applicationCode, description, url, labels,
                 stateType, null, string.Empty, now, userId, now, userId);
@@ -88,18 +83,38 @@ namespace Ingos.Domain.ApplicationAggregates
 
         /// <summary>
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="applicationName"></param>
-        /// <param name="cancellationToken"></param>
-        public async Task PublishAsync(Guid id, string applicationName, CancellationToken cancellationToken)
+        /// <param name="application"></param>
+        public async Task<Application> PublishAsync(Application application)
         {
-            var application = await _appRepo.GetAsync(id, cancellationToken: cancellationToken);
             application.Publish();
-            
+            application.LastModificationTime = DateTime.Now;
+            application.LastModifierId = _currentUser.GetId();
+
             await _localEventBus.PublishAsync(new ApplicationPublishedEvent
             {
-                ApplicationName = applicationName
+                ApplicationName = application.ApplicationName
             });
+
+            return application;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="application"></param>
+        /// <returns></returns>
+        public async Task<Application> OfflineAsync(Application application)
+        {
+            application.Offline();
+            application.LastModificationTime = DateTime.Now;
+            application.LastModifierId = _currentUser.GetId();
+
+            await _localEventBus.PublishAsync(new ApplicationOfflineEvent()
+            {
+                ApplicationName = application.ApplicationName
+            });
+
+            return application;
         }
 
         #endregion
