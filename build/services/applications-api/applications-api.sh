@@ -1,8 +1,7 @@
-#!/usr/bin/env sh
 COMMIT_ID=$(git rev-parse --short HEAD)
 
 #REGISTRY=https://docker.pkg.github.com/danvic712/ingos
-IMAGE=ingos/ingos
+IMAGE=ingos/ingos-applications
 
 VERSION=$(cat version) 
 TAG=$(echo "$VERSION" | awk -F. -v OFS=. '{$NF++;print}')
@@ -16,4 +15,3 @@ fi
 
 docker build -t "$IMAGE_TAG" --build-arg commit-id="$COMMIT_ID" . 
 # docker push "$IMAGE_TAG"
-
