@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ingos.AppManager.API</name>
+    </assembly>
+    <members>
+        <member name="T:Ingos.AppManager.API.Controllers.BaseController">
+            <summary>
+                Base controller
+            </summary>
+        </member>
+        <member name="M:Ingos.AppManager.API.Controllers.BaseController.#ctor">
+            <summary>
+                The base controller
+            </summary>
+        </member>
+        <member name="T:Ingos.AppManager.API.Controllers.v1.ApplicationsController">
+            <summary>
+                Applications
+            </summary>
+        </member>
+        <member name="F:Ingos.AppManager.API.Controllers.v1.ApplicationsController._appService">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Ingos.AppManager.API.Controllers.v1.ApplicationsController.#ctor(Ingos.AppManager.Application.Contracts.ApplicationAggregates.IApplicationAppService)">
+            <summary>
+                ctor
+            </summary>
+            <param name="appService"></param>
+        </member>
+        <member name="M:Ingos.AppManager.API.Controllers.v1.ApplicationsController.GetApplicationsAsync(Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto)">
+            <summary>
+                Get all applications
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ingos.AppManager.API.Controllers.v1.ApplicationsController.GetApplicationByIdAsync(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+                Get specified application information
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ingos.AppManager.API.Controllers.v1.ApplicationsController.CreateApplicationAsync(Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos.ApplicationCreationDto,System.Threading.CancellationToken)">
+            <summary>
+                Save a new application
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ingos.AppManager.API.Controllers.v1.ApplicationsController.PublishApplicationAsync(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+                Publish a application
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ingos.AppManager.API.Controllers.v1.ApplicationsController.OfflineApplicationAsync(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+                Offline a application
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ingos.AppManager.API.Controllers.v1.ApplicationsController.ModifyApplication(System.Guid,System.String)">
+            <summary>
+                Modify a existed application information
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ingos.AppManager.API.Controllers.v1.ApplicationsController.DeleteApplication(System.Guid)">
+            <summary>
+                Delete a existed application
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Ingos.AppManager.API.Infrastructure.RemoveVersionFromParameter">
+            <summary>
+                Remove api version param from swagger doc
+            </summary>
+        </member>
+        <member name="M:Ingos.AppManager.API.Infrastructure.RemoveVersionFromParameter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+                Apply the filter rule
+            </summary>
+        </member>
+        <member name="T:Ingos.AppManager.API.IngosApiModule">
+            <summary>
+                Api module definition file
+            </summary>
+        </member>
+        <member name="M:Ingos.AppManager.API.IngosApiModule.PreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
+            <summary>
+                Pre configure before inject services into service collection
+            </summary>
+        </member>
+        <member name="M:Ingos.AppManager.API.IngosApiModule.ConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
+            <summary>
+                Configure application services
+            </summary>
+        </member>
+        <member name="M:Ingos.AppManager.API.IngosApiModule.OnApplicationInitialization(Volo.Abp.ApplicationInitializationContext)">
+            <summary>
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Ingos.AppManager.API.IngosApiModule.GetApiDocPaths(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+                Get the api description doc path
+            </summary>
+            <param name="paths">The xml file path</param>
+            <param name="basePath">The site's base running files path</param>
+            <returns></returns>
+        </member>
+        <member name="T:Ingos.AppManager.API.Program">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Ingos.AppManager.API.Program.Main(System.String[])">
+            <summary>
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Ingos.AppManager.API.Startup">
+            <summary>
+                Application start up configuration
+            </summary>
+        </member>
+        <member name="M:Ingos.AppManager.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Ingos.AppManager.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            </summary>
+        </member>
+    </members>
+</doc>
