@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Ingos.AppManager.Application.Contracts.ApplicationAggregates;
 using Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos;
+using Ingos.AppManager.Application.Contracts.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
@@ -115,18 +116,27 @@ namespace Ingos.AppManager.API.Controllers.v1
         ///     Modify a existed application information
         /// </summary>
         /// <returns></returns>
-        [HttpPut("{id:Guid}", Name = nameof(ModifyApplication))]
-        public void ModifyApplication(Guid id, [FromBody] string value)
+        [HttpPut("{id:Guid}", Name = nameof(ModifyApplicationAsync))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResourceOperationDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(RemoteServiceErrorResponse))]
+        public async Task<IActionResult> ModifyApplicationAsync(Guid id, [FromBody] ApplicationModificationDto dto,
+            CancellationToken cancellationToken)
         {
+            var result = await _appService.ModifyApplicationAsync(id, dto, cancellationToken);
+            return Ok(result);
         }
 
         /// <summary>
         ///     Delete a existed application
         /// </summary>
         /// <returns></returns>
-        [HttpDelete("{id:Guid}", Name = nameof(DeleteApplication))]
-        public void DeleteApplication(Guid id)
+        [HttpDelete("{id:Guid}", Name = nameof(DeleteApplicationAsync))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResourceOperationDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(RemoteServiceErrorResponse))]
+        public async Task<IActionResult> DeleteApplicationAsync(Guid id, CancellationToken cancellationToken)
         {
+            var result = await _appService.DeleteApplicationAsync(id, cancellationToken);
+            return Ok(result);
         }
 
         #endregion

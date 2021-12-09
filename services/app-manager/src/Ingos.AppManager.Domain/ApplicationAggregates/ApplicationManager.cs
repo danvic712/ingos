@@ -117,6 +117,35 @@ namespace Ingos.AppManager.Domain.ApplicationAggregates
             return application;
         }
 
+        public async Task<Application> UpdateAsync(string applicationName, string applicationCode, string description,
+            string url, string labels, StateType stateType)
+        {
+            // Todo: Not Implement
+
+            // verify that the name exists
+            //
+            var appNameExisted = await _appRepo.AnyAsync(i => i.ApplicationName == applicationName);
+            if (appNameExisted)
+                throw new BusinessException("Ingos:Applications:000002");
+
+            // verify that the code exists
+            //
+            var appCodeExisted = await _appRepo.AnyAsync(i => i.ApplicationCode == applicationCode);
+            if (appCodeExisted)
+                throw new BusinessException("Application:ApplicationWithSameCodeExists");
+
+            var userId = _currentUser.GetId();
+
+            return null;
+        }
+
+        public async Task<Application> DeleteAsync(Guid id)
+        {
+            // Todo: Not Implement
+
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

@@ -12,6 +12,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos;
+using Ingos.AppManager.Application.Contracts.Utils;
 using Volo.Abp.Application.Dtos;
 
 namespace Ingos.AppManager.Application.Contracts.ApplicationAggregates
@@ -48,7 +49,7 @@ namespace Ingos.AppManager.Application.Contracts.ApplicationAggregates
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task PublishApplicationAsync(Guid id, CancellationToken cancellationToken);
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -56,6 +57,24 @@ namespace Ingos.AppManager.Application.Contracts.ApplicationAggregates
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task OfflineApplicationAsync(Guid id, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dto"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<ResourceOperationDto> ModifyApplicationAsync(Guid id, ApplicationModificationDto dto,
+            CancellationToken cancellationToken);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<ResourceOperationDto> DeleteApplicationAsync(Guid id, CancellationToken cancellationToken);
 
         #endregion
     }

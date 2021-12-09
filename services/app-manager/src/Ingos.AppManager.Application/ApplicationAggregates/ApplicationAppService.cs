@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Ingos.AppManager.Application.Contracts.ApplicationAggregates;
 using Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos;
+using Ingos.AppManager.Application.Contracts.Utils;
 using Ingos.AppManager.Domain.Shared.ApplicationAggregates;
 using Ingos.AppManager.Domain.ApplicationAggregates;
 using Volo.Abp;
@@ -84,7 +85,8 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
             return new PagedResultDto<ApplicationDto>
             {
                 TotalCount = queryable.Count(),
-                Items = ObjectMapper.Map<List<AppManager.Domain.ApplicationAggregates.Application>, List<ApplicationDto>>(items)
+                Items = ObjectMapper
+                    .Map<List<AppManager.Domain.ApplicationAggregates.Application>, List<ApplicationDto>>(items)
             };
         }
 
@@ -99,7 +101,7 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
             var application = await _appRepo.FindAsync(id, cancellationToken: cancellationToken);
             if (application == null)
                 throw new EntityNotFoundException("4040");
-            
+
             return ObjectMapper.Map<AppManager.Domain.ApplicationAggregates.Application, ApplicationDto>(application);
         }
 
@@ -144,6 +146,12 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
             await _appRepo.UpdateAsync(application, cancellationToken: cancellationToken);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <exception cref="EntityNotFoundException"></exception>
         public async Task OfflineApplicationAsync(Guid id, CancellationToken cancellationToken)
         {
             var application = await _appRepo.FindAsync(id, false, cancellationToken);
@@ -153,6 +161,55 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
             application = await _appManager.OfflineAsync(application);
 
             await _appRepo.UpdateAsync(application, cancellationToken: cancellationToken);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dto"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<ResourceOperationDto> ModifyApplicationAsync(Guid id, ApplicationModificationDto dto,
+            CancellationToken cancellationToken)
+        {
+            var application = await _appRepo.FindAsync(id, false, cancellationToken);
+            if (application == null)
+                throw new EntityNotFoundException("4040");
+
+            application = await _appManager.UpdateAsync(dto.ApplicationName, dto.ApplicationCode, dto.Description,
+                dto.Url,
+                dto.Labels, dto.StateType);
+
+            application = await _appRepo.UpdateAsync(application, cancellationToken: cancellationToken);
+
+            return new ResourceOperationDto()
+            {
+                Success = true,
+                Message = $"{application.Id} has been updated at {DateTime.Now}"
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<ResourceOperationDto> DeleteApplicationAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var application = await _appRepo.FindAsync(id, false, cancellationToken);
+            if (application == null)
+                throw new EntityNotFoundException("4040");
+
+            application = await _appManager.DeleteAsync(id);
+            await _appRepo.DeleteAsync(application, cancellationToken: cancellationToken);
+
+            return new ResourceOperationDto()
+            {
+                Success = true,
+                Message = $"{application.Id} has been deleted at {DateTime.Now}"
+            };
         }
 
         #endregion
