@@ -7,7 +7,7 @@ export default [
   },
   {
     name: 'Application',
-    icon: 'smile',
+    icon: 'user',
     path: '/applications',
     routes: [
       {
@@ -90,13 +90,12 @@ export default [
     name: 'Workplace',
     icon: 'profile',
     path: '/workplace',
-    component: './user/Workplace',
+    component: './user/workplace',
   },
   {
     path: '/login',
     layout: false,
-    name: 'login',
-    component: './user/Login',
+    component: './user/login',
   },
   {
     path: '/exception',

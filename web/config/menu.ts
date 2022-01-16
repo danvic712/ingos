@@ -7,7 +7,7 @@ export default [
   },
   {
     name: 'Application',
-    icon: 'smile',
+    icon: 'application',
     path: '/applications',
     routes: [
       {
@@ -28,7 +28,7 @@ export default [
   },
   {
     name: 'Resource',
-    icon: 'smile',
+    icon: 'resource',
     path: '/resources',
     routes: [
       {
@@ -70,33 +70,26 @@ export default [
   },
   {
     name: 'Configuration',
-    icon: 'smile',
+    icon: 'configuration',
     path: '/configurations',
     routes: [{}],
   },
   {
     name: 'Storage',
-    icon: 'smile',
+    icon: 'storage',
     path: '/storages',
     routes: [{}],
   },
   {
     name: 'Monitor',
-    icon: 'smile',
+    icon: 'monitor',
     path: '/monitors',
     routes: [{}],
   },
   {
     name: 'Workplace',
-    icon: 'profile',
+    icon: 'workplace',
     path: '/workplace',
-    component: './user/Workplace',
-  },
-  {
-    path: '/',
-    redirect: '/dashboard',
-  },
-  {
-    component: './404',
+    component: './user/workplace',
   },
 ];

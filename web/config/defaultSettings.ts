@@ -15,6 +15,7 @@ const Settings: LayoutSettings & {
   headerHeight: 48,
   splitMenus: false,
   footerRender: false,
+  title: 'Ingos',
 };
 
 export default Settings;

@@ -1,13 +1,18 @@
-import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
-import { SettingDrawer } from '@ant-design/pro-layout';
+import type {
+  BasicLayoutProps,
+  MenuDataItem,
+  Settings as LayoutSettings,
+} from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
-import type { RunTimeLayoutConfig } from 'umi';
 import { history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
-import { BookOutlined, LinkOutlined } from '@ant-design/icons';
+import { LinkOutlined } from '@ant-design/icons';
 import defaultSettings from '../config/defaultSettings';
+import appMenu from '../config/menu';
+
+import { menuIcon } from './utils/utils';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/login';
@@ -25,6 +30,7 @@ export async function getInitialState(): Promise<{
   currentUser?: API.CurrentUser;
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+  menu: MenuDataItem[]; // get menu info from menu.ts file
 }> {
   const fetchUserInfo = async () => {
     try {
@@ -38,30 +44,46 @@ export async function getInitialState(): Promise<{
   // 如果是登录页面，不执行
   if (history.location.pathname !== loginPath) {
     const currentUser = await fetchUserInfo();
+
     return {
       fetchUserInfo,
       currentUser,
       settings: defaultSettings,
+      menu: appMenu,
     };
   }
   return {
     fetchUserInfo,
     settings: defaultSettings,
+    menu: [],
   };
 }
 
+const loopMenuItem = (menus: MenuDataItem[]): MenuDataItem[] =>
+  menus.map(({ icon, children, ...item }) => {
+    debugger;
+    return {
+      ...item,
+      icon: icon && menuIcon[icon as string],
+      children: children && loopMenuItem(children),
+    };
+  });
+
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
-export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
+export const layout = ({
+  initialState,
+}: {
+  initialState: { settings?: LayoutSettings; currentUser?: API.CurrentUser; menu: MenuDataItem[] };
+}): BasicLayoutProps => {
   return {
+    menuDataRender: () => loopMenuItem(initialState.menu),
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
-    waterMarkProps: {
-      content: initialState?.currentUser?.name,
-    },
+    waterMarkProps: {},
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
-      // 如果没有登录，重定向到 login
+      // redirect to login page, if not logged
       if (!initialState?.currentUser && location.pathname !== loginPath) {
         history.push(loginPath);
       }
@@ -72,36 +94,9 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
             <LinkOutlined />
             <span>OpenAPI 文档</span>
           </Link>,
-          <Link to="/~docs">
-            <BookOutlined />
-            <span>业务组件文档</span>
-          </Link>,
         ]
       : [],
+
     menuHeaderRender: undefined,
-    // 自定义 403 页面
-    // unAccessible: <div>unAccessible</div>,
-    // 增加一个 loading 的状态
-    childrenRender: (children, props) => {
-      // if (initialState?.loading) return <PageLoading />;
-      return (
-        <>
-          {children}
-          {!props.location?.pathname?.includes('/login') && (
-            <SettingDrawer
-              enableDarkTheme
-              settings={initialState?.settings}
-              onSettingChange={(settings) => {
-                setInitialState((preInitialState) => ({
-                  ...preInitialState,
-                  settings,
-                }));
-              }}
-            />
-          )}
-        </>
-      );
-    },
-    ...initialState?.settings,
   };
 };
