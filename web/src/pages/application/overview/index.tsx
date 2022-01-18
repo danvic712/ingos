@@ -2,75 +2,33 @@ import {
   DownloadOutlined,
   EditOutlined,
   EllipsisOutlined,
+  InfoCircleOutlined,
+  PauseCircleOutlined,
+  PlusOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
-import { Avatar, Card, Col, Dropdown, Form, List, Menu, Row, Select, Tooltip } from 'antd';
-import numeral from 'numeral';
-import type { FC } from 'react';
-import React from 'react';
+import { Button, Card, Dropdown, List, Menu, message, Tooltip, Typography } from 'antd';
+import { PageContainer } from '@ant-design/pro-layout';
 import { useRequest } from 'umi';
-import StandardFormRow from './components/StandardFormRow';
-import TagSelect from './components/TagSelect';
-import type { ListItemDataType } from './data.d';
 import { queryFakeList } from './service';
+import type { CardListItemDataType } from './data';
 import styles from './style.less';
+import type { ProFormInstance } from '@ant-design/pro-form';
+import ProForm, {
+  ModalForm,
+  ProFormText,
+  ProFormDateRangePicker,
+  ProFormSelect,
+  DrawerForm,
+} from '@ant-design/pro-form';
+import { useRef } from 'react';
 
-const { Option } = Select;
+const { Paragraph } = Typography;
 
-export function formatWan(val: number) {
-  const v = val * 1;
-  if (!v || Number.isNaN(v)) return '';
-
-  let result: React.ReactNode = val;
-  if (val > 10000) {
-    result = (
-      <span>
-        {Math.floor(val / 10000)}
-        <span
-          style={{
-            position: 'relative',
-            top: -2,
-            fontSize: 14,
-            fontStyle: 'normal',
-            marginLeft: 2,
-          }}
-        >
-          万
-        </span>
-      </span>
-    );
-  }
-  return result;
-}
-
-const formItemLayout = {
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
-
-const CardInfo: React.FC<{
-  activeUser: React.ReactNode;
-  newUser: React.ReactNode;
-}> = ({ activeUser, newUser }) => (
-  <div className={styles.cardInfo}>
-    <div>
-      <p>活跃用户</p>
-      <p>{activeUser}</p>
-    </div>
-    <div>
-      <p>新增用户</p>
-      <p>{newUser}</p>
-    </div>
-  </div>
-);
-
-export const Overview: FC<Record<string, any>> = () => {
-  const { data, loading, run } = useRequest((values: any) => {
-    console.log('form data', values);
+const Overview = () => {
+  const { data, loading } = useRequest(() => {
     return queryFakeList({
-      count: 8,
+      count: 19,
     });
   });
 
@@ -79,116 +37,162 @@ export const Overview: FC<Record<string, any>> = () => {
   const itemMenu = (
     <Menu>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.alipay.com/">
+        <a target="_blank" rel="noopener noreferrer" href="">
           1st menu item
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.taobao.com/">
-          2nd menu item
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.tmall.com/">
-          3d menu item
+        <a target="_blank" rel="noopener noreferrer" href="">
+          删除
         </a>
       </Menu.Item>
     </Menu>
   );
 
-  return (
-    <div className={styles.filterCardList}>
-      <Card bordered={false}>
-        <Form
-          onValuesChange={(_, values) => {
-            run(values);
-          }}
-        >
-          <StandardFormRow title="所属类目" block style={{ paddingBottom: 11 }}>
-            <Form.Item name="category">
-              <TagSelect expandable>
-                <TagSelect.Option value="cat1">类目一</TagSelect.Option>
-                <TagSelect.Option value="cat2">类目二</TagSelect.Option>
-                <TagSelect.Option value="cat3">类目三</TagSelect.Option>
-                <TagSelect.Option value="cat4">类目四</TagSelect.Option>
-                <TagSelect.Option value="cat5">类目五</TagSelect.Option>
-                <TagSelect.Option value="cat6">类目六</TagSelect.Option>
-                <TagSelect.Option value="cat7">类目七</TagSelect.Option>
-                <TagSelect.Option value="cat8">类目八</TagSelect.Option>
-                <TagSelect.Option value="cat9">类目九</TagSelect.Option>
-                <TagSelect.Option value="cat10">类目十</TagSelect.Option>
-                <TagSelect.Option value="cat11">类目十一</TagSelect.Option>
-                <TagSelect.Option value="cat12">类目十二</TagSelect.Option>
-              </TagSelect>
-            </Form.Item>
-          </StandardFormRow>
-          <StandardFormRow title="其它选项" grid last>
-            <Row gutter={16}>
-              <Col lg={8} md={10} sm={10} xs={24}>
-                <Form.Item {...formItemLayout} name="author" label="作者">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
-                    <Option value="lisa">王昭君</Option>
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col lg={8} md={10} sm={10} xs={24}>
-                <Form.Item {...formItemLayout} name="rate" label="好评度">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
-                    <Option value="good">优秀</Option>
-                    <Option value="normal">普通</Option>
-                  </Select>
-                </Form.Item>
-              </Col>
-            </Row>
-          </StandardFormRow>
-        </Form>
-      </Card>
-      <br />
-      <List<ListItemDataType>
-        rowKey="id"
-        grid={{
-          gutter: 16,
-          xs: 1,
-          sm: 2,
-          md: 3,
-          lg: 3,
-          xl: 4,
-          xxl: 4,
-        }}
-        loading={loading}
-        dataSource={list}
-        renderItem={(item) => (
-          <List.Item key={item.id}>
-            <Card
-              hoverable
-              bodyStyle={{ paddingBottom: 20 }}
-              actions={[
-                <Tooltip key="download" title="下载">
-                  <DownloadOutlined />
-                </Tooltip>,
-                <Tooltip key="edit" title="编辑">
-                  <EditOutlined />
-                </Tooltip>,
-                <Tooltip title="分享" key="share">
-                  <ShareAltOutlined />
-                </Tooltip>,
-                <Dropdown key="ellipsis" overlay={itemMenu}>
-                  <EllipsisOutlined />
-                </Dropdown>,
-              ]}
-            >
-              <Card.Meta avatar={<Avatar size="small" src={item.avatar} />} title={item.title} />
-              <div className={styles.cardItemContent}>
-                <CardInfo
-                  activeUser={formatWan(item.activeUser)}
-                  newUser={numeral(item.newUser).format('0,0')}
-                />
-              </div>
-            </Card>
-          </List.Item>
-        )}
+  const content = (
+    <div className={styles.pageHeaderContent}>
+      <p>
+        当前集群中的所有通过平台部署的应用信息，以应用的维度对集群的资源进行分组，方便针对具体的每个应用进行资源查看管理
+      </p>
+      <div className={styles.contentLink}>
+        <a>
+          <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/MjEImQtenlyueSmVEfUD.svg" />{' '}
+          快速开始
+        </a>
+        <a>
+          <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg" />{' '}
+          产品简介
+        </a>
+        <a>
+          <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg" />{' '}
+          产品文档
+        </a>
+      </div>
+    </div>
+  );
+
+  const extraContent = (
+    <div className={styles.extraImg}>
+      <img
+        alt="这是一个标题"
+        src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png"
       />
     </div>
+  );
+  const nullData: Partial<CardListItemDataType> = {};
+
+  const formRef = useRef<ProFormInstance>();
+
+  return (
+    <PageContainer fixedHeader content={content} extraContent={extraContent}>
+      <div className={styles.cardList}>
+        <List<Partial<CardListItemDataType>>
+          rowKey="id"
+          loading={loading}
+          grid={{
+            gutter: 16,
+            xs: 1,
+            sm: 2,
+            md: 3,
+            lg: 3,
+            xl: 4,
+            xxl: 4,
+          }}
+          pagination={{
+            defaultPageSize: 16,
+            showSizeChanger: true,
+            pageSizeOptions: ['16', '24', '48', '96'],
+          }}
+          dataSource={[nullData, ...list]}
+          renderItem={(item) => {
+            if (item && item.id) {
+              return (
+                <List.Item key={item.id}>
+                  <Card
+                    hoverable
+                    className={styles.card}
+                    actions={[
+                      <Tooltip key="info" title="详情">
+                        <InfoCircleOutlined />
+                      </Tooltip>,
+                      <Tooltip key="pause" title="暂停">
+                        <PauseCircleOutlined />
+                      </Tooltip>,
+                      <Dropdown key="ellipsis" overlay={itemMenu}>
+                        <EllipsisOutlined />
+                      </Dropdown>,
+                    ]}
+                  >
+                    <Card.Meta
+                      avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
+                      title={<a>{item.title}</a>}
+                      description={
+                        <Paragraph className={styles.item} ellipsis={{ rows: 3 }}>
+                          {item.description}
+                        </Paragraph>
+                      }
+                    />
+                  </Card>
+                </List.Item>
+              );
+            }
+            return (
+              <List.Item>
+                <DrawerForm<{
+                  name: string;
+                  company: string;
+                }>
+                  title="新建应用"
+                  formRef={formRef}
+                  width={378}
+                  trigger={
+                    <Button type="dashed" className={styles.newButton}>
+                      <PlusOutlined /> 新增应用
+                    </Button>
+                  }
+                  autoFocusFirstInput
+                  drawerProps={{
+                    forceRender: true,
+                    destroyOnClose: true,
+                  }}
+                  onFinish={async (values) => {
+                    console.log(values.name);
+                    message.success('提交成功');
+                    // 不返回不会关闭弹框
+                    return true;
+                  }}
+                >
+                  <ProForm.Group>
+                    <ProFormText
+                      name="name"
+                      width="md"
+                      label="签约客户名称"
+                      tooltip="最长为 24 位"
+                      placeholder="请输入名称"
+                    />
+                    <ProFormText
+                      width="md"
+                      name="company"
+                      label="我方公司名称"
+                      placeholder="请输入名称"
+                    />
+                  </ProForm.Group>
+                  <ProForm.Group>
+                    <ProFormText
+                      width="md"
+                      name="contract"
+                      label="合同名称"
+                      placeholder="请输入名称"
+                    />
+                  </ProForm.Group>
+                  <ProFormText name="project" label="项目名称" initialValue="xxxx项目" />
+                </DrawerForm>
+              </List.Item>
+            );
+          }}
+        />
+      </div>
+    </PageContainer>
   );
 };
 

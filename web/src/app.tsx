@@ -61,7 +61,6 @@ export async function getInitialState(): Promise<{
 
 const loopMenuItem = (menus: MenuDataItem[]): MenuDataItem[] =>
   menus.map(({ icon, children, ...item }) => {
-    debugger;
     return {
       ...item,
       icon: icon && menuIcon[icon as string],

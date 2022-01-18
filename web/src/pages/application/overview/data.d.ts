@@ -4,11 +4,7 @@ export type Member = {
   id: string;
 };
 
-export interface Params {
-  count: number;
-}
-
-export interface ListItemDataType {
+export type CardListItemDataType = {
   id: string;
   owner: string;
   title: string;
@@ -30,4 +26,4 @@ export interface ListItemDataType {
   message: number;
   content: string;
   members: Member[];
-}
+};

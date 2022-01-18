@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Request, Response } from 'express';
-import type { ListItemDataType } from './data.d';
+import type { CardListItemDataType } from './data';
 
 const titles = [
   'Alipay',
@@ -36,6 +36,7 @@ const desc = [
   '城镇中有那么多的酒馆，她却偏偏走进了我的酒馆',
   '那时候我只会想自己想要什么，从不想自己拥有什么',
 ];
+
 const user = [
   '付小小',
   '曲丽丽',
@@ -49,7 +50,7 @@ const user = [
   '仲尼',
 ];
 
-function fakeList(count: number): ListItemDataType[] {
+function fakeList(count: number): CardListItemDataType[] {
   const list = [];
   for (let i = 0; i < count; i += 1) {
     list.push({
@@ -102,9 +103,9 @@ function fakeList(count: number): ListItemDataType[] {
 }
 
 function getFakeList(req: Request, res: Response) {
-  const params: any = req.query;
+  const params = req.query as any;
 
-  const count = params.count * 1 || 20;
+  const count = Number(params.count) * 1 || 20;
 
   const result = fakeList(count);
   return res.json({
@@ -115,5 +116,5 @@ function getFakeList(req: Request, res: Response) {
 }
 
 export default {
-  'GET  /api/fake_list': getFakeList,
+  'GET  /api/card_fake_list': getFakeList,
 };
