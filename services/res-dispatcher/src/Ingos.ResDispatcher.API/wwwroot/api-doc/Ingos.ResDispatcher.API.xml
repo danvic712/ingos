@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ingos.ResDispatcher.API</name>
+    </assembly>
+    <members>
+        <member name="T:Ingos.ResDispatcher.API.Controllers.BaseController">
+            <summary>
+                Base controller
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Controllers.BaseController.#ctor">
+            <summary>
+                The base controller
+            </summary>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Controllers.v1.NamespacesController">
+            <summary>
+                Namespaces
+            </summary>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.IngosApiModule">
+            <summary>
+                Api module definition file
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.IngosApiModule.ConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
+            <summary>
+                Configure application services
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.IngosApiModule.OnApplicationInitialization(Volo.Abp.ApplicationInitializationContext)">
+            <summary>
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.IngosApiModule.GetApiDocPaths(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+                Get the api description doc path
+            </summary>
+            <param name="paths">The xml file path</param>
+            <param name="basePath">The site's base running files path</param>
+            <returns></returns>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Utils.RemoveVersionFromParameter">
+            <summary>
+                Remove api version param from swagger doc
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Utils.RemoveVersionFromParameter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+                Apply the filter rule
+            </summary>
+        </member>
+    </members>
+</doc>

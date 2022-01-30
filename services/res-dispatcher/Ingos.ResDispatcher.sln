@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B44B5D75-A7E8-4667-8FBE-EA60D689DC96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ingos.ResDispatcher.API", "src\Ingos.ResDispatcher.API\Ingos.ResDispatcher.API.csproj", "{CFEA9C74-1A83-4BB2-89AF-D8B0CE808B56}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CFEA9C74-1A83-4BB2-89AF-D8B0CE808B56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFEA9C74-1A83-4BB2-89AF-D8B0CE808B56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFEA9C74-1A83-4BB2-89AF-D8B0CE808B56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFEA9C74-1A83-4BB2-89AF-D8B0CE808B56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CFEA9C74-1A83-4BB2-89AF-D8B0CE808B56} = {B44B5D75-A7E8-4667-8FBE-EA60D689DC96}
+	EndGlobalSection
+EndGlobal
