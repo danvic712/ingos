@@ -1,13 +1,14 @@
 using Serilog;
 using Serilog.Events;
 
-
 namespace Ingos.ResDispatcher.API;
 
 public class Program
 {
     public static async Task<int> Main(string[] args)
     {
+        // application logger settings
+        //
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -44,6 +45,3 @@ public class Program
         }
     }
 }
-
-
-

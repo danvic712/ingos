@@ -15,5 +15,4 @@ namespace Ingos.ResDispatcher.API.Localization;
 [LocalizationResourceName("Ingos")]
 public class IngosResource
 {
-    
 }
