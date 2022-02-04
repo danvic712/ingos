@@ -169,7 +169,7 @@ public class IngosApiModule : AbpModule
 
     private static void ConfigureKubernetes(ServiceConfigurationContext context)
     {
-        context.Services.AddScoped<IIngosKubeContext, IngosKubeContext>();
+        context.Services.AddScoped<IIngosKubeContextFactory, IngosKubeContext>();
     }
 
     private static void ConfigureSwagger(ServiceConfigurationContext context)

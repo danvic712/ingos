@@ -42,12 +42,12 @@ public class ResourceOperationDto
     /// <summary>
     ///     Operation result
     /// </summary>
-    public bool Success { get; set; }
+    public bool Success { get; set; } = true;
 
     /// <summary>
     ///     Message
     /// </summary>
-    public string Message { get; set; }
+    public string Message { get; set; } = "";
 
     #endregion
 }

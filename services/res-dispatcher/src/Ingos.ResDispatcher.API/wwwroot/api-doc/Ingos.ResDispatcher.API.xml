@@ -9,10 +9,51 @@
                 Inherit your application services from this class.
             </summary>
         </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.BaseAppService.IngosKubeContextFactory">
+            <summary>
+                Kubernetes context instance
+            </summary>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.BaseAppService.KubeContext">
+            <summary>
+                Kubernetes client instance
+            </summary>
+        </member>
         <member name="M:Ingos.ResDispatcher.API.Applications.BaseAppService.#ctor">
             <summary>
                 Base application service
             </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.BaseAppService.GetNamespaceAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+                Get namespace info
+            </summary>
+            <param name="name">Namespace's name</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.BaseAppService.GetDeploymentAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+                Get deployment info
+            </summary>
+            <param name="namespaceName">Namespace's name</param>
+            <param name="deploymentName">Deployment's name</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Applications.Contracts.IDeploymentAppService">
+            <summary>
+                Deployment application service interface
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.Contracts.IDeploymentAppService.GetDeploymentListAsync(System.String,Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentSearchDto,System.Threading.CancellationToken)">
+            <summary>
+                Get all deployments of this namespace
+            </summary>
+            <param name="namespaceName">Namespace's name</param>
+            <param name="dto">Deployment query parameters data transfer object</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
         </member>
         <member name="T:Ingos.ResDispatcher.API.Applications.Contracts.INamespaceAppService">
             <summary>
@@ -43,6 +84,40 @@
             <param name="cancellationToken">Operation cancel token</param>
             <returns></returns>
         </member>
+        <member name="T:Ingos.ResDispatcher.API.Applications.DeploymentAppService">
+            <summary>
+                Deployment application service
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.DeploymentAppService.GetDeploymentListAsync(System.String,Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentSearchDto,System.Threading.CancellationToken)">
+            <summary>
+                Get all deployments of this namespace
+            </summary>
+            <param name="namespaceName">Namespace's name</param>
+            <param name="dto">Deployment query parameters data transfer object</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentDto">
+            <summary>
+                Deployment info data transfer object
+            </summary>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentDto.Name">
+            <summary>
+                Deployment's name
+            </summary>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentSearchDto">
+            <summary>
+                Deployment query parameters data transfer object
+            </summary>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentSearchDto.Name">
+            <summary>
+                Deployment name
+            </summary>
+        </member>
         <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceCreationDto">
             <summary>
                 Namespace creation data transfer object
@@ -61,21 +136,6 @@
         <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto.Name">
             <summary>
                 Namespace name
-            </summary>
-        </member>
-        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto.Page">
-            <summary>
-                Current page
-            </summary>
-        </member>
-        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto.Limit">
-            <summary>
-                The number displayed on each page
-            </summary>
-        </member>
-        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto.Skip">
-            <summary>
-                Prevent the field from being bound to the request data
             </summary>
         </member>
         <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.ResourceOperationDto">
@@ -105,35 +165,30 @@
                 Message
             </summary>
         </member>
+        <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.SearchDto">
+            <summary>
+                General search parameters data transfer object
+            </summary>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.SearchDto.Page">
+            <summary>
+                Current page
+            </summary>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.SearchDto.Limit">
+            <summary>
+                The number displayed on each page
+            </summary>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.SearchDto.Skip">
+            <summary>
+                Prevent the field from being bound to the request data
+            </summary>
+        </member>
         <member name="T:Ingos.ResDispatcher.API.Applications.NamespaceAppService">
             <summary>
                 Namespace application service
             </summary>
-        </member>
-        <member name="M:Ingos.ResDispatcher.API.Applications.NamespaceAppService.GetNamespaceAsync(System.String,System.Threading.CancellationToken)">
-            <summary>
-                Get namespace info
-            </summary>
-            <param name="name">Namespace's name</param>
-            <param name="cancellationToken">Operation cancel token</param>
-            <returns></returns>
-        </member>
-        <member name="F:Ingos.ResDispatcher.API.Applications.NamespaceAppService._kubeContext">
-            <summary>
-                Kube context instance
-            </summary>
-        </member>
-        <member name="F:Ingos.ResDispatcher.API.Applications.NamespaceAppService._logger">
-            <summary>
-                Logger instance
-            </summary>
-        </member>
-        <member name="M:Ingos.ResDispatcher.API.Applications.NamespaceAppService.#ctor(Ingos.ResDispatcher.API.Infrastructure.IIngosKubeContext,Microsoft.Extensions.Logging.ILogger{Ingos.ResDispatcher.API.Applications.NamespaceAppService})">
-            <summary>
-                ctor
-            </summary>
-            <param name="ingosKubeContext">Kube context instance</param>
-            <param name="logger">Logger instance</param>
         </member>
         <member name="M:Ingos.ResDispatcher.API.Applications.NamespaceAppService.GetNamespaceListAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto,System.Threading.CancellationToken)">
             <summary>
@@ -169,6 +224,31 @@
                 The base controller
             </summary>
         </member>
+        <member name="T:Ingos.ResDispatcher.API.Controllers.v1.DeploymentsController">
+            <summary>
+                Deployments
+            </summary>
+        </member>
+        <member name="F:Ingos.ResDispatcher.API.Controllers.v1.DeploymentsController._appService">
+            <summary>
+                Deployment application service instance
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Controllers.v1.DeploymentsController.#ctor(Ingos.ResDispatcher.API.Applications.Contracts.IDeploymentAppService)">
+            <summary>
+                ctor
+            </summary>
+            <param name="appService">Deployment application service instance</param>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Controllers.v1.DeploymentsController.GetDeploymentsAsync(System.String,Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentSearchDto,System.Threading.CancellationToken)">
+            <summary>
+                Get deployments of this namespace
+            </summary>
+            <param name="namespaceName">Namespace's name</param>
+            <param name="dto">Deployment query parameters data transfer object</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
         <member name="T:Ingos.ResDispatcher.API.Controllers.v1.NamespacesController">
             <summary>
                 Namespaces
@@ -187,7 +267,7 @@
         </member>
         <member name="M:Ingos.ResDispatcher.API.Controllers.v1.NamespacesController.GetNamespacesAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto,System.Threading.CancellationToken)">
             <summary>
-                Get all namespaces of this cluster
+                Get namespaces of this cluster
             </summary>
             <param name="dto">Namespace query parameters data transfer object</param>
             <param name="cancellationToken">Operation cancel token</param>
@@ -209,7 +289,7 @@
             <param name="cancellationToken">Operation cancel token</param>
             <returns></returns>
         </member>
-        <member name="T:Ingos.ResDispatcher.API.Infrastructure.IIngosKubeContext">
+        <member name="T:Ingos.ResDispatcher.API.Infrastructure.IIngosKubeContextFactory">
             <summary>
                 Kube context interface
             </summary>
@@ -293,6 +373,36 @@
         <member name="M:Ingos.ResDispatcher.API.Utils.RemoveVersionFromParameter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
             <summary>
                 Apply the filter rule
+            </summary>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Utils.ServiceType">
+            <summary>
+                Kubernetes Service Type
+            </summary>
+        </member>
+        <member name="F:Ingos.ResDispatcher.API.Utils.ServiceType.ClusterIP">
+            <summary>
+                Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from
+                within the cluster. This is the default ServiceType
+            </summary>
+        </member>
+        <member name="F:Ingos.ResDispatcher.API.Utils.ServiceType.NodePort">
+            <summary>
+                Exposes the Service on each Node's IP at a static port (the NodePort). A ClusterIP Service, to which the
+                NodePort Service routes, is automatically created.
+                You'll be able to contact the NodePort Service, from outside the cluster, by requesting NodeIP:NodePort
+            </summary>
+        </member>
+        <member name="F:Ingos.ResDispatcher.API.Utils.ServiceType.LoadBalancer">
+            <summary>
+                Exposes the Service externally using a cloud provider's load balancer.
+                NodePort and ClusterIP Services, to which the external load balancer routes, are automatically created
+            </summary>
+        </member>
+        <member name="F:Ingos.ResDispatcher.API.Utils.ServiceType.ExternalName">
+            <summary>
+                Maps the Service to the contents of the externalName field (e.g. foo.bar.example.com).
+                By returning a CNAME record with its value. No proxying of any kind is set up
             </summary>
         </member>
     </members>

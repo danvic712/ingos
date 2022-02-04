@@ -15,15 +15,18 @@ namespace Ingos.ResDispatcher.API.Infrastructure;
 /// <summary>
 ///     Kube context interface
 /// </summary>
-public interface IIngosKubeContext
+public interface IIngosKubeContextFactory
 {
+    /// <summary>
+    ///     Kube context
+    /// </summary>
     public Kubernetes KubeClient { get; }
 }
 
 /// <summary>
 ///     Kube context
 /// </summary>
-public class IngosKubeContext : IIngosKubeContext
+public class IngosKubeContext : IIngosKubeContextFactory
 {
     /// <summary>
     ///     Host environment instance

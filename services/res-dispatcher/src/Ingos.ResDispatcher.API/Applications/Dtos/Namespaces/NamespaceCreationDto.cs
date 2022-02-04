@@ -8,6 +8,8 @@
 // Description: Namespace creation data transfer object
 // -----------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Ingos.ResDispatcher.API.Applications.Dtos.Namespaces;
 
 /// <summary>
@@ -20,6 +22,7 @@ public class NamespaceCreationDto
     /// <summary>
     ///     Namespace's name
     /// </summary>
+    [Required]
     public string Name { get; set; }
 
     #endregion

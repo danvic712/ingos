@@ -45,7 +45,7 @@ public class NamespacesController : BaseController
     #region APIs
 
     /// <summary>
-    ///     Get all namespaces of this cluster
+    ///     Get namespaces of this cluster
     /// </summary>
     /// <param name="dto">Namespace query parameters data transfer object</param>
     /// <param name="cancellationToken">Operation cancel token</param>
