@@ -4,12 +4,54 @@
         <name>Ingos.ResDispatcher.API</name>
     </assembly>
     <members>
-        <member name="M:Ingos.ResDispatcher.API.Applications.Contracts.INamespaceAppService.GetNamespaceListAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto)">
+        <member name="T:Ingos.ResDispatcher.API.Applications.BaseAppService">
             <summary>
-
+                Inherit your application services from this class.
             </summary>
-            <param name="dto"></param>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.BaseAppService.#ctor">
+            <summary>
+                Base application service
+            </summary>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Applications.Contracts.INamespaceAppService">
+            <summary>
+                Namespace application service interface
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.Contracts.INamespaceAppService.GetNamespaceListAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto,System.Threading.CancellationToken)">
+            <summary>
+                Get all namespaces of this k8s cluster
+            </summary>
+            <param name="dto">Namespace query parameters data transfer object</param>
+            <param name="cancellationToken">Operation cancel token</param>
             <returns></returns>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.Contracts.INamespaceAppService.CreateNamespaceAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceCreationDto,System.Threading.CancellationToken)">
+            <summary>
+                Create a namespace
+            </summary>
+            <param name="dto">Namespace creation data transfer object</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.Contracts.INamespaceAppService.DeleteNamespaceAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+                Delete a namespace
+            </summary>
+            <param name="name">Namespace's name</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceCreationDto">
+            <summary>
+                Namespace creation data transfer object
+            </summary>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceCreationDto.Name">
+            <summary>
+                Namespace's name
+            </summary>
         </member>
         <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto">
             <summary>
@@ -31,11 +73,90 @@
                 The number displayed on each page
             </summary>
         </member>
-        <member name="M:Ingos.ResDispatcher.API.Applications.NamespaceAppService.GetNamespaceListAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto)">
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto.Skip">
             <summary>
-
+                Prevent the field from being bound to the request data
             </summary>
-            <param name="dto"></param>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.ResourceOperationDto">
+            <summary>
+                Resource operation data transfer object
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.Dtos.ResourceOperationDto.#ctor">
+            <summary>
+                ctor
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.Dtos.ResourceOperationDto.#ctor(System.Boolean,System.String)">
+            <summary>
+                ctor
+            </summary>
+            <param name="success">Operation result</param>
+            <param name="message">Message</param>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.ResourceOperationDto.Success">
+            <summary>
+                Operation result
+            </summary>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.ResourceOperationDto.Message">
+            <summary>
+                Message
+            </summary>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Applications.NamespaceAppService">
+            <summary>
+                Namespace application service
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.NamespaceAppService.GetNamespaceAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+                Get namespace info
+            </summary>
+            <param name="name">Namespace's name</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
+        <member name="F:Ingos.ResDispatcher.API.Applications.NamespaceAppService._kubeContext">
+            <summary>
+                Kube context instance
+            </summary>
+        </member>
+        <member name="F:Ingos.ResDispatcher.API.Applications.NamespaceAppService._logger">
+            <summary>
+                Logger instance
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.NamespaceAppService.#ctor(Ingos.ResDispatcher.API.Infrastructure.IIngosKubeContext,Microsoft.Extensions.Logging.ILogger{Ingos.ResDispatcher.API.Applications.NamespaceAppService})">
+            <summary>
+                ctor
+            </summary>
+            <param name="ingosKubeContext">Kube context instance</param>
+            <param name="logger">Logger instance</param>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.NamespaceAppService.GetNamespaceListAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto,System.Threading.CancellationToken)">
+            <summary>
+                Get all namespaces of this k8s cluster
+            </summary>
+            <param name="dto">Namespace query parameters data transfer object</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.NamespaceAppService.CreateNamespaceAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceCreationDto,System.Threading.CancellationToken)">
+            <summary>
+                Create a namespace
+            </summary>
+            <param name="dto">Namespace creation data transfer object</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.NamespaceAppService.DeleteNamespaceAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+                Delete a namespace
+            </summary>
+            <param name="name">Namespace's name</param>
+            <param name="cancellationToken">Operation cancel token</param>
             <returns></returns>
         </member>
         <member name="T:Ingos.ResDispatcher.API.Controllers.BaseController">
@@ -53,11 +174,71 @@
                 Namespaces
             </summary>
         </member>
-        <member name="M:Ingos.ResDispatcher.API.Controllers.v1.NamespacesController.GetNamespacesAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto)">
+        <member name="F:Ingos.ResDispatcher.API.Controllers.v1.NamespacesController._appService">
             <summary>
-                Get all namespace in this cluster
+                Namespace application service instance
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Controllers.v1.NamespacesController.#ctor(Ingos.ResDispatcher.API.Applications.Contracts.INamespaceAppService)">
+            <summary>
+                ctor
+            </summary>
+            <param name="appService">Namespace application service instance</param>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Controllers.v1.NamespacesController.GetNamespacesAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto,System.Threading.CancellationToken)">
+            <summary>
+                Get all namespaces of this cluster
             </summary>
             <param name="dto">Namespace query parameters data transfer object</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Controllers.v1.NamespacesController.CreateNamespaceAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceCreationDto,System.Threading.CancellationToken)">
+            <summary>
+                Create a new namespace
+            </summary>
+            <param name="dto">Namespace creation data transfer object</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Controllers.v1.NamespacesController.DeleteNamespaceAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+                Delete a exists namespace
+            </summary>
+            <param name="name">Namespace's name</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Infrastructure.IIngosKubeContext">
+            <summary>
+                Kube context interface
+            </summary>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Infrastructure.IngosKubeContext">
+            <summary>
+                Kube context
+            </summary>
+        </member>
+        <member name="F:Ingos.ResDispatcher.API.Infrastructure.IngosKubeContext._host">
+            <summary>
+                Host environment instance
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Infrastructure.IngosKubeContext.#ctor(Microsoft.Extensions.Hosting.IHostEnvironment)">
+            <summary>
+                ctor
+            </summary>
+            <param name="host">Host environment instance</param>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Infrastructure.IngosKubeContext.KubeClient">
+            <summary>
+                Kube context
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Infrastructure.IngosKubeContext.GetKubeClient">
+            <summary>
+                Get kube client
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Ingos.ResDispatcher.API.IngosApiModule">
@@ -81,6 +262,27 @@
             </summary>
             <param name="paths">The xml file path</param>
             <param name="basePath">The site's base running files path</param>
+            <returns></returns>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.IngosAutoMapperProfile">
+            <summary>
+                AutoMapper object mapper profile
+            </summary>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Localization.IngosResource">
+            <summary>
+                Localization resource
+            </summary>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Program">
+            <summary>
+                Program
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Program.Main(System.String[])">
+            <summary>
+                Application entry point
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Ingos.ResDispatcher.API.Utils.RemoveVersionFromParameter">

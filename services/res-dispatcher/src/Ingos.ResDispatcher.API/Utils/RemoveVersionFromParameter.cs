@@ -5,7 +5,7 @@
 // Author: Danvic.Wang
 // Created DateTime: 2022-01-30 10:38
 // Modified by:
-// Description:
+// Description: Remove api version param from swagger doc
 // -----------------------------------------------------------------------
 
 using Microsoft.OpenApi.Models;

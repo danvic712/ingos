@@ -8,6 +8,8 @@
 // Description: Namespace query parameters data transfer object
 // -----------------------------------------------------------------------
 
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 namespace Ingos.ResDispatcher.API.Applications.Dtos.Namespaces;
 
 /// <summary>
@@ -20,7 +22,7 @@ public class NamespaceSearchDto
     /// <summary>
     ///     Namespace name
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = "";
 
     /// <summary>
     ///     Current page
@@ -31,6 +33,12 @@ public class NamespaceSearchDto
     ///     The number displayed on each page
     /// </summary>
     public int Limit { get; set; } = 15;
+
+    /// <summary>
+    ///     Prevent the field from being bound to the request data
+    /// </summary>
+    [BindNever]
+    public virtual int Skip => Page <= 0 ? 0 : (Page - 1) * Limit;
 
     #endregion
 }

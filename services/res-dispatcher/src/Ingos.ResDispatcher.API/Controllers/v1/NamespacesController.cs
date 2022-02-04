@@ -5,10 +5,11 @@
 // Author: Danvic.Wang
 // Created DateTime: 2022-01-29 23:03
 // Modified by:
-// Description:
+// Description: Namespaces
 // -----------------------------------------------------------------------
 
 using Ingos.ResDispatcher.API.Applications.Contracts;
+using Ingos.ResDispatcher.API.Applications.Dtos;
 using Ingos.ResDispatcher.API.Applications.Dtos.Namespaces;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
@@ -25,8 +26,15 @@ public class NamespacesController : BaseController
 {
     #region Initializes
 
+    /// <summary>
+    ///     Namespace application service instance
+    /// </summary>
     private readonly INamespaceAppService _appService;
 
+    /// <summary>
+    ///     ctor
+    /// </summary>
+    /// <param name="appService">Namespace application service instance</param>
     public NamespacesController(INamespaceAppService appService)
     {
         _appService = appService;
@@ -34,14 +42,13 @@ public class NamespacesController : BaseController
 
     #endregion
 
-
     #region APIs
 
     /// <summary>
-    ///     Get all namespaces in this cluster
+    ///     Get all namespaces of this cluster
     /// </summary>
     /// <param name="dto">Namespace query parameters data transfer object</param>
-    /// <param name="cancellationToken"></param>
+    /// <param name="cancellationToken">Operation cancel token</param>
     /// <returns></returns>
     [HttpGet(Name = nameof(GetNamespacesAsync))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedResultDto<IList<string>>))]
@@ -53,16 +60,33 @@ public class NamespacesController : BaseController
     }
 
     /// <summary>
-    ///     Save a new namespace
+    ///     Create a new namespace
     /// </summary>
+    /// <param name="dto">Namespace creation data transfer object</param>
+    /// <param name="cancellationToken">Operation cancel token</param>
     /// <returns></returns>
-    [HttpPost(Name = nameof(CreateApplicationAsync))]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> CreateApplicationAsync([FromBody] string name,
+    [HttpPost(Name = nameof(CreateNamespaceAsync))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResourceOperationDto))]
+    public async Task<IActionResult> CreateNamespaceAsync([FromBody] NamespaceCreationDto dto,
         CancellationToken cancellationToken)
     {
-        var result = await _appService.CreateNamespaceAsync(name, cancellationToken);
-        return Ok(result.Item2);
+        var result = await _appService.CreateNamespaceAsync(dto, cancellationToken);
+        return Ok(result);
+    }
+
+    /// <summary>
+    ///     Delete a exists namespace
+    /// </summary>
+    /// <param name="name">Namespace's name</param>
+    /// <param name="cancellationToken">Operation cancel token</param>
+    /// <returns></returns>
+    [HttpDelete("{name}", Name = nameof(DeleteNamespaceAsync))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResourceOperationDto))]
+    public async Task<IActionResult> DeleteNamespaceAsync(string name,
+        CancellationToken cancellationToken)
+    {
+        var result = await _appService.DeleteNamespaceAsync(name, cancellationToken);
+        return Ok(result);
     }
 
     #endregion

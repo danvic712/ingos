@@ -5,7 +5,7 @@
 // Author: Danvic.Wang
 // Created DateTime: 2022-01-29 22:58
 // Modified by:
-// Description:
+// Description: Api module definition file
 // -----------------------------------------------------------------------
 
 using Ingos.ResDispatcher.API.Infrastructure;
@@ -22,8 +22,8 @@ using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.AntiForgery;
 using Volo.Abp.AspNetCore.Serilog;
-using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
+using Volo.Abp.AutoMapper;
 using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Localization;
@@ -56,11 +56,13 @@ public class IngosApiModule : AbpModule
         var configuration = context.Services.GetConfiguration();
         var hostingEnvironment = context.Services.GetHostingEnvironment();
 
+        Configure<AbpAutoMapperOptions>(options => { options.AddMaps<IngosApiModule>(); });
+
+        context.Services.AddHttpContextAccessor();
         context.Services.AddHttpClient();
 
         ConfigureHealthChecks(context);
         ConfigureAntiForgeryTokens();
-        ConfigureAuditing(configuration);
         ConfigureConventionalControllers(context);
         ConfigureLocalization();
         ConfigureCache(context, configuration, hostingEnvironment);
@@ -128,17 +130,7 @@ public class IngosApiModule : AbpModule
         {
             options.TokenCookie.Expiration = TimeSpan.FromDays(365);
             options.AutoValidateIgnoredHttpMethods.Add("POST");
-        });
-    }
-
-    private void ConfigureAuditing(IConfiguration configuration)
-    {
-        var applicationName = configuration["App:ApplicationName"];
-
-        Configure<AbpAuditingOptions>(options =>
-        {
-            options.ApplicationName = applicationName; // Set the application name
-            options.EntityHistorySelectors.AddAllEntities(); // Default saving all changes of entities
+            options.AutoValidateIgnoredHttpMethods.Add("DELETE");
         });
     }
 
@@ -177,7 +169,7 @@ public class IngosApiModule : AbpModule
 
     private static void ConfigureKubernetes(ServiceConfigurationContext context)
     {
-        context.Services.AddScoped<IIngosKubeContent, IngosKubeContent>();
+        context.Services.AddScoped<IIngosKubeContext, IngosKubeContext>();
     }
 
     private static void ConfigureSwagger(ServiceConfigurationContext context)

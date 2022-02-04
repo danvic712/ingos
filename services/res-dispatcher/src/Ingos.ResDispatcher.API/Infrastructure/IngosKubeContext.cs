@@ -1,34 +1,54 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file= "IIngosKubeContent.cs">
+// <copyright file= "IngosKubeContext.cs">
 //     Copyright (c) Danvic.Wang All rights reserved.
 // </copyright>
 // Author: Danvic.Wang
 // Created DateTime: 2022-02-02 21:46
 // Modified by:
-// Description:
+// Description: Kube context
 // -----------------------------------------------------------------------
 
 using k8s;
 
 namespace Ingos.ResDispatcher.API.Infrastructure;
 
-public interface IIngosKubeContent
+/// <summary>
+///     Kube context interface
+/// </summary>
+public interface IIngosKubeContext
 {
     public Kubernetes KubeClient { get; }
 }
 
-public class IngosKubeContent : IIngosKubeContent
+/// <summary>
+///     Kube context
+/// </summary>
+public class IngosKubeContext : IIngosKubeContext
 {
+    /// <summary>
+    ///     Host environment instance
+    /// </summary>
     private readonly IHostEnvironment _host;
 
-    public IngosKubeContent(IHostEnvironment host)
+    /// <summary>
+    ///     ctor
+    /// </summary>
+    /// <param name="host">Host environment instance</param>
+    public IngosKubeContext(IHostEnvironment host)
     {
         _host = host;
         KubeClient ??= GetKubeClient();
     }
 
+    /// <summary>
+    ///     Kube context
+    /// </summary>
     public Kubernetes KubeClient { get; }
 
+    /// <summary>
+    ///     Get kube client
+    /// </summary>
+    /// <returns></returns>
     private Kubernetes GetKubeClient()
     {
         var filePath = Path.Combine(AppContext.BaseDirectory, @"kube.config");

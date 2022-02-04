@@ -3,8 +3,15 @@ using Serilog.Events;
 
 namespace Ingos.ResDispatcher.API;
 
+/// <summary>
+///     Program
+/// </summary>
 public class Program
 {
+    /// <summary>
+    ///     Application entry point
+    /// </summary>
+    /// <returns></returns>
     public static async Task<int> Main(string[] args)
     {
         // application logger settings

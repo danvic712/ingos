@@ -1,21 +1,20 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file= "IngosResource.cs">
+// <copyright file= "AutoMapperProfile.cs">
 //     Copyright (c) Danvic.Wang All rights reserved.
 // </copyright>
 // Author: Danvic.Wang
-// Created DateTime: 2022-01-30 10:41
+// Created DateTime: 2022-02-04 15:23
 // Modified by:
-// Description: Localization resource
+// Description: AutoMapper object mapper profile
 // -----------------------------------------------------------------------
 
-using Volo.Abp.Localization;
+using AutoMapper;
 
-namespace Ingos.ResDispatcher.API.Localization;
+namespace Ingos.ResDispatcher.API;
 
 /// <summary>
-///     Localization resource
+///     AutoMapper object mapper profile
 /// </summary>
-[LocalizationResourceName("Ingos")]
-public class IngosResource
+public class IngosAutoMapperProfile : Profile
 {
 }

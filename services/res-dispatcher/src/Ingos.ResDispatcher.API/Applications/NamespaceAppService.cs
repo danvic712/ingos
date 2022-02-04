@@ -5,27 +5,47 @@
 // Author: Danvic.Wang
 // Created DateTime: 2022-02-02 21:45
 // Modified by:
-// Description:
+// Description: Namespace application service
 // -----------------------------------------------------------------------
 
+using System.Net;
 using Ingos.ResDispatcher.API.Applications.Contracts;
+using Ingos.ResDispatcher.API.Applications.Dtos;
 using Ingos.ResDispatcher.API.Applications.Dtos.Namespaces;
 using Ingos.ResDispatcher.API.Infrastructure;
 using k8s;
 using k8s.Models;
+using Microsoft.Rest;
 using Volo.Abp.Application.Dtos;
 
 namespace Ingos.ResDispatcher.API.Applications;
 
-public class NamespaceAppService : INamespaceAppService
+/// <summary>
+///     Namespace application service
+/// </summary>
+public class NamespaceAppService : BaseAppService, INamespaceAppService
 {
     #region Initializes
 
-    private readonly IIngosKubeContent _ingosKubeContent;
+    /// <summary>
+    ///     Kube context instance
+    /// </summary>
+    private readonly IIngosKubeContext _kubeContext;
 
-    public NamespaceAppService(IIngosKubeContent ingosKubeContent)
+    /// <summary>
+    ///     Logger instance
+    /// </summary>
+    private readonly ILogger<NamespaceAppService> _logger;
+
+    /// <summary>
+    ///     ctor
+    /// </summary>
+    /// <param name="ingosKubeContext">Kube context instance</param>
+    /// <param name="logger">Logger instance</param>
+    public NamespaceAppService(IIngosKubeContext ingosKubeContext, ILogger<NamespaceAppService> logger)
     {
-        _ingosKubeContent = ingosKubeContent;
+        _kubeContext = ingosKubeContext;
+        _logger = logger;
     }
 
     #endregion
@@ -33,17 +53,18 @@ public class NamespaceAppService : INamespaceAppService
     #region Services
 
     /// <summary>
+    ///     Get all namespaces of this k8s cluster
     /// </summary>
-    /// <param name="dto"></param>
-    /// <param name="cancellationToken"></param>
+    /// <param name="dto">Namespace query parameters data transfer object</param>
+    /// <param name="cancellationToken">Operation cancel token</param>
     /// <returns></returns>
     public async Task<PagedResultDto<string>> GetNamespaceListAsync(NamespaceSearchDto dto,
         CancellationToken cancellationToken)
     {
-        var queryable = (await _ingosKubeContent.KubeClient.ListNamespaceAsync(cancellationToken: cancellationToken))
+        var queryable = (await _kubeContext.KubeClient.ListNamespaceAsync(cancellationToken: cancellationToken))
             .Items.WhereIf(!string.IsNullOrEmpty(dto.Name), n => n.Metadata.Name.Contains(dto.Name));
 
-        var items = queryable.Skip(dto.Page).Take(dto.Limit).ToList();
+        var items = queryable.OrderBy(i => i.Metadata.Name).Skip(dto.Skip).Take(dto.Limit).ToList();
         return new PagedResultDto<string>
         {
             TotalCount = queryable.Count(),
@@ -52,32 +73,108 @@ public class NamespaceAppService : INamespaceAppService
     }
 
     /// <summary>
+    ///     Create a namespace
     /// </summary>
-    /// <param name="name"></param>
-    /// <param name="cancellationToken"></param>
+    /// <param name="dto">Namespace creation data transfer object</param>
+    /// <param name="cancellationToken">Operation cancel token</param>
     /// <returns></returns>
-    public async Task<Tuple<bool, string>> CreateNamespaceAsync(string name,
+    public async Task<ResourceOperationDto> CreateNamespaceAsync(NamespaceCreationDto dto,
         CancellationToken cancellationToken)
     {
+        // check whether namespace already exists
+        //
+        var v1Namespace = await GetNamespaceAsync(dto.Name, cancellationToken);
+        if (v1Namespace != null)
+            return new ResourceOperationDto(false, $"Namespace {dto.Name} already exists.");
+
         var body = new V1Namespace
         {
             Metadata = new V1ObjectMeta
             {
-                Name = name
+                Name = dto.Name
             }
         };
+
         var result =
-            await _ingosKubeContent.KubeClient.CreateNamespaceWithHttpMessagesAsync(body,
+            await _kubeContext.KubeClient.CreateNamespaceWithHttpMessagesAsync(body,
                 cancellationToken: cancellationToken);
 
         if (result == null)
-            return new Tuple<bool, string>(false, "Exception Occurred");
+            return new ResourceOperationDto(false, "Exception occurred when creating namespace.");
 
         var flag = result.Response.IsSuccessStatusCode;
         var msg = flag
-            ? $"{result.Body.Metadata.Name} was successfully created"
+            ? $"Namespace {result.Body.Metadata.Name} was successfully created"
             : await result.Response.Content.ReadAsStringAsync(cancellationToken);
-        return new Tuple<bool, string>(flag, msg);
+        return new ResourceOperationDto(flag, msg);
+    }
+
+    /// <summary>
+    ///     Delete a namespace
+    /// </summary>
+    /// <param name="name">Namespace's name</param>
+    /// <param name="cancellationToken">Operation cancel token</param>
+    /// <returns></returns>
+    public async Task<ResourceOperationDto> DeleteNamespaceAsync(string name, CancellationToken cancellationToken)
+    {
+        // check whether namespace already exists
+        //
+        var v1Namespace = await GetNamespaceAsync(name, cancellationToken);
+        if (v1Namespace == null)
+            return new ResourceOperationDto(false, $"Namespace {name} does not exist.");
+
+        var result =
+            await _kubeContext.KubeClient.DeleteNamespaceWithHttpMessagesAsync(name,
+                cancellationToken: cancellationToken);
+        if (result == null)
+            return new ResourceOperationDto(false, "Exception occurred when deleting namespace.");
+
+        var flag = result.Response.IsSuccessStatusCode;
+        var msg = flag
+            ? $"Namespace {name} was successfully deleted"
+            : await result.Response.Content.ReadAsStringAsync(cancellationToken);
+        return new ResourceOperationDto(flag, msg);
+    }
+
+    #endregion
+    
+    #region Methods
+
+    /// <summary>
+    ///     Get namespace info
+    /// </summary>
+    /// <param name="name">Namespace's name</param>
+    /// <param name="cancellationToken">Operation cancel token</param>
+    /// <returns></returns>
+    private async Task<V1Namespace> GetNamespaceAsync(string name, CancellationToken cancellationToken)
+    {
+        V1Namespace result = null;
+
+        try
+        {
+            var response =
+                await _kubeContext.KubeClient.ReadNamespaceWithHttpMessagesAsync(name,
+                    cancellationToken: cancellationToken);
+            result = response?.Body;
+        }
+        catch (AggregateException ex)
+        {
+            if (ex.InnerExceptions.OfType<HttpOperationException>().Select(innerEx => innerEx.Response.StatusCode)
+                .Any(code => code == HttpStatusCode.NotFound))
+                _logger.LogError("Namespace {name} execute GetNamespaceAsync failed, error message:{message}", name,
+                    ex.Message);
+        }
+        catch (HttpOperationException ex)
+        {
+            var statusCode = ex.Response.StatusCode;
+            var message = statusCode == HttpStatusCode.NotFound
+                ? $"Namespace {name} does not exist."
+                : $"Namespace {name} execute GetNamespaceAsync failed, http status code:{statusCode}, error message:{ex.Message}";
+
+            _logger.LogWarning(message);
+        }
+
+        return result;
     }
 
     #endregion
