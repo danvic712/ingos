@@ -32,6 +32,12 @@ public abstract class BaseAppService : ApplicationService
         LazyServiceProvider.LazyGetRequiredService<IIngosKubeContextFactory>();
 
     /// <summary>
+    ///     Kubernetes cluster configurator
+    /// </summary>
+    protected KubernetesClientConfiguration KubernetesClientConfiguration =>
+        IngosKubeContextFactory.KubeConfiguration;
+
+    /// <summary>
     ///     Kubernetes client instance
     /// </summary>
     protected IKubernetes KubeContext => IngosKubeContextFactory.KubeClient;
@@ -109,7 +115,7 @@ public abstract class BaseAppService : ApplicationService
             if (ex.InnerExceptions.OfType<HttpOperationException>().Select(innerEx => innerEx.Response.StatusCode)
                 .Any(code => code == HttpStatusCode.NotFound))
                 Logger.LogError(
-                    "Namespace {namespace} Deployment {deployment} execute GetNamespaceAsync failed, error message:{message}",
+                    "Namespace {namespace} Deployment {deployment} execute GetDeploymentAsync failed, error message:{message}",
                     namespaceName,
                     deploymentName, ex.Message);
         }

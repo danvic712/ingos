@@ -18,9 +18,14 @@ namespace Ingos.ResDispatcher.API.Infrastructure;
 public interface IIngosKubeContextFactory
 {
     /// <summary>
+    ///     Kube configuration
+    /// </summary>
+    KubernetesClientConfiguration KubeConfiguration { get; }
+
+    /// <summary>
     ///     Kube context
     /// </summary>
-    public Kubernetes KubeClient { get; }
+    Kubernetes KubeClient { get; }
 }
 
 /// <summary>
@@ -40,8 +45,14 @@ public class IngosKubeContext : IIngosKubeContextFactory
     public IngosKubeContext(IHostEnvironment host)
     {
         _host = host;
-        KubeClient ??= GetKubeClient();
+        KubeConfiguration ??= GetKubeConfiguration();
+        KubeClient ??= new Kubernetes(KubeConfiguration);
     }
+
+    /// <summary>
+    ///     Kube configuration
+    /// </summary>
+    public KubernetesClientConfiguration KubeConfiguration { get; }
 
     /// <summary>
     ///     Kube context
@@ -49,17 +60,15 @@ public class IngosKubeContext : IIngosKubeContextFactory
     public Kubernetes KubeClient { get; }
 
     /// <summary>
-    ///     Get kube client
+    ///     Get kubernetes cluster configuration
     /// </summary>
     /// <returns></returns>
-    private Kubernetes GetKubeClient()
+    private KubernetesClientConfiguration GetKubeConfiguration()
     {
         var filePath = Path.Combine(AppContext.BaseDirectory, @"kube.config");
 
-        var clientConfiguration = _host.IsDevelopment()
+        return _host.IsDevelopment()
             ? KubernetesClientConfiguration.BuildConfigFromConfigFile(File.Exists(filePath) ? filePath : null)
             : KubernetesClientConfiguration.InClusterConfig();
-
-        return new Kubernetes(clientConfiguration);
     }
 }

@@ -5,7 +5,7 @@
 // Author: Danvic.Wang
 // Created DateTime: 2022-02-04 21:56
 // Modified by:
-// Description:
+// Description: Deployments
 // -----------------------------------------------------------------------
 
 using Ingos.ResDispatcher.API.Applications.Contracts;
@@ -23,27 +23,6 @@ namespace Ingos.ResDispatcher.API.Controllers.v1;
 [ApiController]
 public class DeploymentsController : BaseController
 {
-    #region APIs
-
-    /// <summary>
-    ///     Get deployments of this namespace
-    /// </summary>
-    /// <param name="namespaceName">Namespace's name</param>
-    /// <param name="dto">Deployment query parameters data transfer object</param>
-    /// <param name="cancellationToken">Operation cancel token</param>
-    /// <returns></returns>
-    [HttpGet(Name = nameof(GetDeploymentsAsync))]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedResultDto<DeploymentDto>))]
-    public async Task<IActionResult> GetDeploymentsAsync(string namespaceName, [FromQuery] DeploymentSearchDto dto,
-        CancellationToken cancellationToken)
-    {
-        // Todo: Modify the return value of GetDeploymentListAsync method
-        var result = await _appService.GetDeploymentListAsync(namespaceName, dto, cancellationToken);
-        return Ok(result);
-    }
-
-    #endregion
-
     #region Initializes
 
     /// <summary>
@@ -58,6 +37,26 @@ public class DeploymentsController : BaseController
     public DeploymentsController(IDeploymentAppService appService)
     {
         _appService = appService;
+    }
+
+    #endregion
+
+    #region APIs
+
+    /// <summary>
+    ///     Get deployments of this namespace
+    /// </summary>
+    /// <param name="namespaceName">Namespace's name</param>
+    /// <param name="dto">Deployment query parameters data transfer object</param>
+    /// <param name="cancellationToken">Operation cancel token</param>
+    /// <returns></returns>
+    [HttpGet(Name = nameof(GetDeploymentsAsync))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedResultDto<DeploymentDto>))]
+    public async Task<IActionResult> GetDeploymentsAsync(string namespaceName, [FromQuery] DeploymentSearchDto dto,
+        CancellationToken cancellationToken)
+    {
+        var result = await _appService.GetDeploymentListAsync(namespaceName, dto, cancellationToken);
+        return Ok(result);
     }
 
     #endregion

@@ -14,6 +14,11 @@
                 Kubernetes context instance
             </summary>
         </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.BaseAppService.KubernetesClientConfiguration">
+            <summary>
+                Kubernetes cluster configurator
+            </summary>
+        </member>
         <member name="P:Ingos.ResDispatcher.API.Applications.BaseAppService.KubeContext">
             <summary>
                 Kubernetes client instance
@@ -38,6 +43,30 @@
             </summary>
             <param name="namespaceName">Namespace's name</param>
             <param name="deploymentName">Deployment's name</param>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Applications.ClusterAppService">
+            <summary>
+                Cluster application service
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.ClusterAppService.GetClusterAsync(System.Threading.CancellationToken)">
+            <summary>
+                Get current cluster info
+            </summary>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Applications.Contracts.IClusterAppService">
+            <summary>
+                Cluster application service interface
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Applications.Contracts.IClusterAppService.GetClusterAsync(System.Threading.CancellationToken)">
+            <summary>
+                Get current cluster info
+            </summary>
             <param name="cancellationToken">Operation cancel token</param>
             <returns></returns>
         </member>
@@ -98,6 +127,21 @@
             <param name="cancellationToken">Operation cancel token</param>
             <returns></returns>
         </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.ClusterDto.Name">
+            <summary>
+                Name
+            </summary>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.ContainerDto">
+            <summary>
+                Container data transfer object
+            </summary>
+        </member>
+        <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentCreationDto">
+            <summary>
+                Deployment creation data transfer object
+            </summary>
+        </member>
         <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentDto">
             <summary>
                 Deployment info data transfer object
@@ -105,7 +149,27 @@
         </member>
         <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentDto.Name">
             <summary>
-                Deployment's name
+                Name
+            </summary>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentDto.Labels">
+            <summary>
+                Label
+            </summary>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentDto.CreationTimestamp">
+            <summary>
+                Create time
+            </summary>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentDto.Replicas">
+            <summary>
+                Replicas count
+            </summary>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentDto.Containers">
+            <summary>
+                Docker image name
             </summary>
         </member>
         <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.Deployments.DeploymentSearchDto">
@@ -224,6 +288,18 @@
                 The base controller
             </summary>
         </member>
+        <member name="T:Ingos.ResDispatcher.API.Controllers.v1.ClustersController">
+            <summary>
+                Clusters
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.Controllers.v1.ClustersController.GetClusterAsync(System.Threading.CancellationToken)">
+            <summary>
+                Get K8s cluster info
+            </summary>
+            <param name="cancellationToken">Operation cancel token</param>
+            <returns></returns>
+        </member>
         <member name="T:Ingos.ResDispatcher.API.Controllers.v1.DeploymentsController">
             <summary>
                 Deployments
@@ -294,6 +370,16 @@
                 Kube context interface
             </summary>
         </member>
+        <member name="P:Ingos.ResDispatcher.API.Infrastructure.IIngosKubeContextFactory.KubeConfiguration">
+            <summary>
+                Kube configuration
+            </summary>
+        </member>
+        <member name="P:Ingos.ResDispatcher.API.Infrastructure.IIngosKubeContextFactory.KubeClient">
+            <summary>
+                Kube context
+            </summary>
+        </member>
         <member name="T:Ingos.ResDispatcher.API.Infrastructure.IngosKubeContext">
             <summary>
                 Kube context
@@ -310,14 +396,19 @@
             </summary>
             <param name="host">Host environment instance</param>
         </member>
+        <member name="P:Ingos.ResDispatcher.API.Infrastructure.IngosKubeContext.KubeConfiguration">
+            <summary>
+                Kube configuration
+            </summary>
+        </member>
         <member name="P:Ingos.ResDispatcher.API.Infrastructure.IngosKubeContext.KubeClient">
             <summary>
                 Kube context
             </summary>
         </member>
-        <member name="M:Ingos.ResDispatcher.API.Infrastructure.IngosKubeContext.GetKubeClient">
+        <member name="M:Ingos.ResDispatcher.API.Infrastructure.IngosKubeContext.GetKubeConfiguration">
             <summary>
-                Get kube client
+                Get kubernetes cluster configuration
             </summary>
             <returns></returns>
         </member>
@@ -347,6 +438,11 @@
         <member name="T:Ingos.ResDispatcher.API.IngosAutoMapperProfile">
             <summary>
                 AutoMapper object mapper profile
+            </summary>
+        </member>
+        <member name="M:Ingos.ResDispatcher.API.IngosAutoMapperProfile.#ctor">
+            <summary>
+                ctor
             </summary>
         </member>
         <member name="T:Ingos.ResDispatcher.API.Localization.IngosResource">
@@ -383,13 +479,15 @@
         <member name="F:Ingos.ResDispatcher.API.Utils.ServiceType.ClusterIP">
             <summary>
                 Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from
-                within the cluster. This is the default ServiceType
+                within the
+                cluster. This is the default ServiceType
             </summary>
         </member>
         <member name="F:Ingos.ResDispatcher.API.Utils.ServiceType.NodePort">
             <summary>
                 Exposes the Service on each Node's IP at a static port (the NodePort). A ClusterIP Service, to which the
-                NodePort Service routes, is automatically created.
+                NodePort
+                Service routes, is automatically created.
                 You'll be able to contact the NodePort Service, from outside the cluster, by requesting NodeIP:NodePort
             </summary>
         </member>

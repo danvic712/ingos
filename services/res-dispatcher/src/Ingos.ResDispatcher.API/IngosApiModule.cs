@@ -38,6 +38,7 @@ namespace Ingos.ResDispatcher.API;
 ///     Api module definition file
 /// </summary>
 [DependsOn(typeof(AbpAutofacModule),
+    typeof(AbpAutoMapperModule),
     typeof(AbpCachingStackExchangeRedisModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule)

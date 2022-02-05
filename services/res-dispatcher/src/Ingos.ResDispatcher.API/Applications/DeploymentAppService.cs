@@ -10,6 +10,7 @@
 
 using Ingos.ResDispatcher.API.Applications.Contracts;
 using Ingos.ResDispatcher.API.Applications.Dtos.Deployments;
+using k8s.Models;
 using Volo.Abp.Application.Dtos;
 
 namespace Ingos.ResDispatcher.API.Applications;
@@ -28,8 +29,8 @@ public class DeploymentAppService : BaseAppService, IDeploymentAppService
     /// <param name="dto">Deployment query parameters data transfer object</param>
     /// <param name="cancellationToken">Operation cancel token</param>
     /// <returns></returns>
-    public async Task<PagedResultDto<string>> GetDeploymentListAsync(string namespaceName, DeploymentSearchDto dto,
-        CancellationToken cancellationToken)
+    public async Task<PagedResultDto<DeploymentDto>> GetDeploymentListAsync(string namespaceName,
+        DeploymentSearchDto dto, CancellationToken cancellationToken)
     {
         var queryable =
             (await KubeContext.ListNamespacedDeploymentWithHttpMessagesAsync(namespaceName,
@@ -40,13 +41,13 @@ public class DeploymentAppService : BaseAppService, IDeploymentAppService
 
         var total = queryable.Count();
         if (total == 0)
-            return new PagedResultDto<string>(total, Array.Empty<string>());
+            return new PagedResultDto<DeploymentDto>(total, Array.Empty<DeploymentDto>());
 
         var items = queryable.OrderBy(i => i.Metadata.Name).Skip(dto.Skip).Take(dto.Limit).ToList();
-        return new PagedResultDto<string>
+        return new PagedResultDto<DeploymentDto>
         {
             TotalCount = total,
-            Items = items.Select(i => i.Metadata.Name).ToList()
+            Items = ObjectMapper.Map<List<V1Deployment>, List<DeploymentDto>>(items)
         };
     }
 

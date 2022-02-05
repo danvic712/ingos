@@ -27,7 +27,7 @@ public interface IDeploymentAppService
     /// <param name="dto">Deployment query parameters data transfer object</param>
     /// <param name="cancellationToken">Operation cancel token</param>
     /// <returns></returns>
-    Task<PagedResultDto<string>> GetDeploymentListAsync(string namespaceName, DeploymentSearchDto dto,
+    Task<PagedResultDto<DeploymentDto>> GetDeploymentListAsync(string namespaceName, DeploymentSearchDto dto,
         CancellationToken cancellationToken);
 
     #endregion
