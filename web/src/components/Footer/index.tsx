@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
 
   return (
     <DefaultFooter
-      copyright={`2021 - ${currentYear} ${defaultMessage}, Powered By .NET on Kubernetes & Ant Design Pro V5`}
+      copyright={`2021 - ${currentYear} ${defaultMessage}, Powered By .NET on Kubernetes & Dapr`}
     />
   );
 };

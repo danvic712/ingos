@@ -1,34 +1,30 @@
 import {
-  DownloadOutlined,
-  EditOutlined,
   EllipsisOutlined,
+  FilterOutlined,
   InfoCircleOutlined,
   PauseCircleOutlined,
   PlusOutlined,
-  ShareAltOutlined,
 } from '@ant-design/icons';
 import { Button, Card, Dropdown, List, Menu, message, Tooltip, Typography } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { useRequest } from 'umi';
 import { queryFakeList } from './service';
-import type { CardListItemDataType } from './data';
+import type { CardListItemDataType, LabelItemDataType } from './data.d';
 import styles from './style.less';
 import type { ProFormInstance } from '@ant-design/pro-form';
-import ProForm, {
-  ModalForm,
-  ProFormText,
-  ProFormDateRangePicker,
-  ProFormSelect,
-  DrawerForm,
-} from '@ant-design/pro-form';
-import { useRef } from 'react';
+import { ProFormTextArea } from '@ant-design/pro-form';
+import { DrawerForm, ProFormText } from '@ant-design/pro-form';
+import ProForm, { LightFilter, ProFormDatePicker, ProFormSelect } from '@ant-design/pro-form';
+import { useRef, useState } from 'react';
+import type { ProColumns } from '@ant-design/pro-table';
+import { EditableProTable } from '@ant-design/pro-table';
 
 const { Paragraph } = Typography;
 
 const Overview = () => {
   const { data, loading } = useRequest(() => {
     return queryFakeList({
-      count: 19,
+      count: 32,
     });
   });
 
@@ -49,42 +45,140 @@ const Overview = () => {
     </Menu>
   );
 
+  const [drawerVisit, setDrawerVisit] = useState(false);
+
+  const formRef = useRef<ProFormInstance>();
+
+  const [editableKeys, setEditableRowKeys] = useState<React.Key[]>();
+  const columns: ProColumns<LabelItemDataType>[] = [
+    {
+      title: 'Key',
+      dataIndex: 'key',
+      width: '40%',
+    },
+    {
+      title: 'Value',
+      dataIndex: 'value',
+      width: '40%',
+    },
+    {
+      title: '操作',
+      valueType: 'option',
+    },
+  ];
+
   const content = (
     <div className={styles.pageHeaderContent}>
       <p>
-        当前集群中的所有通过平台部署的应用信息，以应用的维度对集群的资源进行分组，方便针对具体的每个应用进行资源查看管理
+        应用是一组服务的集合，通常，一个应用会包含多个服务，你可以通过此页面对通过平台部署在当前 K8s
+        集群中的所有应用进行管理。
+        你可以以针对每个应用进行启用/暂停、查看每个应用及其包含的服务的配置，运行中的日志信息，针对不同的应用，设置其所能使用集群资源（CPU、内存...）
       </p>
       <div className={styles.contentLink}>
-        <a>
-          <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/MjEImQtenlyueSmVEfUD.svg" />{' '}
-          快速开始
-        </a>
-        <a>
-          <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg" />{' '}
-          产品简介
-        </a>
-        <a>
-          <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg" />{' '}
-          产品文档
-        </a>
+        <LightFilter
+          bordered
+          collapseLabel={<FilterOutlined />}
+          onFinish={async (values) => console.log(values)}
+        >
+          <ProFormText name="name" label="应用名称" />
+          <ProFormText name="code" label="应用代码" />
+          <ProFormSelect
+            name="stateType"
+            mode="tags"
+            valueEnum={{
+              created: '已创建',
+              active: '运行中',
+              offline: '已下线',
+            }}
+            placeholder="应用状态"
+          />
+          <ProFormDatePicker name="time" placeholder="创建日期" />
+          <Button
+            type="primary"
+            onClick={() => {
+              setDrawerVisit(true);
+            }}
+          >
+            <PlusOutlined />
+            新建应用
+          </Button>
+        </LightFilter>
+
+        <DrawerForm
+          onVisibleChange={setDrawerVisit}
+          formRef={formRef}
+          title="新建应用"
+          width={400}
+          visible={drawerVisit}
+          submitter={{
+            searchConfig: {
+              resetText: '重置',
+            },
+            resetButtonProps: {
+              onClick: () => {
+                formRef.current?.resetFields();
+              },
+            },
+          }}
+          onFinish={async () => {
+            message.success('提交成功');
+            return true;
+          }}
+        >
+          <ProForm.Group>
+            <ProFormText
+              width="sm"
+              name="applicationName"
+              label="应用名称"
+              tooltip="最长为 24 位"
+              required={true}
+            />
+
+            <ProFormText
+              name="applicationCode"
+              width="xs"
+              label="应用代码"
+              tooltip="应用代码会作为 K8s 中的 Namespace 名称"
+              required={true}
+            />
+          </ProForm.Group>
+          <ProForm.Item label="标签" name="dataSource" trigger="onValuesChange">
+            <EditableProTable<LabelItemDataType>
+              rowKey="id"
+              toolBarRender={false}
+              columns={columns}
+              recordCreatorProps={{
+                newRecordType: 'dataSource',
+                position: 'bottom',
+                record: () => ({
+                  id: Date.now(),
+                }),
+              }}
+              editable={{
+                type: 'multiple',
+                editableKeys,
+                onChange: setEditableRowKeys,
+                actionRender: (row, _, dom) => {
+                  return [dom.delete];
+                },
+              }}
+            />
+          </ProForm.Item>
+          <ProFormText name="url" label="应用地址" />
+          <ProForm.Group />
+          <ProFormTextArea name="description" label="描述" />
+        </DrawerForm>
       </div>
     </div>
   );
 
   const extraContent = (
     <div className={styles.extraImg}>
-      <img
-        alt="这是一个标题"
-        src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png"
-      />
+      <img src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png" />
     </div>
   );
-  const nullData: Partial<CardListItemDataType> = {};
-
-  const formRef = useRef<ProFormInstance>();
-
   return (
-    <PageContainer fixedHeader content={content} extraContent={extraContent}>
+    <PageContainer content={content} extraContent={extraContent}>
       <div className={styles.cardList}>
         <List<Partial<CardListItemDataType>>
           rowKey="id"
@@ -103,90 +197,39 @@ const Overview = () => {
             showSizeChanger: true,
             pageSizeOptions: ['16', '24', '48', '96'],
           }}
-          dataSource={[nullData, ...list]}
+          dataSource={[...list]}
           renderItem={(item) => {
-            if (item && item.id) {
-              return (
-                <List.Item key={item.id}>
-                  <Card
-                    hoverable
-                    className={styles.card}
-                    actions={[
-                      <Tooltip key="info" title="详情">
-                        <InfoCircleOutlined />
-                      </Tooltip>,
-                      <Tooltip key="pause" title="暂停">
-                        <PauseCircleOutlined />
-                      </Tooltip>,
-                      <Dropdown key="ellipsis" overlay={itemMenu}>
-                        <EllipsisOutlined />
-                      </Dropdown>,
-                    ]}
-                  >
-                    <Card.Meta
-                      avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
-                      title={<a>{item.title}</a>}
-                      description={
-                        <Paragraph className={styles.item} ellipsis={{ rows: 3 }}>
-                          {item.description}
-                        </Paragraph>
-                      }
-                    />
-                  </Card>
-                </List.Item>
-              );
+            if (!item || !item.id) {
+              return false;
             }
+
             return (
-              <List.Item>
-                <DrawerForm<{
-                  name: string;
-                  company: string;
-                }>
-                  title="新建应用"
-                  formRef={formRef}
-                  width={378}
-                  trigger={
-                    <Button type="dashed" className={styles.newButton}>
-                      <PlusOutlined /> 新增应用
-                    </Button>
-                  }
-                  autoFocusFirstInput
-                  drawerProps={{
-                    forceRender: true,
-                    destroyOnClose: true,
-                  }}
-                  onFinish={async (values) => {
-                    console.log(values.name);
-                    message.success('提交成功');
-                    // 不返回不会关闭弹框
-                    return true;
-                  }}
+              <List.Item key={item.id}>
+                <Card
+                  hoverable
+                  className={styles.card}
+                  actions={[
+                    <Tooltip key="info" title="详情">
+                      <InfoCircleOutlined />
+                    </Tooltip>,
+                    <Tooltip key="pause" title="暂停">
+                      <PauseCircleOutlined />
+                    </Tooltip>,
+                    <Dropdown key="ellipsis" overlay={itemMenu}>
+                      <EllipsisOutlined />
+                    </Dropdown>,
+                  ]}
                 >
-                  <ProForm.Group>
-                    <ProFormText
-                      name="name"
-                      width="md"
-                      label="签约客户名称"
-                      tooltip="最长为 24 位"
-                      placeholder="请输入名称"
-                    />
-                    <ProFormText
-                      width="md"
-                      name="company"
-                      label="我方公司名称"
-                      placeholder="请输入名称"
-                    />
-                  </ProForm.Group>
-                  <ProForm.Group>
-                    <ProFormText
-                      width="md"
-                      name="contract"
-                      label="合同名称"
-                      placeholder="请输入名称"
-                    />
-                  </ProForm.Group>
-                  <ProFormText name="project" label="项目名称" initialValue="xxxx项目" />
-                </DrawerForm>
+                  <Card.Meta
+                    avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
+                    title={<a>{item.title}</a>}
+                    description={
+                      <Paragraph className={styles.item} ellipsis={{ rows: 3 }}>
+                        {item.description}
+                      </Paragraph>
+                    }
+                  />
+                </Card>
               </List.Item>
             );
           }}

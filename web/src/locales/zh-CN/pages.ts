@@ -1,5 +1,5 @@
 export default {
-  'pages.layouts.userLayout.title': 'Ingos, Deploy & Run in K8s',
+  'pages.layouts.userLayout.title': 'Ingos, a developer platform based on K8s and Dapr',
   'pages.login.accountLogin.tab': '账户密码登录',
   'pages.login.accountLogin.errorMessage': '错误的用户名和密码(admin/123456)',
   'pages.login.failure': '登录失败，请重试！',

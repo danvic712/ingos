@@ -27,3 +27,9 @@ export type CardListItemDataType = {
   content: string;
   members: Member[];
 };
+
+export type LabelItemDataType = {
+  id: React.Key;
+  key?: string;
+  value?: string;
+};
