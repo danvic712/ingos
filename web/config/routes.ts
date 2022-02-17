@@ -1,13 +1,11 @@
 export default [
   {
     name: 'Dashboard',
-    icon: 'dashboard',
     path: '/dashboard',
     component: './dashboard',
   },
   {
     name: 'Application',
-    icon: 'user',
     path: '/applications',
     routes: [
       {
@@ -24,11 +22,15 @@ export default [
         path: '/applications/services',
         component: './application/service',
       },
+      {
+        name: 'Details',
+        path: '/applications/:appName/details',
+        component: './application/detail',
+      },
     ],
   },
   {
     name: 'Resource',
-    icon: 'smile',
     path: '/resources',
     routes: [
       {
@@ -70,25 +72,21 @@ export default [
   },
   {
     name: 'Configuration',
-    icon: 'smile',
     path: '/configurations',
     routes: [{}],
   },
   {
     name: 'Storage',
-    icon: 'smile',
     path: '/storages',
     routes: [{}],
   },
   {
     name: 'Monitor',
-    icon: 'smile',
     path: '/monitors',
     routes: [{}],
   },
   {
     name: 'Workplace',
-    icon: 'profile',
     path: '/workplace',
     component: './user/workplace',
   },

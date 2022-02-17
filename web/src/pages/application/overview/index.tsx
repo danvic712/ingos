@@ -1,13 +1,13 @@
 import {
+  EditOutlined,
   EllipsisOutlined,
   FilterOutlined,
-  InfoCircleOutlined,
-  PauseCircleOutlined,
   PlusOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
-import { Button, Card, Dropdown, List, Menu, message, Tooltip, Typography } from 'antd';
+import { Button, Card, List, message, Typography } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
-import { useRequest } from 'umi';
+import { useRequest, history } from 'umi';
 import { queryFakeList } from './service';
 import type { CardListItemDataType, LabelItemDataType } from './data.d';
 import styles from './style.less';
@@ -29,21 +29,6 @@ const Overview = () => {
   });
 
   const list = data?.list || [];
-
-  const itemMenu = (
-    <Menu>
-      <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="">
-          1st menu item
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="">
-          删除
-        </a>
-      </Menu.Item>
-    </Menu>
-  );
 
   const [drawerVisit, setDrawerVisit] = useState(false);
 
@@ -177,6 +162,7 @@ const Overview = () => {
       <img src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png" />
     </div>
   );
+
   return (
     <PageContainer content={content} extraContent={extraContent}>
       <div className={styles.cardList}>
@@ -209,16 +195,13 @@ const Overview = () => {
                   hoverable
                   className={styles.card}
                   actions={[
-                    <Tooltip key="info" title="详情">
-                      <InfoCircleOutlined />
-                    </Tooltip>,
-                    <Tooltip key="pause" title="暂停">
-                      <PauseCircleOutlined />
-                    </Tooltip>,
-                    <Dropdown key="ellipsis" overlay={itemMenu}>
-                      <EllipsisOutlined />
-                    </Dropdown>,
+                    <EditOutlined key="edit" />,
+                    <SettingOutlined key="setting" />,
+                    <EllipsisOutlined key="ellipsis" />,
                   ]}
+                  onClick={() => {
+                    history.push(`/applications/${item.title}/details`);
+                  }}
                 >
                   <Card.Meta
                     avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
