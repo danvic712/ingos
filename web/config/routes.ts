@@ -23,7 +23,7 @@ export default [
         component: './application/service',
       },
       {
-        name: 'Details',
+        name: 'Detail',
         path: '/applications/:appName/details',
         component: './application/detail',
       },

@@ -9,15 +9,14 @@ import { Button, Card, List, message, Typography } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { useRequest, history } from 'umi';
 import { queryFakeList } from './service';
-import type { CardListItemDataType, LabelItemDataType } from './data.d';
+import type { CardListItemDataType } from './data.d';
 import styles from './style.less';
 import type { ProFormInstance } from '@ant-design/pro-form';
+import { ProFormGroup, ProFormList } from '@ant-design/pro-form';
 import { ProFormTextArea } from '@ant-design/pro-form';
 import { DrawerForm, ProFormText } from '@ant-design/pro-form';
 import ProForm, { LightFilter, ProFormDatePicker, ProFormSelect } from '@ant-design/pro-form';
 import { useRef, useState } from 'react';
-import type { ProColumns } from '@ant-design/pro-table';
-import { EditableProTable } from '@ant-design/pro-table';
 
 const { Paragraph } = Typography;
 
@@ -33,24 +32,6 @@ const Overview = () => {
   const [drawerVisit, setDrawerVisit] = useState(false);
 
   const formRef = useRef<ProFormInstance>();
-
-  const [editableKeys, setEditableRowKeys] = useState<React.Key[]>();
-  const columns: ProColumns<LabelItemDataType>[] = [
-    {
-      title: 'Key',
-      dataIndex: 'key',
-      width: '40%',
-    },
-    {
-      title: 'Value',
-      dataIndex: 'value',
-      width: '40%',
-    },
-    {
-      title: '操作',
-      valueType: 'option',
-    },
-  ];
 
   const content = (
     <div className={styles.pageHeaderContent}>
@@ -76,6 +57,8 @@ const Overview = () => {
               offline: '已下线',
             }}
             placeholder="应用状态"
+            allowClear
+            initialValue={['active']}
           />
           <ProFormDatePicker name="time" placeholder="创建日期" />
           <Button
@@ -93,7 +76,7 @@ const Overview = () => {
           onVisibleChange={setDrawerVisit}
           formRef={formRef}
           title="新建应用"
-          width={400}
+          width={530}
           visible={drawerVisit}
           submitter={{
             searchConfig: {
@@ -112,7 +95,6 @@ const Overview = () => {
         >
           <ProForm.Group>
             <ProFormText
-              width="sm"
               name="applicationName"
               label="应用名称"
               tooltip="最长为 24 位"
@@ -127,28 +109,32 @@ const Overview = () => {
               required={true}
             />
           </ProForm.Group>
-          <ProForm.Item label="标签" name="dataSource" trigger="onValuesChange">
-            <EditableProTable<LabelItemDataType>
-              rowKey="id"
-              toolBarRender={false}
-              columns={columns}
-              recordCreatorProps={{
-                newRecordType: 'dataSource',
-                position: 'bottom',
-                record: () => ({
-                  id: Date.now(),
-                }),
-              }}
-              editable={{
-                type: 'multiple',
-                editableKeys,
-                onChange: setEditableRowKeys,
-                actionRender: (row, _, dom) => {
-                  return [dom.delete];
-                },
-              }}
-            />
-          </ProForm.Item>
+          <ProFormList
+            name="labe1s"
+            label="标签"
+            creatorButtonProps={{ creatorButtonText: '添加标签' }}
+          >
+            <ProFormGroup>
+              <ProFormText
+                name="key"
+                label="Key"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              />
+              <ProFormText
+                name="value"
+                label="Value"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              />
+            </ProFormGroup>
+          </ProFormList>
           <ProFormText name="url" label="应用地址" />
           <ProForm.Group />
           <ProFormTextArea name="description" label="描述" />
@@ -195,9 +181,27 @@ const Overview = () => {
                   hoverable
                   className={styles.card}
                   actions={[
-                    <EditOutlined key="edit" />,
-                    <SettingOutlined key="setting" />,
-                    <EllipsisOutlined key="ellipsis" />,
+                    <EditOutlined
+                      key="edit"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        console.log('edit');
+                      }}
+                    />,
+                    <SettingOutlined
+                      key="setting"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        console.log('setting');
+                      }}
+                    />,
+                    <EllipsisOutlined
+                      key="ellipsis"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        console.log('ellipsis');
+                      }}
+                    />,
                   ]}
                   onClick={() => {
                     history.push(`/applications/${item.title}/details`);

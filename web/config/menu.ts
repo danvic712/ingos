@@ -18,6 +18,14 @@ export default [
         name: 'Overview',
         path: '/applications/overview',
         component: './application/Overview',
+        children: [
+          {
+            name: 'Detail',
+            path: '/applications/:appName/details',
+            component: './application/detail',
+            hideInMenu: true,
+          },
+        ],
       },
       {
         name: 'Service',
