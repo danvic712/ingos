@@ -20,7 +20,7 @@ export default [
         component: './application/Overview',
         children: [
           {
-            name: 'Detail',
+            name: 'Application Details',
             path: '/applications/:appName/details',
             component: './application/detail',
             hideInMenu: true,
@@ -31,6 +31,14 @@ export default [
         name: 'Service',
         path: '/applications/services',
         component: './application/service',
+        children: [
+          {
+            name: 'Edit Service',
+            path: '/applications/services/edit',
+            component: './application/edit-service',
+            hideInMenu: true,
+          },
+        ],
       },
     ],
   },

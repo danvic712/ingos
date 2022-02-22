@@ -1,42 +1,88 @@
 import type { FC } from 'react';
 import React, { useState } from 'react';
-import { DownOutlined, PlusOutlined } from '@ant-design/icons';
-import {
-  Avatar,
-  Button,
-  Card,
-  Col,
-  Dropdown,
-  Input,
-  List,
-  Menu,
-  Modal,
-  Progress,
-  Radio,
-  Row,
-} from 'antd';
+import { DownOutlined, FilterOutlined, PlusOutlined } from '@ant-design/icons';
+import { Avatar, Button, Card, Dropdown, Input, List, Menu, Modal, Progress, Radio } from 'antd';
 
 import { PageContainer } from '@ant-design/pro-layout';
-import { useRequest } from 'umi';
+import { useRequest, history } from 'umi';
 import moment from 'moment';
-import OperationModal from './components/OperationModal';
 import { addFakeList, queryFakeList, removeFakeList, updateFakeList } from './service';
 import type { BasicListItemDataType } from './data.d';
 import styles from './style.less';
+import { LightFilter, ProFormSelect } from '@ant-design/pro-form';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
 
-const Info: FC<{
-  title: React.ReactNode;
-  value: React.ReactNode;
-  bordered?: boolean;
-}> = ({ title, value, bordered }) => (
-  <div className={styles.headerInfo}>
-    <span>{title}</span>
-    <p>{value}</p>
-    {bordered && <em />}
+const content = (
+  <div className={styles.pageHeaderContent}>
+    <p>
+      这里的服务区别于 Kubernetes 中的{' '}
+      <a href="https://kubernetes.io/docs/concepts/services-networking/service/" target="black">
+        Service
+      </a>{' '}
+      的概念。你的一个应用中的 Web
+      页面是一个服务，一个接口是一个服务，一个同步的定时任务是一个服务，它是 Kubernetes 中{' '}
+      <a href="https://kubernetes.io/docs/concepts/workloads/" target="black">
+        Workload
+      </a>{' '}
+      结合{' '}
+      <a href="https://kubernetes.io/docs/concepts/services-networking/service/" target="black">
+        Service
+      </a>
+      、
+      <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" target="black">
+        Ingress
+      </a>
+      、
+      <a href="https://kubernetes.io/docs/concepts/storage/volumes/" target="black">
+        Volume
+      </a>
+      /
+      <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/" target="black">
+        Persistent Volumes
+      </a>
+      、
+      <a href="https://kubernetes.io/docs/concepts/configuration/configmap/" target="black">
+        ConfigMap
+      </a>{' '}
+      等等概念所形成的聚合体，是一个提供给终端用户所使用 OR 另外的程序调用的服务
+    </p>
+    <div className={styles.contentLink}>
+      <LightFilter
+        bordered
+        collapseLabel={<FilterOutlined />}
+        onFinish={async (values) => console.log(values)}
+      >
+        <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
+
+        <RadioGroup defaultValue="all">
+          <RadioButton value="all">全部</RadioButton>
+          <RadioButton value="progress">运行中</RadioButton>
+          <RadioButton value="waiting">等待中</RadioButton>
+        </RadioGroup>
+        <ProFormSelect
+          name="applicationId"
+          label="所属应用"
+          valueEnum={{
+            1: '11111',
+            2: '22222',
+            3: '33333',
+          }}
+          allowClear
+        />
+        <Button
+          type="primary"
+          onClick={() => {
+            history.push(`/applications/services/edit`);
+          }}
+        >
+          <PlusOutlined />
+          新建服务
+        </Button>
+      </LightFilter>
+    </div>
   </div>
 );
 
@@ -94,13 +140,6 @@ export const Service: FC = () => {
 
   const list = listData?.list || [];
 
-  const paginationProps = {
-    showSizeChanger: true,
-    showQuickJumper: true,
-    pageSize: 5,
-    total: list.length,
-  };
-
   const showEditModal = (item: BasicListItemDataType) => {
     setVisible(true);
     setCurrent(item);
@@ -114,7 +153,7 @@ export const Service: FC = () => {
     if (key === 'edit') showEditModal(currentItem);
     else if (key === 'delete') {
       Modal.confirm({
-        title: '删除任务',
+        title: '删除服务',
         content: '确定删除该任务吗？',
         okText: '确认',
         cancelText: '取消',
@@ -123,25 +162,14 @@ export const Service: FC = () => {
     }
   };
 
-  const extraContent = (
-    <div className={styles.extraContent}>
-      <RadioGroup defaultValue="all">
-        <RadioButton value="all">全部</RadioButton>
-        <RadioButton value="progress">进行中</RadioButton>
-        <RadioButton value="waiting">等待中</RadioButton>
-      </RadioGroup>
-      <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
-    </div>
-  );
-
   const MoreBtn: React.FC<{
     item: BasicListItemDataType;
   }> = ({ item }) => (
     <Dropdown
       overlay={
         <Menu onClick={({ key }) => editAndDelete(key, item)}>
-          <Menu.Item key="edit">编辑</Menu.Item>
-          <Menu.Item key="delete">删除</Menu.Item>
+          <Menu.Item key="download">下载</Menu.Item>
+          <Menu.Item key="delete">删除服务</Menu.Item>
         </Menu>
       }
     >
@@ -151,49 +179,26 @@ export const Service: FC = () => {
     </Dropdown>
   );
 
-  const handleDone = () => {
-    setDone(false);
-    setVisible(false);
-    setCurrent({});
-  };
-
-  const handleSubmit = (values: BasicListItemDataType) => {
-    setDone(true);
-    const method = values?.id ? 'update' : 'add';
-    postRun(method, values);
-  };
-
   return (
     <div>
-      <PageContainer>
+      <PageContainer content={content}>
         <div className={styles.standardList}>
-          <Card bordered={false}>
-            <Row>
-              <Col sm={8} xs={24}>
-                <Info title="我的待办" value="8个任务" bordered />
-              </Col>
-              <Col sm={8} xs={24}>
-                <Info title="本周任务平均处理时间" value="32分钟" bordered />
-              </Col>
-              <Col sm={8} xs={24}>
-                <Info title="本周完成任务数" value="24个任务" />
-              </Col>
-            </Row>
-          </Card>
-
           <Card
             className={styles.listCard}
             bordered={false}
-            title="基本列表"
             style={{ marginTop: 24 }}
-            bodyStyle={{ padding: '0 32px 40px 32px' }}
-            extra={extraContent}
+            bodyStyle={{ padding: '0px 32px 40px 0px' }}
           >
             <List
               size="large"
               rowKey="id"
               loading={loading}
-              pagination={paginationProps}
+              pagination={{
+                showSizeChanger: true,
+                showQuickJumper: true,
+                pageSize: 10,
+                total: list.length,
+              }}
               dataSource={list}
               renderItem={(item) => (
                 <List.Item
@@ -222,23 +227,6 @@ export const Service: FC = () => {
           </Card>
         </div>
       </PageContainer>
-      <Button
-        type="dashed"
-        onClick={() => {
-          setVisible(true);
-        }}
-        style={{ width: '100%', marginBottom: 8 }}
-      >
-        <PlusOutlined />
-        添加
-      </Button>
-      <OperationModal
-        done={done}
-        visible={visible}
-        current={current}
-        onDone={handleDone}
-        onSubmit={handleSubmit}
-      />
     </div>
   );
 };

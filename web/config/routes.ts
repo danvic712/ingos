@@ -18,14 +18,19 @@ export default [
         component: './application/Overview',
       },
       {
+        name: 'Application Details',
+        path: '/applications/:appName/details',
+        component: './application/detail',
+      },
+      {
         name: 'Service',
         path: '/applications/services',
         component: './application/service',
       },
       {
-        name: 'Detail',
-        path: '/applications/:appName/details',
-        component: './application/detail',
+        name: 'Edit Service',
+        path: '/applications/services/edit',
+        component: './application/edit-service',
       },
     ],
   },

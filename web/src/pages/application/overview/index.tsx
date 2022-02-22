@@ -150,7 +150,7 @@ const Overview = () => {
   );
 
   return (
-    <PageContainer content={content} extraContent={extraContent}>
+    <PageContainer title="Application" content={content} extraContent={extraContent}>
       <div className={styles.cardList}>
         <List<Partial<CardListItemDataType>>
           rowKey="id"
