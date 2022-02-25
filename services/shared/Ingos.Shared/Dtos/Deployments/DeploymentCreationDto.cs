@@ -8,7 +8,7 @@
 // Description: Deployment creation data transfer object
 // -----------------------------------------------------------------------
 
-namespace Ingos.ResDispatcher.API.Applications.Dtos.Deployments;
+namespace Ingos.Shared.Dtos.Deployments;
 
 /// <summary>
 ///     Deployment creation data transfer object
