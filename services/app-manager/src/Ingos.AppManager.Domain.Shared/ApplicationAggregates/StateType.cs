@@ -12,7 +12,7 @@ namespace Ingos.AppManager.Domain.Shared.ApplicationAggregates
 {
     public enum StateType
     {
-        Created,
+        Created = 1,
         Active,
         Offline
     }

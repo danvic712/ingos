@@ -124,9 +124,9 @@
                 Application current state
             </summary>
         </member>
-        <member name="P:Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto.Page">
+        <member name="P:Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto.CreationTime">
             <summary>
-                Current page
+                Application creation time
             </summary>
         </member>
         <member name="P:Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos.ApplicationSearchDto.Limit">

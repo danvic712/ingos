@@ -11,6 +11,7 @@
 using Ingos.ResDispatcher.API.Applications.Contracts;
 using Ingos.ResDispatcher.API.Applications.Dtos;
 using Ingos.ResDispatcher.API.Applications.Dtos.Namespaces;
+using Ingos.Shared.Dtos;
 using k8s;
 using k8s.Models;
 using Volo.Abp.Application.Dtos;

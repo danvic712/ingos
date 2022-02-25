@@ -8,14 +8,16 @@
 // Description: Application query parameters data transfer object
 // -----------------------------------------------------------------------
 
+using System;
 using Ingos.AppManager.Domain.Shared.ApplicationAggregates;
+using Ingos.Shared.Dtos;
 
 namespace Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos
 {
     /// <summary>
     ///     Application query parameters data transfer object
     /// </summary>
-    public class ApplicationSearchDto
+    public class ApplicationSearchDto:SearchDto
     {
         #region Properties
 
@@ -32,17 +34,17 @@ namespace Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos
         /// <summary>
         ///     Application current state
         /// </summary>
-        public StateType StateType { get; set; }
+        public StateType? StateType { get; set; }
 
         /// <summary>
-        ///     Current page
+        ///     Application creation time
         /// </summary>
-        public int Page { get; set; } = 1;
+        public DateTime? CreationTime { get; set; } = null;
 
         /// <summary>
         ///     The number displayed on each page
         /// </summary>
-        public int Limit { get; set; } = 15;
+        public override int Limit { get; set; } = 16;
 
         #endregion
     }

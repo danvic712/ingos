@@ -10,6 +10,7 @@
 
 using Ingos.ResDispatcher.API.Applications.Dtos;
 using Ingos.ResDispatcher.API.Applications.Dtos.Namespaces;
+using Ingos.Shared.Dtos;
 using Volo.Abp.Application.Dtos;
 
 namespace Ingos.ResDispatcher.API.Applications.Contracts;

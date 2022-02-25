@@ -19,6 +19,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\shared\Ingos.Shared\Ingos.Shared.csproj" />
+        <ProjectReference Include="..\..\..\shared\Ingos.Shared\Ingos.Shared\Ingos.Shared.csproj" />
         <ProjectReference Include="..\Ingos.AppManager.Domain.Shared\Ingos.AppManager.Domain.Shared.csproj" />
     </ItemGroup>
 </Project>

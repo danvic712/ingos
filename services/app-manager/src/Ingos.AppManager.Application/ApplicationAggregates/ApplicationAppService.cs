@@ -72,7 +72,9 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
                 .WhereIf(!string.IsNullOrEmpty(dto.ApplicationCode),
                     i => i.ApplicationCode.Contains(dto.ApplicationCode) ||
                          i.ApplicationCode.Equals(dto.ApplicationCode))
-                .WhereIf(true, i => i.StateType == dto.StateType);
+                .WhereIf(dto.StateType != null, i => i.StateType == dto.StateType)
+                .WhereIf(dto.CreationTime != null,
+                    i => i.CreationTime.ToString("yyyy-MMMM-dd").Equals(dto.CreationTime.Equals("yyyy-MM-dd")));
 
             if (!queryable.Any())
                 return new PagedResultDto<ApplicationDto>
@@ -81,7 +83,7 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
                     Items = new List<ApplicationDto>()
                 };
 
-            var items = queryable.Skip(dto.Page).Take(dto.Limit).ToList();
+            var items = queryable.Skip(dto.Skip).Take(dto.Limit).ToList();
             return new PagedResultDto<ApplicationDto>
             {
                 TotalCount = queryable.Count(),

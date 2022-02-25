@@ -197,53 +197,6 @@
                 Namespace name
             </summary>
         </member>
-        <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.ResourceOperationDto">
-            <summary>
-                Resource operation data transfer object
-            </summary>
-        </member>
-        <member name="M:Ingos.ResDispatcher.API.Applications.Dtos.ResourceOperationDto.#ctor">
-            <summary>
-                ctor
-            </summary>
-        </member>
-        <member name="M:Ingos.ResDispatcher.API.Applications.Dtos.ResourceOperationDto.#ctor(System.Boolean,System.String)">
-            <summary>
-                ctor
-            </summary>
-            <param name="success">Operation result</param>
-            <param name="message">Message</param>
-        </member>
-        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.ResourceOperationDto.Success">
-            <summary>
-                Operation result
-            </summary>
-        </member>
-        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.ResourceOperationDto.Message">
-            <summary>
-                Message
-            </summary>
-        </member>
-        <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.SearchDto">
-            <summary>
-                General search parameters data transfer object
-            </summary>
-        </member>
-        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.SearchDto.Page">
-            <summary>
-                Current page
-            </summary>
-        </member>
-        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.SearchDto.Limit">
-            <summary>
-                The number displayed on each page
-            </summary>
-        </member>
-        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.SearchDto.Skip">
-            <summary>
-                Prevent the field from being bound to the request data
-            </summary>
-        </member>
         <member name="T:Ingos.ResDispatcher.API.Applications.NamespaceAppService">
             <summary>
                 Namespace application service

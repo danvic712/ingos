@@ -37,13 +37,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Update="wwwroot\api-doc\Ingos.ResDispatcher.API.xml">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
+      <ProjectReference Include="..\..\..\shared\Ingos.Shared\Ingos.Shared\Ingos.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\shared\Ingos.Shared\Ingos.Shared.csproj" />
+        <Content Update="wwwroot\api-doc\Ingos.ResDispatcher.API.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>

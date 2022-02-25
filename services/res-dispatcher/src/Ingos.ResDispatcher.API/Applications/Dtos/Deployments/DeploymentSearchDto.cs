@@ -8,6 +8,8 @@
 // Description: Deployment query parameters data transfer object
 // -----------------------------------------------------------------------
 
+using Ingos.Shared.Dtos;
+
 namespace Ingos.ResDispatcher.API.Applications.Dtos.Deployments;
 
 /// <summary>

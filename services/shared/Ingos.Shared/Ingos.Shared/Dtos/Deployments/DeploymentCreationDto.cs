@@ -8,11 +8,13 @@
 // Description: Deployment creation data transfer object
 // -----------------------------------------------------------------------
 
-namespace Ingos.Shared.Dtos.Deployments;
-
-/// <summary>
-///     Deployment creation data transfer object
-/// </summary>
-public class DeploymentCreationDto
+namespace Ingos.Shared.Dtos.Deployments
 {
+    /// <summary>
+    ///     Deployment creation data transfer object
+    /// </summary>
+    public class DeploymentCreationDto
+    {
+    }
 }
+

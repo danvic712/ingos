@@ -11,6 +11,7 @@
 using Ingos.ResDispatcher.API.Applications.Contracts;
 using Ingos.ResDispatcher.API.Applications.Dtos;
 using Ingos.ResDispatcher.API.Applications.Dtos.Namespaces;
+using Ingos.Shared.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.Application.Dtos;
 
