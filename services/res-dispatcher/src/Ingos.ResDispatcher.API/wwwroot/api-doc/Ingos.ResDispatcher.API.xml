@@ -97,7 +97,7 @@
             <param name="cancellationToken">Operation cancel token</param>
             <returns></returns>
         </member>
-        <member name="M:Ingos.ResDispatcher.API.Applications.Contracts.INamespaceAppService.CreateNamespaceAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceCreationDto,System.Threading.CancellationToken)">
+        <member name="M:Ingos.ResDispatcher.API.Applications.Contracts.INamespaceAppService.CreateNamespaceAsync(Ingos.Shared.Dtos.Namespaces.NamespaceCreationDto,System.Threading.CancellationToken)">
             <summary>
                 Create a namespace
             </summary>
@@ -177,16 +177,6 @@
                 Deployment name
             </summary>
         </member>
-        <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceCreationDto">
-            <summary>
-                Namespace creation data transfer object
-            </summary>
-        </member>
-        <member name="P:Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceCreationDto.Name">
-            <summary>
-                Namespace's name
-            </summary>
-        </member>
         <member name="T:Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceSearchDto">
             <summary>
                 Namespace query parameters data transfer object
@@ -210,7 +200,7 @@
             <param name="cancellationToken">Operation cancel token</param>
             <returns></returns>
         </member>
-        <member name="M:Ingos.ResDispatcher.API.Applications.NamespaceAppService.CreateNamespaceAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceCreationDto,System.Threading.CancellationToken)">
+        <member name="M:Ingos.ResDispatcher.API.Applications.NamespaceAppService.CreateNamespaceAsync(Ingos.Shared.Dtos.Namespaces.NamespaceCreationDto,System.Threading.CancellationToken)">
             <summary>
                 Create a namespace
             </summary>
@@ -297,7 +287,7 @@
             <param name="cancellationToken">Operation cancel token</param>
             <returns></returns>
         </member>
-        <member name="M:Ingos.ResDispatcher.API.Controllers.v1.NamespacesController.CreateNamespaceAsync(Ingos.ResDispatcher.API.Applications.Dtos.Namespaces.NamespaceCreationDto,System.Threading.CancellationToken)">
+        <member name="M:Ingos.ResDispatcher.API.Controllers.v1.NamespacesController.CreateNamespaceAsync(Ingos.Shared.Dtos.Namespaces.NamespaceCreationDto,System.Threading.CancellationToken)">
             <summary>
                 Create a new namespace
             </summary>

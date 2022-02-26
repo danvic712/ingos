@@ -11,6 +11,7 @@
 using Ingos.ResDispatcher.API.Applications.Dtos;
 using Ingos.ResDispatcher.API.Applications.Dtos.Namespaces;
 using Ingos.Shared.Dtos;
+using Ingos.Shared.Dtos.Namespaces;
 using Volo.Abp.Application.Dtos;
 
 namespace Ingos.ResDispatcher.API.Applications.Contracts;

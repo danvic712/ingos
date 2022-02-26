@@ -13,7 +13,6 @@ using Ingos.AppManager.Domain.ApplicationAggregates;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
-using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 
@@ -29,7 +28,6 @@ namespace Ingos.AppManager.Infrastructure.EntityConfigurations
             Check.NotNull(builder, nameof(builder));
 
             builder.ConfigureAuditLogging();
-            builder.ConfigureBackgroundJobs();
             builder.ConfigurePermissionManagement();
         }
 

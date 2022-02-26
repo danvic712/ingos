@@ -9,12 +9,10 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Ingos.AppManager.Domain.ApplicationAggregates.DomainEvents;
 using Ingos.AppManager.Domain.Shared.ApplicationAggregates;
 using Volo.Abp;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.EventBus.Local;
@@ -92,7 +90,7 @@ namespace Ingos.AppManager.Domain.ApplicationAggregates
 
             await _localEventBus.PublishAsync(new ApplicationPublishedEvent
             {
-                ApplicationName = application.ApplicationName
+                Namespace = application.ApplicationCode
             });
 
             return application;
@@ -111,7 +109,7 @@ namespace Ingos.AppManager.Domain.ApplicationAggregates
 
             await _localEventBus.PublishAsync(new ApplicationOfflineEvent()
             {
-                ApplicationName = application.ApplicationName
+                Namespace = application.ApplicationCode
             });
 
             return application;

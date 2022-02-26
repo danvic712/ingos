@@ -17,7 +17,7 @@ namespace Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos
     /// <summary>
     ///     Application query parameters data transfer object
     /// </summary>
-    public class ApplicationSearchDto:SearchDto
+    public class ApplicationSearchDto : SearchDto
     {
         #region Properties
 

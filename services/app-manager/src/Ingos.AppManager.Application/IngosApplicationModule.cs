@@ -12,6 +12,7 @@ namespace Ingos.AppManager.Application
     [DependsOn(
         typeof(IngosDomainModule),
         typeof(IngosApplicationContractsModule),
+        typeof(AbpAutoMapperModule),
         typeof(AbpPermissionManagementApplicationModule)
     )]
     public class IngosApplicationModule : AbpModule

@@ -117,8 +117,9 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
             CancellationToken cancellationToken)
         {
             // 1. create a valid entity by domain event manager
+            // Todo： label is not used here
             var application = await _appManager.CreateAsync(dto.ApplicationName, dto.ApplicationCode, dto.Description,
-                dto.Url, dto.Labels, dto.StateType);
+                dto.Url, "Labels", dto.StateType);
 
             // 2. save
             await _appRepo.InsertAsync(application, cancellationToken: cancellationToken, autoSave: true);

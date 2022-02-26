@@ -12,6 +12,9 @@ namespace Ingos.AppManager.Domain.ApplicationAggregates.DomainEvents
 {
     public class ApplicationPublishedEvent
     {
-        public string ApplicationName { get; set; }
+        /// <summary>
+        /// K8s namespace, use application code field
+        /// </summary>
+        public string Namespace { get; set; }
     }
 }

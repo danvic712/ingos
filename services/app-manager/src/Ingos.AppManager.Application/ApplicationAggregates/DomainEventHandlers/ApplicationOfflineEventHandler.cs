@@ -1,9 +1,9 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file= "ApplicationPublishedEventHandler.cs">
+// <copyright file= "ApplicationOfflineEventHandler.cs">
 //     Copyright (c) Danvic.Wang All rights reserved.
 // </copyright>
 // Author: Danvic.Wang
-// Created DateTime: 2021-11-02 22:31
+// Created DateTime: 2022-02-26 21:59
 // Modified by:
 // Description:
 // -----------------------------------------------------------------------
@@ -20,16 +20,22 @@ namespace Ingos.AppManager.Application.ApplicationAggregates.DomainEventHandlers
     /// <summary>
     /// 
     /// </summary>
-    public class ApplicationPublishedEventHandler : ILocalEventHandler<ApplicationPublishedEvent>, ITransientDependency
+    public class ApplicationOfflineEventHandler: ILocalEventHandler<ApplicationOfflineEvent>, ITransientDependency
     {
         private readonly DaprClient _daprClient;
 
-        public ApplicationPublishedEventHandler(DaprClient daprClient)
+        public ApplicationOfflineEventHandler(DaprClient daprClient)
         {
             _daprClient = daprClient;
         }
 
-        public Task HandleEventAsync(ApplicationPublishedEvent eventData)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="eventData"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public Task HandleEventAsync(ApplicationOfflineEvent eventData)
         {
             var dto = new NamespaceCreationDto { Name = eventData.Namespace };
 

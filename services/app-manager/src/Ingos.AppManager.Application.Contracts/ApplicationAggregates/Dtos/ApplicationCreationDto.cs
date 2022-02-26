@@ -8,9 +8,11 @@
 // Description: Application creation data transfer object
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Ingos.AppManager.Domain.Shared;
 using Ingos.AppManager.Domain.Shared.ApplicationAggregates;
+using Ingos.Shared.Dtos;
 
 namespace Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos
 {
@@ -46,7 +48,7 @@ namespace Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos
         /// <summary>
         ///     Tags or keywords that you want to add to application
         /// </summary>
-        public string Labels { get; set; }
+        public IList<LabelDto> Labels { get; set; }
 
         /// <summary>
         ///     Application current state

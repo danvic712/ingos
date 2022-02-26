@@ -10,20 +10,22 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace Ingos.ResDispatcher.API.Applications.Dtos.Namespaces;
-
-/// <summary>
-///     Namespace creation data transfer object
-/// </summary>
-public class NamespaceCreationDto
+namespace Ingos.Shared.Dtos.Namespaces
 {
-    #region Properties
-
     /// <summary>
-    ///     Namespace's name
+    ///     Namespace creation data transfer object
     /// </summary>
-    [Required]
-    public string Name { get; set; }
+    public class NamespaceCreationDto
+    {
+        #region Properties
 
-    #endregion
+        /// <summary>
+        ///     Namespace's name
+        /// </summary>
+        [Required]
+        public string Name { get; set; }
+
+        #endregion
+    }
 }
+

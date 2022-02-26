@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ingos.ResDispatcher.API", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ingos.Shared", "..\shared\Ingos.Shared\Ingos.Shared\Ingos.Shared.csproj", "{B3749F00-D58E-49D5-9492-5150F4E6B011}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{0BB48FF6-EC65-4048-9B44-BD4937E1882A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,7 +31,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CFEA9C74-1A83-4BB2-89AF-D8B0CE808B56} = {B44B5D75-A7E8-4667-8FBE-EA60D689DC96}
-		{B3749F00-D58E-49D5-9492-5150F4E6B011} = {B44B5D75-A7E8-4667-8FBE-EA60D689DC96}
+		{B3749F00-D58E-49D5-9492-5150F4E6B011} = {0BB48FF6-EC65-4048-9B44-BD4937E1882A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4201A276-A832-4537-BB98-97A24969F6E7}

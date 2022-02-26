@@ -81,6 +81,24 @@
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>
+        <member name="T:Ingos.AppManager.Application.ApplicationAggregates.DomainEventHandlers.ApplicationOfflineEventHandler">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Ingos.AppManager.Application.ApplicationAggregates.DomainEventHandlers.ApplicationOfflineEventHandler.HandleEventAsync(Ingos.AppManager.Domain.ApplicationAggregates.DomainEvents.ApplicationOfflineEvent)">
+            <summary>
+            
+            </summary>
+            <param name="eventData"></param>
+            <returns></returns>
+            <exception cref="!:NotImplementedException"></exception>
+        </member>
+        <member name="T:Ingos.AppManager.Application.ApplicationAggregates.DomainEventHandlers.ApplicationPublishedEventHandler">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Ingos.AppManager.Application.BaseAppService">
             <summary>
                 Inherit your application services from this class.
