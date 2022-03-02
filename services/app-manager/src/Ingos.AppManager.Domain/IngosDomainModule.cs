@@ -1,14 +1,12 @@
 ﻿using Ingos.AppManager.Domain.Shared;
-using Volo.Abp.AuditLogging;
+using Volo.Abp.Emailing;
 using Volo.Abp.Modularity;
-using Volo.Abp.PermissionManagement;
 
 namespace Ingos.AppManager.Domain
 {
     [DependsOn(
         typeof(IngosDomainSharedModule),
-        typeof(AbpAuditLoggingDomainModule),
-        typeof(AbpPermissionManagementDomainModule)
+        typeof(AbpEmailingModule)
     )]
     public class IngosDomainModule : AbpModule
     {

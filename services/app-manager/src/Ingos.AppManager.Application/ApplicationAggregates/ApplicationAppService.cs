@@ -65,8 +65,8 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
         {
             // get list count
             //
-            var queryable = (await _appRepo.GetQueryableAsync())
-                .WhereIf(!string.IsNullOrEmpty(dto.ApplicationName),
+            var queryable = await _appRepo.GetQueryableAsync();
+            var conditions = queryable.AsQueryable().WhereIf(!string.IsNullOrEmpty(dto.ApplicationName),
                     i => i.ApplicationName.Contains(dto.ApplicationName) ||
                          i.ApplicationName.Equals(dto.ApplicationName))
                 .WhereIf(!string.IsNullOrEmpty(dto.ApplicationCode),
@@ -76,17 +76,17 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
                 .WhereIf(dto.CreationTime != null,
                     i => i.CreationTime.ToString("yyyy-MMMM-dd").Equals(dto.CreationTime.Equals("yyyy-MM-dd")));
 
-            if (!queryable.Any())
+            if (!conditions.Any())
                 return new PagedResultDto<ApplicationDto>
                 {
                     TotalCount = 0,
                     Items = new List<ApplicationDto>()
                 };
 
-            var items = queryable.Skip(dto.Skip).Take(dto.Limit).ToList();
+            var items = conditions.Skip(dto.Skip).Take(dto.Limit).ToList();
             return new PagedResultDto<ApplicationDto>
             {
-                TotalCount = queryable.Count(),
+                TotalCount = conditions.Count(),
                 Items = ObjectMapper
                     .Map<List<AppManager.Domain.ApplicationAggregates.Application>, List<ApplicationDto>>(items)
             };

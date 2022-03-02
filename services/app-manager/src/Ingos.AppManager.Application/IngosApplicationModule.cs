@@ -2,7 +2,6 @@
 using Ingos.AppManager.Domain;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
-using Volo.Abp.PermissionManagement;
 
 namespace Ingos.AppManager.Application
 {
@@ -12,8 +11,7 @@ namespace Ingos.AppManager.Application
     [DependsOn(
         typeof(IngosDomainModule),
         typeof(IngosApplicationContractsModule),
-        typeof(AbpAutoMapperModule),
-        typeof(AbpPermissionManagementApplicationModule)
+        typeof(AbpAutoMapperModule)
     )]
     public class IngosApplicationModule : AbpModule
     {

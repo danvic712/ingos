@@ -1,7 +1,10 @@
-﻿using EFCore.NamingConventions.Internal;
+﻿using System.Threading.Tasks;
+using EFCore.NamingConventions.Internal;
 using Ingos.AppManager.Infrastructure.EntityConfigurations;
 using Ingos.AppManager.Domain.ApplicationAggregates;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.Configuration;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -29,19 +32,22 @@ namespace Ingos.AppManager.Infrastructure
 
         private NamingConventionOptions NamingConventionOptions { get; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-
-            //optionsBuilder.ConfigureNamingConvention<IngosDbContext>(NamingConventionOptions);
-        }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     base.OnConfiguring(optionsBuilder);
+        //
+        //     
+        //     // Todo: need to get connection string here
+        //     var connectionString = "";
+        //
+        //     optionsBuilder.UseMySql(
+        //         connectionString, ServerVersion.AutoDetect(connectionString),
+        //         x => x.MigrationsHistoryTable("t_migrations"));
+        // }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            /* Configure the shared tables (with included modules) here */
-            builder.ConfigureAbpEntities();
 
             /* Configure your own tables/entities inside the ConfigureIngos method */
             builder.ConfigureIngos();
@@ -57,6 +63,8 @@ namespace Ingos.AppManager.Infrastructure
         public DbSet<Application> Applications { get; set; }
 
         public DbSet<Service> Services { get; set; }
+
+        public DbSet<Label> Labels { get; set; }
 
         #endregion
     }

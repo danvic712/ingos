@@ -31,7 +31,6 @@ using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
-using Volo.Abp.PermissionManagement.HttpApi;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.VirtualFileSystem;
 
@@ -44,7 +43,6 @@ namespace Ingos.AppManager.API
         typeof(AbpCachingStackExchangeRedisModule),
         typeof(IngosApplicationModule),
         typeof(IngosInfrastructureModule),
-        typeof(AbpPermissionManagementHttpApiModule),
         typeof(AbpAspNetCoreSerilogModule),
         typeof(AbpSwashbuckleModule)
     )]
@@ -64,10 +62,6 @@ namespace Ingos.AppManager.API
                 // Set dynamic api router with api version info
                 options.ConventionalControllers.Create(typeof(IngosApplicationModule).Assembly,
                     opts => { opts.RootPath = "v{version:apiVersion}"; });
-
-                // Specify version info for framework built-in api
-                options.ConventionalControllers.Create(typeof(AbpPermissionManagementHttpApiModule).Assembly,
-                    opts => { opts.ApiVersions.Add(new ApiVersion(1, 0)); });
             });
         }
 

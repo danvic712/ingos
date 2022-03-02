@@ -1,14 +1,12 @@
 ﻿using Ingos.AppManager.Domain.Shared;
 using Volo.Abp.Modularity;
 using Volo.Abp.ObjectExtending;
-using Volo.Abp.PermissionManagement;
 
 namespace Ingos.AppManager.Application.Contracts
 {
     [DependsOn(
         typeof(IngosDomainSharedModule),
-        typeof(AbpObjectExtendingModule),
-        typeof(AbpPermissionManagementApplicationContractsModule)
+        typeof(AbpObjectExtendingModule)
     )]
     public class IngosApplicationContractsModule : AbpModule
     {

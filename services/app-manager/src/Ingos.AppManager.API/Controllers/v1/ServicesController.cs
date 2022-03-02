@@ -9,7 +9,6 @@
 // -----------------------------------------------------------------------
 
 using System.Threading.Tasks;
-using Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ingos.AppManager.API.Controllers.v1

@@ -1,11 +1,9 @@
 ﻿using Ingos.AppManager.Infrastructure.EntityConfigurations;
 using Ingos.AppManager.Domain;
 using Microsoft.Extensions.DependencyInjection;
-using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.MySQL;
 using Volo.Abp.Modularity;
-using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.Uow;
 
 namespace Ingos.AppManager.Infrastructure
@@ -13,9 +11,7 @@ namespace Ingos.AppManager.Infrastructure
     [DependsOn(
         typeof(IngosDomainModule),
         typeof(AbpEntityFrameworkCoreMySQLModule),
-        typeof(AbpUnitOfWorkModule),
-        typeof(AbpAuditLoggingEntityFrameworkCoreModule),
-        typeof(AbpPermissionManagementEntityFrameworkCoreModule)
+        typeof(AbpUnitOfWorkModule)
     )]
     public class IngosInfrastructureModule : AbpModule
     {

@@ -12,25 +12,12 @@ using System;
 using Ingos.AppManager.Domain.ApplicationAggregates;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
-using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
-using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 
 namespace Ingos.AppManager.Infrastructure.EntityConfigurations
 {
     public static class EntityConfigurationExtensions
     {
-        /// <summary>
-        ///     Configure Abp framework own tables/entities
-        /// </summary>
-        public static void ConfigureAbpEntities(this ModelBuilder builder)
-        {
-            Check.NotNull(builder, nameof(builder));
-
-            builder.ConfigureAuditLogging();
-            builder.ConfigurePermissionManagement();
-        }
-
         /// <summary>
         ///     Configure project own tables/entities
         /// </summary>
@@ -92,6 +79,20 @@ namespace Ingos.AppManager.Infrastructure.EntityConfigurations
                     .IsRequired();
                 b.Property(x => x.StateType)
                     .IsRequired();
+            });
+
+            builder.Entity<Label>(b =>
+            {
+                b.ToTable($"{Consts.DbTablePrefix}_{nameof(Label)}s".ToSnakeCase(),
+                    Consts.DbSchema);
+                b.HasNoKey();
+                b.ConfigureByConvention(); //auto configure for the base class props
+                b.Property(x => x.Key)
+                    .IsRequired()
+                    .HasMaxLength(50);
+                b.Property(x => x.Value)
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
 
             #endregion
