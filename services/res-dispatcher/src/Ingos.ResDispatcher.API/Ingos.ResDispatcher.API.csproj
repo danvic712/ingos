@@ -37,7 +37,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\shared\Ingos.Shared\Ingos.Shared\Ingos.Shared.csproj" />
+      <ProjectReference Include="..\..\..\shared\Ingos.Shared\Ingos.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>

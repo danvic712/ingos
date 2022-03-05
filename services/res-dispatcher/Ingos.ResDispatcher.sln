@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B44B5D75-A7E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ingos.ResDispatcher.API", "src\Ingos.ResDispatcher.API\Ingos.ResDispatcher.API.csproj", "{CFEA9C74-1A83-4BB2-89AF-D8B0CE808B56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ingos.Shared", "..\shared\Ingos.Shared\Ingos.Shared\Ingos.Shared.csproj", "{B3749F00-D58E-49D5-9492-5150F4E6B011}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{0BB48FF6-EC65-4048-9B44-BD4937E1882A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ingos.Shared", "..\shared\Ingos.Shared\Ingos.Shared.csproj", "{CF212E8E-ABAE-4C0F-B015-C5EE76443C94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,17 +21,17 @@ Global
 		{CFEA9C74-1A83-4BB2-89AF-D8B0CE808B56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFEA9C74-1A83-4BB2-89AF-D8B0CE808B56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFEA9C74-1A83-4BB2-89AF-D8B0CE808B56}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3749F00-D58E-49D5-9492-5150F4E6B011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3749F00-D58E-49D5-9492-5150F4E6B011}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B3749F00-D58E-49D5-9492-5150F4E6B011}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B3749F00-D58E-49D5-9492-5150F4E6B011}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF212E8E-ABAE-4C0F-B015-C5EE76443C94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF212E8E-ABAE-4C0F-B015-C5EE76443C94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF212E8E-ABAE-4C0F-B015-C5EE76443C94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF212E8E-ABAE-4C0F-B015-C5EE76443C94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CFEA9C74-1A83-4BB2-89AF-D8B0CE808B56} = {B44B5D75-A7E8-4667-8FBE-EA60D689DC96}
-		{B3749F00-D58E-49D5-9492-5150F4E6B011} = {0BB48FF6-EC65-4048-9B44-BD4937E1882A}
+		{CF212E8E-ABAE-4C0F-B015-C5EE76443C94} = {0BB48FF6-EC65-4048-9B44-BD4937E1882A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4201A276-A832-4537-BB98-97A24969F6E7}
