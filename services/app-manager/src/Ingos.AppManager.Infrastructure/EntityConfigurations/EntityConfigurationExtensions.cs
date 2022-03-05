@@ -8,7 +8,6 @@
 // Description: Entity to table configuration
 //-----------------------------------------------------------------------
 
-using System;
 using Ingos.AppManager.Domain.ApplicationAggregates;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
@@ -21,7 +20,7 @@ namespace Ingos.AppManager.Infrastructure.EntityConfigurations
         /// <summary>
         ///     Configure project own tables/entities
         /// </summary>
-        public static void ConfigureIngos(this ModelBuilder builder)
+        public static void ConfigureIngosTable(this ModelBuilder builder)
         {
             Check.NotNull(builder, nameof(builder));
 
@@ -31,7 +30,7 @@ namespace Ingos.AppManager.Infrastructure.EntityConfigurations
 
             builder.Entity<Application>(b =>
             {
-                b.ToTable($"{Consts.DbTablePrefix}_{nameof(Application)}s".ToSnakeCase(),
+                b.ToTable($"{Consts.DbTablePrefix}_{nameof(Application)}s",
                     Consts.DbSchema);
                 b.ConfigureByConvention(); //auto configure for the base class props
                 b.Property(x => x.ApplicationName)
@@ -52,7 +51,7 @@ namespace Ingos.AppManager.Infrastructure.EntityConfigurations
 
             builder.Entity<Service>(b =>
             {
-                b.ToTable($"{Consts.DbTablePrefix}_{nameof(Service)}s".ToSnakeCase(),
+                b.ToTable($"{Consts.DbTablePrefix}_{nameof(Service)}s",
                         Consts.DbSchema)
                     .HasIndex(x => x.ApplicationId);
                 b.ConfigureByConvention(); //auto configure for the base class props
@@ -83,7 +82,7 @@ namespace Ingos.AppManager.Infrastructure.EntityConfigurations
 
             builder.Entity<Label>(b =>
             {
-                b.ToTable($"{Consts.DbTablePrefix}_{nameof(Label)}s".ToSnakeCase(),
+                b.ToTable($"{Consts.DbTablePrefix}_{nameof(Label)}s",
                     Consts.DbSchema);
                 b.HasNoKey();
                 b.ConfigureByConvention(); //auto configure for the base class props

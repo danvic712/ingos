@@ -22,37 +22,6 @@ namespace Ingos.AppManager.Infrastructure.EntityConfigurations
     public static class DbNamingConventionRewriterExtensions
     {
         public static void ConfigureNamingConvention<TDbContext>(
-            this DbContextOptionsBuilder optionsBuilder,
-            NamingConventionOptions options) where TDbContext : DbContext
-        {
-            var opt = options?.GetRewriterOrDefault(typeof(TDbContext));
-
-            if (opt == null)
-                return;
-
-            switch (opt.NamingStyle)
-            {
-                case NamingConvention.None:
-                    break;
-                case NamingConvention.CamelCase:
-                    optionsBuilder.UseCamelCaseNamingConvention(opt.Culture);
-                    break;
-                case NamingConvention.SnakeCase:
-                    optionsBuilder.UseSnakeCaseNamingConvention(opt.Culture);
-                    break;
-                case NamingConvention.LowerCase:
-                    optionsBuilder.UseLowerCaseNamingConvention(opt.Culture);
-                    break;
-                case NamingConvention.UpperCase:
-                    optionsBuilder.UseUpperCaseNamingConvention(opt.Culture);
-                    break;
-                case NamingConvention.UpperSnakeCase:
-                    optionsBuilder.UseUpperSnakeCaseNamingConvention(opt.Culture);
-                    break;
-            }
-        }
-
-        public static void ConfigureNamingConvention<TDbContext>(
             this ModelBuilder modelBuilder,
             NamingConventionOptions options) where TDbContext : DbContext
         {
@@ -84,23 +53,22 @@ namespace Ingos.AppManager.Infrastructure.EntityConfigurations
         }
     }
 
-
     public class NamingConventionOptions
     {
-        private readonly Dictionary<Type, NamingRewriter> rewriters = new();
+        private readonly Dictionary<Type, NamingRewriter> _rewriter = new();
 
         public NamingRewriter GetRewriterOrDefault<TDbContext>() where TDbContext : DbContext
         {
-            var res = (rewriters.TryGetValue(typeof(TDbContext), out var obj) ? obj : null)
-                      ?? (rewriters.TryGetValue(typeof(DbContext), out obj) ? obj : null);
+            var res = (_rewriter.TryGetValue(typeof(TDbContext), out var obj) ? obj : null)
+                      ?? (_rewriter.TryGetValue(typeof(DbContext), out obj) ? obj : null);
 
             return res;
         }
 
         public NamingRewriter GetRewriterOrDefault(Type dbContextType)
         {
-            var res = (rewriters.TryGetValue(dbContextType, out var obj) ? obj : null)
-                      ?? (rewriters.TryGetValue(typeof(DbContext), out obj) ? obj : null);
+            var res = (_rewriter.TryGetValue(dbContextType, out var obj) ? obj : null)
+                      ?? (_rewriter.TryGetValue(typeof(DbContext), out obj) ? obj : null);
 
             return res;
         }
@@ -146,7 +114,7 @@ namespace Ingos.AppManager.Infrastructure.EntityConfigurations
                     break;
             }
 
-            rewriters[type] = new NamingRewriter(namingStyle, culture, nameRewriter);
+            _rewriter[type] = new NamingRewriter(namingStyle, culture, nameRewriter);
         }
 
         public class NamingRewriter
@@ -157,12 +125,13 @@ namespace Ingos.AppManager.Infrastructure.EntityConfigurations
                 INameRewriter rewriter)
             {
                 NamingStyle = namingStyle;
+                Culture = CultureInfo.InvariantCulture;
                 Culture = culture;
                 Rewriter = rewriter;
             }
 
-            public NamingConvention NamingStyle { get; set; } = NamingConvention.None;
-            public CultureInfo Culture { get; set; } = CultureInfo.InvariantCulture;
+            private NamingConvention NamingStyle { get; } = NamingConvention.None;
+            private CultureInfo Culture { get; }
             public INameRewriter Rewriter { get; set; }
         }
     }

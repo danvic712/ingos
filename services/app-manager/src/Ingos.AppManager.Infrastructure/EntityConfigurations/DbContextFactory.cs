@@ -11,6 +11,7 @@
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 
 namespace Ingos.AppManager.Infrastructure.EntityConfigurations
@@ -26,7 +27,10 @@ namespace Ingos.AppManager.Infrastructure.EntityConfigurations
             var connectionString = configuration.GetConnectionString("Default");
 
             var builder = new DbContextOptionsBuilder<IngosDbContext>()
-                .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+                    options => options.MigrationsHistoryTable("t_ef_migrations"))
+                .ReplaceService<IHistoryRepository, IngosHistoryRepository>();
+
             return new IngosDbContext(builder.Options);
         }
 

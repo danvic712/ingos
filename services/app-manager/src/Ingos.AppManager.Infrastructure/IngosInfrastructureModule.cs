@@ -1,5 +1,5 @@
-﻿using Ingos.AppManager.Infrastructure.EntityConfigurations;
-using Ingos.AppManager.Domain;
+﻿using Ingos.AppManager.Domain;
+using Ingos.AppManager.Infrastructure.EntityConfigurations;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.MySQL;
