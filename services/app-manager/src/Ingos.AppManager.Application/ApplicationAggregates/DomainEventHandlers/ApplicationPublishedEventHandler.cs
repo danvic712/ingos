@@ -8,6 +8,7 @@
 // Description:
 // -----------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using Dapr.Client;
 using Ingos.AppManager.Domain.ApplicationAggregates.DomainEvents;
@@ -18,7 +19,6 @@ using Volo.Abp.EventBus;
 namespace Ingos.AppManager.Application.ApplicationAggregates.DomainEventHandlers
 {
     /// <summary>
-    /// 
     /// </summary>
     public class ApplicationPublishedEventHandler : ILocalEventHandler<ApplicationPublishedEvent>, ITransientDependency
     {
@@ -34,7 +34,7 @@ namespace Ingos.AppManager.Application.ApplicationAggregates.DomainEventHandlers
             var dto = new NamespaceCreationDto { Name = eventData.Namespace };
 
             // Todo: call grpc service to create namespace
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Ingos.AppManager.Domain.ApplicationAggregates.DomainEvents
     public class ApplicationOfflineEvent
     {
         /// <summary>
-        /// K8s namespace, use application code field
+        ///     K8s namespace, use application code field
         /// </summary>
         public string Namespace { get; set; }
     }

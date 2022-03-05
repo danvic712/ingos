@@ -17,4 +17,3 @@ namespace Ingos.Shared.Dtos.Deployments
     {
     }
 }
-

@@ -36,4 +36,3 @@ namespace Ingos.Shared.Dtos
         #endregion
     }
 }
-

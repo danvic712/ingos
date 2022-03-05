@@ -28,4 +28,3 @@ namespace Ingos.Shared.Dtos.Namespaces
         #endregion
     }
 }
-

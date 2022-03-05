@@ -16,8 +16,8 @@ using System.Threading.Tasks;
 using Ingos.AppManager.Application.Contracts.ApplicationAggregates;
 using Ingos.AppManager.Application.Contracts.ApplicationAggregates.Dtos;
 using Ingos.AppManager.Application.Contracts.Utils;
-using Ingos.AppManager.Domain.Shared.ApplicationAggregates;
 using Ingos.AppManager.Domain.ApplicationAggregates;
+using Ingos.AppManager.Domain.Shared.ApplicationAggregates;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
@@ -88,12 +88,11 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
             {
                 TotalCount = conditions.Count(),
                 Items = ObjectMapper
-                    .Map<List<AppManager.Domain.ApplicationAggregates.Application>, List<ApplicationDto>>(items)
+                    .Map<List<Domain.ApplicationAggregates.Application>, List<ApplicationDto>>(items)
             };
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -104,7 +103,7 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
             if (application == null)
                 throw new EntityNotFoundException("4040");
 
-            return ObjectMapper.Map<AppManager.Domain.ApplicationAggregates.Application, ApplicationDto>(application);
+            return ObjectMapper.Map<Domain.ApplicationAggregates.Application, ApplicationDto>(application);
         }
 
         /// <summary>
@@ -129,11 +128,10 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
                 await _appManager.PublishAsync(application); // Todo: there may have problems
 
             // 4. return a dto represents to the new application
-            return ObjectMapper.Map<AppManager.Domain.ApplicationAggregates.Application, ApplicationDto>(application);
+            return ObjectMapper.Map<Domain.ApplicationAggregates.Application, ApplicationDto>(application);
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
@@ -150,7 +148,6 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
@@ -167,7 +164,6 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <param name="dto"></param>
@@ -186,7 +182,7 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
 
             application = await _appRepo.UpdateAsync(application, cancellationToken: cancellationToken);
 
-            return new ResourceOperationDto()
+            return new ResourceOperationDto
             {
                 Success = true,
                 Message = $"{application.Id} has been updated at {DateTime.Now}"
@@ -194,7 +190,6 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
@@ -208,7 +203,7 @@ namespace Ingos.AppManager.Application.ApplicationAggregates
             application = await _appManager.DeleteAsync(id);
             await _appRepo.DeleteAsync(application, cancellationToken: cancellationToken);
 
-            return new ResourceOperationDto()
+            return new ResourceOperationDto
             {
                 Success = true,
                 Message = $"{application.Id} has been deleted at {DateTime.Now}"

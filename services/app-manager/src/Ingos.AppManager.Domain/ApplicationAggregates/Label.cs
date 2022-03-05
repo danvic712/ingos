@@ -15,10 +15,6 @@ namespace Ingos.AppManager.Domain.ApplicationAggregates
 {
     public class Label : ValueObject
     {
-        public string Key { get; private set; }
-
-        public string Value { get; private set; }
-
         private Label()
         {
         }
@@ -28,6 +24,10 @@ namespace Ingos.AppManager.Domain.ApplicationAggregates
             Key = key;
             Value = value;
         }
+
+        public string Key { get; }
+
+        public string Value { get; }
 
         protected override IEnumerable<object> GetAtomicValues()
         {

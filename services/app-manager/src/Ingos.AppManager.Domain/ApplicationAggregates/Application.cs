@@ -119,7 +119,7 @@ namespace Ingos.AppManager.Domain.ApplicationAggregates
 
             StateType = StateType.Active;
         }
-        
+
         public void Offline()
         {
             StateType = StateType switch

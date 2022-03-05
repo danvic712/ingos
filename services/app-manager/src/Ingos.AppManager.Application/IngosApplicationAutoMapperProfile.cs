@@ -10,7 +10,7 @@ namespace Ingos.AppManager.Application
     {
         public IngosApplicationAutoMapperProfile()
         {
-            CreateMap<AppManager.Domain.ApplicationAggregates.Application, ApplicationDto>();
+            CreateMap<Domain.ApplicationAggregates.Application, ApplicationDto>();
         }
     }
 }

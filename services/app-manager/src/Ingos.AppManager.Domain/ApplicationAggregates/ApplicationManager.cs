@@ -73,7 +73,7 @@ namespace Ingos.AppManager.Domain.ApplicationAggregates
                 throw new BusinessException("Application:ApplicationWithSameCodeExists");
 
             var id = GuidGenerator.Create();
-            var userId = _currentUser.GetId();
+            var userId = Guid.Empty;// Todo: get user id here
             var now = DateTime.Now;
             return new Application(id, applicationName, applicationCode, description, url, labels,
                 stateType, null, string.Empty, now, userId, now, userId);
@@ -97,7 +97,6 @@ namespace Ingos.AppManager.Domain.ApplicationAggregates
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="application"></param>
         /// <returns></returns>
@@ -107,7 +106,7 @@ namespace Ingos.AppManager.Domain.ApplicationAggregates
             application.LastModificationTime = DateTime.Now;
             application.LastModifierId = _currentUser.GetId();
 
-            await _localEventBus.PublishAsync(new ApplicationOfflineEvent()
+            await _localEventBus.PublishAsync(new ApplicationOfflineEvent
             {
                 Namespace = application.ApplicationCode
             });

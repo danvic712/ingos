@@ -28,7 +28,6 @@ namespace Ingos.AppManager.Application.Contracts.ApplicationAggregates
         Task<PagedResultDto<ApplicationDto>> GetApplicationListAsync(ApplicationSearchDto dto);
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
@@ -43,7 +42,6 @@ namespace Ingos.AppManager.Application.Contracts.ApplicationAggregates
         Task<ApplicationDto> CreateApplicationAsync(ApplicationCreationDto dto, CancellationToken cancellationToken);
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
@@ -51,7 +49,6 @@ namespace Ingos.AppManager.Application.Contracts.ApplicationAggregates
         Task PublishApplicationAsync(Guid id, CancellationToken cancellationToken);
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
@@ -59,7 +56,6 @@ namespace Ingos.AppManager.Application.Contracts.ApplicationAggregates
         Task OfflineApplicationAsync(Guid id, CancellationToken cancellationToken);
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <param name="dto"></param>
@@ -69,7 +65,6 @@ namespace Ingos.AppManager.Application.Contracts.ApplicationAggregates
             CancellationToken cancellationToken);
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <param name="cancellationToken"></param>

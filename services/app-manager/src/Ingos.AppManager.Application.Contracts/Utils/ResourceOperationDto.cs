@@ -13,7 +13,7 @@ namespace Ingos.AppManager.Application.Contracts.Utils
     public class ResourceOperationDto
     {
         public bool Success { get; set; } = true;
-        
+
         public string Message { get; set; }
     }
 }
