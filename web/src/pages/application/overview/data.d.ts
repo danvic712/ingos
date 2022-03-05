@@ -1,31 +1,24 @@
-export type Member = {
-  avatar: string;
-  name: string;
-  id: string;
+/**
+ * Application search params data exchange object
+ */
+export type ApplicationSearchDto = {
+  applicationName?: string;
+  applicationCode?: string;
+  stateType?: number;
+  creationTime?: date;
+  page?: number = 1;
+  limit?: number = 16;
 };
 
-export type CardListItemDataType = {
+/**
+ * Application list item data exchange object
+ */
+export type ApplicationListItemDto = {
   id: string;
-  owner: string;
-  title: string;
-  avatar: string;
-  cover: string;
-  status: 'normal' | 'exception' | 'active' | 'success';
-  percent: number;
-  logo: string;
-  href: string;
-  body?: any;
-  updatedAt: number;
-  createdAt: number;
-  subDescription: string;
+  applicationName: string;
+  applicationCode: string;
+  stateType: number;
   description: string;
-  activeUser: number;
-  newUser: number;
-  star: number;
-  like: number;
-  message: number;
-  content: string;
-  members: Member[];
 };
 
 export type LabelItemDataType = {

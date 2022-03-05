@@ -8,8 +8,8 @@ import {
 import { Button, Card, List, message, Typography } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { useRequest, history } from 'umi';
-import { queryFakeList } from './service';
-import type { CardListItemDataType } from './data.d';
+import { getApplications } from './service';
+import type { ApplicationListItemDto, ApplicationSearchDto } from './data.d';
 import styles from './style.less';
 import type { ProFormInstance } from '@ant-design/pro-form';
 import { ProFormGroup, ProFormList } from '@ant-design/pro-form';
@@ -21,13 +21,20 @@ import { useRef, useState } from 'react';
 const { Paragraph } = Typography;
 
 const Overview = () => {
-  const { data, loading } = useRequest(() => {
-    return queryFakeList({
-      count: 32,
-    });
-  });
+  // get applications
+  const { data, loading, run } = useRequest(
+    (params: ApplicationSearchDto) => {
+      console.log('form data', params);
+      return getApplications(params);
+    },
+    {
+      formatResult: (result) => {
+        return result;
+      },
+    },
+  );
 
-  const list = data?.list || [];
+  const list = data?.items || [];
 
   const [drawerVisit, setDrawerVisit] = useState(false);
 
@@ -41,26 +48,26 @@ const Overview = () => {
         你可以以针对每个应用进行启用/暂停、查看每个应用及其包含的服务的配置，运行中的日志信息，针对不同的应用，设置其所能使用集群资源（CPU、内存...）
       </p>
       <div className={styles.contentLink}>
-        <LightFilter
+        <LightFilter<Partial<ApplicationSearchDto>>
           bordered
           collapseLabel={<FilterOutlined />}
-          onFinish={async (values) => console.log(values)}
+          onValuesChange={(_, dto) => {
+            run(dto);
+          }}
         >
-          <ProFormText name="name" label="应用名称" />
-          <ProFormText name="code" label="应用代码" />
+          <ProFormText name="applicationName" label="应用名称" />
+          <ProFormText name="appCode" label="应用代码" />
           <ProFormSelect
             name="stateType"
-            mode="tags"
             valueEnum={{
-              created: '已创建',
-              active: '运行中',
-              offline: '已下线',
+              1: '已创建',
+              2: '运行中',
+              3: '已下线',
             }}
             placeholder="应用状态"
             allowClear
-            initialValue={['active']}
           />
-          <ProFormDatePicker name="time" placeholder="创建日期" />
+          <ProFormDatePicker name="creationTime" placeholder="创建日期" />
           <Button
             type="primary"
             onClick={() => {
@@ -152,7 +159,7 @@ const Overview = () => {
   return (
     <PageContainer title="Application" content={content} extraContent={extraContent}>
       <div className={styles.cardList}>
-        <List<Partial<CardListItemDataType>>
+        <List<Partial<ApplicationListItemDto>>
           rowKey="id"
           loading={loading}
           grid={{
@@ -169,7 +176,7 @@ const Overview = () => {
             showSizeChanger: true,
             pageSizeOptions: ['16', '24', '48', '96'],
           }}
-          dataSource={[...list]}
+          dataSource={list}
           renderItem={(item) => {
             if (!item || !item.id) {
               return false;
@@ -178,7 +185,7 @@ const Overview = () => {
             return (
               <List.Item key={item.id}>
                 <Card
-                  hoverable
+                  hoverable={true}
                   className={styles.card}
                   actions={[
                     <EditOutlined
@@ -204,12 +211,12 @@ const Overview = () => {
                     />,
                   ]}
                   onClick={() => {
-                    history.push(`/applications/${item.title}/details`);
+                    history.push(`/applications/${item.applicationCode}/details`);
                   }}
                 >
                   <Card.Meta
-                    avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
-                    title={<a>{item.title}</a>}
+                    avatar={<img alt="" className={styles.cardAvatar} src={''} />}
+                    title={<a>{item.applicationName}</a>}
                     description={
                       <Paragraph className={styles.item} ellipsis={{ rows: 3 }}>
                         {item.description}

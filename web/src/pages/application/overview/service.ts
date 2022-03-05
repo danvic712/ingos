@@ -1,10 +1,15 @@
 import { request } from 'umi';
-import type { CardListItemDataType } from './data.d';
+import type { ApplicationListItemDto, ApplicationSearchDto } from './data.d';
 
-export async function queryFakeList(params: {
-  count: number;
-}): Promise<{ data: { list: CardListItemDataType[] } }> {
-  return request('/api/card_fake_list', {
+/**
+ * get application list
+ * @param params application search params data exchange object
+ * @returns application list item data exchange object
+ */
+export async function getApplications(
+  params: ApplicationSearchDto,
+): Promise<{ totalCount: number; items: ApplicationListItemDto[] }> {
+  return request('/api/v1/applications', {
     params,
   });
 }
